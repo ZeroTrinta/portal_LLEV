@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#011F38"/><rect x="60" y="86" width="80" height="10" fill="#FE5D0A"/><rect x="60" y="104" width="52" height="10" fill="#EDEDED"/></svg>
+</template>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<style>
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#011F38; }
+  body{ font-family:'Montserrat',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a{ color:#FE8401; text-decoration:none; }
+  a:hover{ color:#FE5D0A; }
+  img{ display:block; }
+  input,textarea,select,button{ font-family:'Montserrat',sans-serif; }
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:#011F38; }
+  ::-webkit-scrollbar-thumb{ background:#012E53; border-radius:8px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#004074; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; display:flex; flex-direction:column; background:#011F38; color:#EDEDED;">
+
+  <header style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px clamp(20px,4vw,48px); background:rgba(1,31,56,.86); backdrop-filter:blur(10px); border-bottom:1px solid rgba(237,237,237,.10);">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <img src="assets/logo-branco-laranja.png" alt="LLEV Lar" style="height:26px; width:auto;"/>
+      <span style="border-left:1px solid rgba(237,237,237,.14); padding-left:14px; display:block;">
+        <span style="display:block; font-size:11px; font-weight:700; letter-spacing:.12em; color:#EDEDED;">PORTAL DE CRIAÇÃO</span>
+        <span style="display:block; font-size:9px; font-weight:500; letter-spacing:.20em; color:#7C93A8; margin-top:3px;">MANTAS TÉRMICAS · FITAS ASFÁLTICAS</span>
+      </span>
+    </div>
+    <nav style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="4">
+        <button onClick="{{ nv.go }}" style="cursor:pointer; font-size:11px; font-weight:700; letter-spacing:.10em; padding:9px 14px; border-radius:8px; white-space:nowrap; background:{{ nv.bg }}; color:{{ nv.fg }}; border:1px solid {{ nv.bd }};">{{ nv.label }}</button>
+      </sc-for>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isPortal }}" hint-placeholder-val="{{ true }}">
+    <section style="position:relative; overflow:hidden; border-bottom:1px solid rgba(237,237,237,.10);">
+      <img src="assets/logo-branco.png" alt="" style="position:absolute; top:46%; left:64%; width:min(720px,84vw); transform:translate(-50%,-50%) rotate(-8deg); opacity:.05; pointer-events:none;"/>
+      <div style="position:relative; max-width:1180px; margin:0 auto; padding:clamp(48px,8vw,104px) clamp(20px,4vw,48px) clamp(44px,6vw,84px);">
+        <span style="display:inline-flex; align-items:center; gap:14px; font-size:12px; font-weight:800; letter-spacing:.26em; text-transform:uppercase; color:#FE8401;">
+          <span style="width:42px; height:3px; background:currentColor; display:block;"></span>Central de criativos · LLEV Lar
+        </span>
+        <h1 style="margin:22px 0 0; font-weight:900; letter-spacing:-.03em; font-size:clamp(46px,9vw,120px); line-height:.9; max-width:15ch; text-wrap:balance; color:#FFFFFF;">PORTAL <span style="color:#FE5D0A;">LLEV LAR</span></h1>
+        <p style="margin:26px 0 0; max-width:58ch; font-size:clamp(15px,1.9vw,20px); line-height:1.6; color:#B4C4D2; text-wrap:pretty;">Um só lugar para produzir os criativos da linha de mantas térmicas e fitas asfálticas: arte no estúdio, texto técnico na voz da marca e as fichas de produto sempre à mão.</p>
+        <div style="margin-top:34px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button onClick="{{ goStudio }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 24px; border-radius:10px;">ABRIR O ESTÚDIO →</button>
+          <button onClick="{{ goCopys }}" style="cursor:pointer; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:13px; font-weight:700; letter-spacing:.06em; padding:15px 24px; border-radius:10px;">GERAR COPYS</button>
+        </div>
+      </div>
+    </section>
+
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(36px,6vw,72px) clamp(20px,4vw,48px) 64px;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
+        <h2 style="margin:0; font-size:14px; font-weight:800; letter-spacing:.18em; color:#FFFFFF;">MÓDULOS</h2>
+        <span style="font-size:12px; font-weight:600; letter-spacing:.14em; color:#7C93A8;">03 ATIVOS</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+        <sc-for list="{{ modules }}" as="m" hint-placeholder-count="3">
+          <button onClick="{{ m.go }}" style="position:relative; text-align:left; cursor:pointer; display:flex; flex-direction:column; min-height:290px; background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; overflow:hidden; padding:28px 26px 24px; color:#EDEDED;" style-hover="border-color:{{ m.color }}; background:#013a68;">
+            <span style="position:absolute; top:0; left:0; right:0; height:5px; background:{{ m.color }};"></span>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <span style="font-size:13px; font-weight:800; letter-spacing:.1em; color:{{ m.color }};">{{ m.ix }}</span>
+              <span style="display:inline-flex; align-items:center; gap:7px; font-size:10px; font-weight:700; letter-spacing:.1em; padding:5px 10px; border-radius:7px; border:1px solid currentColor; color:#3FB27A;"><span style="width:7px; height:7px; border-radius:50%; background:currentColor; display:block;"></span>ATIVO</span>
+            </div>
+            <h3 style="font-weight:900; letter-spacing:-.02em; font-size:clamp(24px,2.8vw,32px); line-height:1; margin:20px 0 0; color:#FFFFFF; text-wrap:balance;">{{ m.title }}</h3>
+            <p style="margin:13px 0 0; color:#A9BBCA; font-size:14.5px; line-height:1.55; text-wrap:pretty;">{{ m.body }}</p>
+            <div style="margin-top:auto; padding-top:22px; display:flex; align-items:center; justify-content:space-between; gap:14px;">
+              <span style="font-size:11px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">{{ m.cta }}</span>
+              <span style="font-weight:900; font-size:24px; color:{{ m.color }};">→</span>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid; grid-template-columns:400px 1fr; align-items:start; gap:0; min-height:calc(100vh - 60px);">
+
+      <aside style="border-right:1px solid rgba(237,237,237,.10); padding:26px 24px 60px; display:flex; flex-direction:column; gap:26px; background:#01243F;">
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">MODELO DE ARTE</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px;">
+            <sc-for list="{{ templateOpts }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.go }}" style="cursor:pointer; text-align:left; padding:11px 12px; border-radius:9px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.3; background:{{ t.bg }}; color:{{ t.fg }}; border:1px solid {{ t.bd }};">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">CATEGORIA</div>
+          <div style="display:flex; flex-wrap:wrap; gap:7px;">
+            <sc-for list="{{ tagOpts }}" as="g" hint-placeholder-count="6">
+              <button onClick="{{ g.go }}" style="cursor:pointer; padding:8px 12px; border-radius:20px; font-size:10px; font-weight:800; letter-spacing:.08em; background:{{ g.bg }}; color:{{ g.fg }}; border:1px solid {{ g.bd }};">{{ g.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">FORMATO</div>
+          <div style="display:flex; gap:7px;">
+            <sc-for list="{{ formatOpts }}" as="fo" hint-placeholder-count="2">
+              <button onClick="{{ fo.go }}" style="cursor:pointer; flex:1; padding:11px 10px; border-radius:9px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ fo.bg }}; color:{{ fo.fg }}; border:1px solid {{ fo.bd }};">{{ fo.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">CONTEÚDO</div>
+          <sc-for list="{{ fields }}" as="fd" hint-placeholder-count="5">
+            <label style="display:block;">
+              <span style="display:block; font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8; margin-bottom:6px;">{{ fd.label }}</span>
+              <input value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.hint }}" style="width:100%; padding:11px 12px; border-radius:9px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13px; font-weight:500; outline:none;" style-focus="border-color:#FE8401;"/>
+            </label>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ isPost }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:16px; border-top:1px solid rgba(237,237,237,.10); padding-top:22px;">
+            <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">IMAGENS</div>
+
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <span style="font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8;">IMAGEM DE FUNDO</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <label style="flex:1; cursor:pointer; text-align:center; padding:11px 12px; border-radius:9px; border:1px dashed rgba(237,237,237,.24); background:#011F38; font-size:10.5px; font-weight:800; letter-spacing:.06em; color:#A9BBCA;">
+                  ESCOLHER ARQUIVO
+                  <input type="file" accept="image/*" onChange="{{ onPickBg }}" style="display:none;"/>
+                </label>
+                <button onClick="{{ clearBg }}" style="cursor:pointer; background:transparent; color:#8FA6B8; border:1px solid rgba(237,237,237,.16); font-size:10.5px; font-weight:800; padding:11px 12px; border-radius:9px;">×</button>
+              </div>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>DESFOQUE</span><span>{{ blur }}px</span></span>
+                <input type="range" min="0" max="24" step="1" value="{{ blur }}" onChange="{{ onBlur }}" style="width:100%; accent-color:#FE5D0A;"/>
+              </label>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>ESCURECER</span><span>{{ dim }}%</span></span>
+                <input type="range" min="0" max="100" step="1" value="{{ dim }}" onChange="{{ onDim }}" style="width:100%; accent-color:#FE5D0A;"/>
+              </label>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <span style="font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8;">PRODUTO EM DESTAQUE</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <label style="flex:1; cursor:pointer; text-align:center; padding:11px 12px; border-radius:9px; border:1px dashed rgba(254,132,1,.4); background:#011F38; font-size:10.5px; font-weight:800; letter-spacing:.06em; color:#FE8401;">
+                  ESCOLHER ARQUIVO
+                  <input type="file" accept="image/*" onChange="{{ onPickProd }}" style="display:none;"/>
+                </label>
+                <button onClick="{{ clearProd }}" style="cursor:pointer; background:transparent; color:#8FA6B8; border:1px solid rgba(237,237,237,.16); font-size:10.5px; font-weight:800; padding:11px 12px; border-radius:9px;">×</button>
+              </div>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>TAMANHO</span><span>{{ prodSize }}%</span></span>
+                <input type="range" min="30" max="95" step="1" value="{{ prodSize }}" onChange="{{ onProdSize }}" style="width:100%; accent-color:#FE8401;"/>
+              </label>
+              <span style="font-size:10px; line-height:1.5; color:#5F7488;">Use um PNG recortado do produto para ele sair sem fundo sobre a foto.</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">FUNDO</div>
+          <div style="display:flex; flex-wrap:wrap; gap:7px;">
+            <sc-for list="{{ bgOpts }}" as="b" hint-placeholder-count="4">
+              <button onClick="{{ b.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10px; font-weight:800; letter-spacing:.08em; background:{{ b.bg }}; color:{{ b.fg }}; border:1px solid {{ b.bd }};">{{ b.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:9px; flex-wrap:wrap; padding-top:4px;">
+          <button onClick="{{ exportPng }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">BAIXAR PNG</button>
+          <button onClick="{{ resetAll }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:700; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">RESETAR</button>
+        </div>
+      </aside>
+
+      <section style="padding:26px clamp(16px,3vw,40px) 70px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px; align-self:stretch; justify-content:space-between; flex-wrap:wrap;">
+          <span style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">PRÉVIA · {{ sizeLabel }}</span>
+          <span style="font-size:10px; font-weight:700; letter-spacing:.12em; color:#5F7488;">{{ tplLabel }}</span>
+        </div>
+        <div style="width:{{ boxW }}px; height:{{ boxH }}px; position:relative;">
+          <div ref="{{ artRef }}" style="position:absolute; top:0; left:0; width:{{ artW }}px; height:{{ artH }}px; transform:scale({{ scale }}); transform-origin:top left; overflow:hidden; background:{{ artBg }}; color:{{ artInk }}; display:flex; flex-direction:column; padding:80px 76px;">
+            <div style="position:absolute; inset:0; pointer-events:none; background:{{ patternCss }}; opacity:{{ patternOpacity }};"></div>
+
+            {{ bgLayer }}
+
+            <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+              <sc-if value="{{ artLogoDark }}" hint-placeholder-val="{{ true }}">
+                <img src="assets/logo-branco-laranja.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <sc-if value="{{ artLogoLight }}" hint-placeholder-val="{{ false }}">
+                <img src="assets/logo-principal.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <sc-if value="{{ artLogoWhite }}" hint-placeholder-val="{{ false }}">
+                <img src="assets/logo-branco.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <span style="font-size:26px; font-weight:800; letter-spacing:.14em; padding:14px 26px; border-radius:40px; background:{{ accent }}; color:#FFFFFF;">{{ tagLabel }}</span>
+            </div>
+
+            <sc-if value="{{ isPost }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative; flex:1; display:flex; flex-direction:column; justify-content:flex-end; margin-top:40px;">
+                {{ prodLayer }}
+                <sc-if value="{{ noProd }}" hint-placeholder-val="{{ true }}">
+                  <div style="position:absolute; right:0; bottom:150px; width:42%; height:{{ prodSize }}%; border:4px dashed rgba(255,255,255,.28); display:flex; align-items:flex-end; padding:24px; box-sizing:border-box;">
+                    <span style="font-size:26px; font-weight:700; letter-spacing:.14em; color:rgba(255,255,255,.55);">PNG DO PRODUTO</span>
+                  </div>
+                </sc-if>
+                <div style="position:relative; max-width:54%; display:flex; flex-direction:column; gap:26px;">
+                  <span style="font-size:32px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">{{ f.chamada }}</span>
+                  <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.92; font-size:104px; text-wrap:balance;">{{ f.titulo }}</h2>
+                  <p style="margin:0; font-size:40px; font-weight:500; line-height:1.3; opacity:.85; text-wrap:pretty;">{{ f.apoio }}</p>
+                  <span style="align-self:flex-start; margin-top:14px; font-size:30px; font-weight:800; letter-spacing:.1em; padding:22px 38px; background:{{ accent }}; color:#FFFFFF;">{{ f.cta }}</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isPasso }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:40px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:96px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:flex; flex-direction:column; gap:26px;">
+                  <sc-for list="{{ passos }}" as="p" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:flex-start; gap:26px; border-top:3px solid {{ hair }}; padding-top:24px;">
+                      <span style="flex:none; width:74px; height:74px; border-radius:50%; background:{{ accent }}; color:#FFFFFF; font-size:38px; font-weight:900; display:flex; align-items:center; justify-content:center;">{{ p.n }}</span>
+                      <span style="font-size:40px; font-weight:600; line-height:1.22; text-wrap:pretty;">{{ p.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isFicha }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:44px; flex:1;">
+                <div>
+                  <div style="font-size:30px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">FICHA TÉCNICA</div>
+                  <h2 style="margin:16px 0 0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:92px; text-wrap:balance;">{{ f.produto }}</h2>
+                  <p style="margin:18px 0 0; font-size:36px; font-weight:500; line-height:1.3; opacity:.72;">{{ f.subtitulo }}</p>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ specs }}" as="s" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:28px; padding:26px 0; border-top:3px solid {{ hair }};">
+                      <span style="font-size:32px; font-weight:600; letter-spacing:.08em; opacity:.7;">{{ s.k }}</span>
+                      <span style="font-size:42px; font-weight:800; text-align:right;">{{ s.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isOnde }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:44px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:98px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                  <sc-for list="{{ locais }}" as="l" hint-placeholder-count="4">
+                    <div style="border:4px solid {{ accent }}; border-radius:22px; padding:34px 30px; display:flex; flex-direction:column; gap:14px; min-height:210px;">
+                      <span style="font-size:26px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">{{ l.n }}</span>
+                      <span style="font-size:44px; font-weight:800; line-height:1.1; text-wrap:balance;">{{ l.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isErro }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:38px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:92px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:flex; flex-direction:column; gap:26px; flex:1;">
+                  <div style="flex:1; border-radius:24px; padding:38px 34px; background:rgba(226,59,46,.14); border:4px solid #E23B2E; display:flex; flex-direction:column; gap:18px;">
+                    <span style="font-size:30px; font-weight:900; letter-spacing:.16em; color:#FF7A6E;">ERRO COMUM</span>
+                    <span style="font-size:46px; font-weight:700; line-height:1.2; text-wrap:pretty;">{{ f.errado }}</span>
+                  </div>
+                  <div style="flex:1; border-radius:24px; padding:38px 34px; background:rgba(63,178,122,.14); border:4px solid #3FB27A; display:flex; flex-direction:column; gap:18px;">
+                    <span style="font-size:30px; font-weight:900; letter-spacing:.16em; color:#3FB27A;">JEITO CERTO</span>
+                    <span style="font-size:46px; font-weight:700; line-height:1.2; text-wrap:pretty;">{{ f.certo }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; justify-content:center; gap:30px; flex:1;">
+                <span style="font-size:32px; font-weight:800; letter-spacing:.18em; color:{{ accent }};">{{ f.chamada }}</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:104px; text-wrap:balance;">{{ f.produto }}</h2>
+                <div style="display:flex; align-items:flex-end; gap:28px; flex-wrap:wrap;">
+                  <span style="font-size:44px; font-weight:600; opacity:.6; text-decoration:line-through;">{{ f.de }}</span>
+                  <span style="font-size:150px; font-weight:900; letter-spacing:-.04em; line-height:.86; color:{{ accent }};">{{ f.por }}</span>
+                </div>
+                <span style="font-size:34px; font-weight:600; line-height:1.35; opacity:.8; text-wrap:pretty;">{{ f.condicao }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:36px; flex:1;">
+                <span style="font-size:32px; font-weight:800; letter-spacing:.18em; color:{{ accent }};">PÁGINA {{ pageNum }} DE {{ pageTotal }}</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:110px; text-wrap:balance;">{{ pageTitle }}</h2>
+                <p style="margin:0; font-size:44px; font-weight:500; line-height:1.32; text-wrap:pretty; opacity:.86;">{{ pageBody }}</p>
+                <div style="margin-top:auto; display:flex; gap:12px;">
+                  <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+                    <span style="width:26px; height:26px; border-radius:50%; background:{{ d.bg }}; display:block;"></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button onClick="{{ prevPage }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:800; padding:10px 16px; border-radius:8px;">←</button>
+            <span style="font-size:11px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">PÁGINA {{ pageNum }}/{{ pageTotal }}</span>
+            <button onClick="{{ nextPage }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:800; padding:10px 16px; border-radius:8px;">→</button>
+          </div>
+        </sc-if>
+      </section>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCopys }}" hint-placeholder-val="{{ false }}">
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:34px;">
+      <div>
+        <span style="display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:800; letter-spacing:.14em; padding:6px 11px; border-radius:7px; border:1px solid #3FB27A; color:#3FB27A;"><span style="width:7px; height:7px; border-radius:50%; background:currentColor; display:block;"></span>GUIA DE MARCA CARREGADO</span>
+        <h1 style="margin:20px 0 0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Criação de copys</h1>
+        <p style="margin:16px 0 0; max-width:60ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Briefing curto, tom técnico, três variações. Todo pedido carrega o guia de marca da LLEV Lar, então a copy já sai na voz certa — e o botão Criar arte joga o texto direto no estúdio.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(300px,380px) 1fr; gap:26px; align-items:start;">
+        <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:18px;">
+          <label style="display:block;">
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:7px;">BRIEFING</span>
+            <textarea value="{{ briefing }}" onChange="{{ setBriefing }}" placeholder="Ex.: post explicando por que a manta térmica reduz o calor embaixo da telha" rows="5" style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13.5px; line-height:1.5; resize:vertical; outline:none;" style-focus="border-color:#FE8401;"></textarea>
+          </label>
+          <div>
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:8px;">TOM</span>
+            <div style="display:flex; gap:7px; flex-wrap:wrap;">
+              <sc-for list="{{ toneOpts }}" as="to" hint-placeholder-count="4">
+                <button onClick="{{ to.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ to.bg }}; color:{{ to.fg }}; border:1px solid {{ to.bd }};">{{ to.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:8px;">PÚBLICO</span>
+            <div style="display:flex; gap:7px; flex-wrap:wrap;">
+              <sc-for list="{{ audOpts }}" as="au" hint-placeholder-count="2">
+                <button onClick="{{ au.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ au.bg }}; color:{{ au.fg }}; border:1px solid {{ au.bd }};">{{ au.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <button onClick="{{ genCopys }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 20px; border-radius:10px;">{{ genLabel }}</button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <sc-for list="{{ copyCards }}" as="c" hint-placeholder-count="3">
+            <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 24px; display:flex; flex-direction:column; gap:14px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:14px;">
+                <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#FE8401;">{{ c.ix }}</span>
+                <button onClick="{{ c.toStudio }}" style="cursor:pointer; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:8px 13px; border-radius:8px;">CRIAR ARTE →</button>
+              </div>
+              <h3 style="margin:0; font-weight:900; letter-spacing:-.02em; font-size:26px; line-height:1.05; color:#FFFFFF; text-wrap:balance;">{{ c.titulo }}</h3>
+              <p style="margin:0; font-size:14.5px; line-height:1.6; color:#B4C4D2; white-space:pre-line; text-wrap:pretty;">{{ c.legenda }}</p>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-top:4px; border-top:1px solid rgba(237,237,237,.08);">
+                <span style="font-size:11px; font-weight:700; letter-spacing:.1em; color:#7C93A8; padding-top:12px;">{{ c.hashtags }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isLib }}" hint-placeholder-val="{{ false }}">
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:30px;">
+      <div>
+        <h1 style="margin:0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Biblioteca de produtos</h1>
+        <p style="margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">As fichas alimentam o modelo Ficha técnica do estúdio. Os campos abaixo estão em branco de propósito: preencha com os dados reais da linha — eu não invento medida, composição nem garantia.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px;">
+        <sc-for list="{{ libCards }}" as="lc" hint-placeholder-count="4">
+          <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:16px;">
+            <span style="align-self:flex-start; font-size:10px; font-weight:800; letter-spacing:.12em; padding:6px 11px; border-radius:20px; background:{{ lc.color }}; color:#FFFFFF;">{{ lc.tag }}</span>
+            <h3 style="margin:0; font-weight:900; letter-spacing:-.02em; font-size:24px; line-height:1.05; color:#FFFFFF;">{{ lc.name }}</h3>
+            <div style="display:flex; flex-direction:column;">
+              <sc-for list="{{ lc.rows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:11px 0; border-top:1px solid rgba(237,237,237,.08);">
+                  <span style="font-size:11.5px; font-weight:700; letter-spacing:.1em; color:#7C93A8;">{{ r.k }}</span>
+                  <span style="font-size:13px; font-weight:600; color:{{ r.color }}; text-align:right;">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ lc.go }}" style="cursor:pointer; align-self:flex-start; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:9px 14px; border-radius:8px;">ABRIR NO ESTÚDIO →</button>
+          </div>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <footer style="margin-top:auto; border-top:1px solid rgba(237,237,237,.10); padding:26px clamp(20px,4vw,48px); display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;">
+    <img src="assets/logo-branco-laranja.png" alt="LLEV Lar" style="height:26px; width:auto; opacity:.9;"/>
+    <div style="display:flex; flex-direction:column; gap:5px; align-items:flex-end; text-align:right;">
+      <span style="font-size:10px; font-weight:800; letter-spacing:.14em; color:#FE8401;">PROTEGER · IMPERMEABILIZAR · DAR CONFORTO</span>
+      <span style="font-size:10px; font-weight:600; letter-spacing:.14em; color:#7C93A8;">LLEV LAR · PORTAL DE CRIAÇÃO</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const TAGS = [
+  { id:'imperm', label:'IMPERMEABILIZAÇÃO', color:'#0B7BC4' },
+  { id:'termico', label:'CONFORTO TÉRMICO', color:'#FE8401' },
+  { id:'aplicacao', label:'APLICAÇÃO', color:'#3FB27A' },
+  { id:'manutencao', label:'MANUTENÇÃO', color:'#7A5CE0' },
+  { id:'promo', label:'PROMOÇÃO', color:'#FE5D0A' },
+  { id:'dica', label:'DICA', color:'#00A0A8' },
+];
+
+const TEMPLATES = [
+  { id:'post', label:'POST C/ IMAGEM' },
+  { id:'passo', label:'PASSO A PASSO' },
+  { id:'ficha', label:'FICHA TÉCNICA' },
+  { id:'onde', label:'ONDE APLICAR' },
+  { id:'erro', label:'ERRO × CERTO' },
+  { id:'promo', label:'PREÇO / PROMO' },
+  { id:'dica', label:'DICA (CARROSSEL)' },
+];
+
+const FORMATS = [
+  { id:'story', label:'STORY 1080×1920', w:1080, h:1920 },
+  { id:'carrossel', label:'FEED 1080×1350', w:1080, h:1350 },
+];
+
+const FIELDS = {
+  post: [
+    ['chamada','CHAMADA','Proteção que começa na telha'],
+    ['titulo','TÍTULO','Manta térmica em obra'],
+    ['apoio','APOIO','Barreira refletiva contra o calor, aplicada antes do forro.'],
+    ['cta','CTA','Fale com a LLEV Lar'],
+  ],
+  passo: [
+    ['titulo','TÍTULO','Como aplicar a fita asfáltica'],
+    ['p1','PASSO 1','Limpe e seque a superfície'],
+    ['p2','PASSO 2','Meça e corte o comprimento'],
+    ['p3','PASSO 3','Cole pressionando do centro para fora'],
+    ['p4','PASSO 4','Confira as emendas'],
+  ],
+  ficha: [
+    ['produto','PRODUTO','Nome do produto'],
+    ['subtitulo','DESCRIÇÃO CURTA','Descrição curta em uma linha'],
+    ['k1','ITEM 1','MEDIDAS'], ['v1','VALOR 1','a preencher'],
+    ['k2','ITEM 2','COMPOSIÇÃO'], ['v2','VALOR 2','a preencher'],
+    ['k3','ITEM 3','APLICAÇÃO'], ['v3','VALOR 3','a preencher'],
+    ['k4','ITEM 4','RENDIMENTO'], ['v4','VALOR 4','a preencher'],
+  ],
+  onde: [
+    ['titulo','TÍTULO','Onde aplicar'],
+    ['o1','LOCAL 1','Laje exposta'],
+    ['o2','LOCAL 2','Telhado e cumeeira'],
+    ['o3','LOCAL 3','Calha e rufo'],
+    ['o4','LOCAL 4','Caixa d’água'],
+  ],
+  erro: [
+    ['titulo','TÍTULO','Emenda que descola'],
+    ['errado','ERRO COMUM','Colar sobre poeira e superfície úmida'],
+    ['certo','JEITO CERTO','Limpar, secar e sobrepor 5 cm na emenda'],
+  ],
+  promo: [
+    ['chamada','CHAMADA','Semana da obra protegida'],
+    ['produto','PRODUTO','Nome do produto'],
+    ['de','PREÇO DE','R$ 00,00'],
+    ['por','PREÇO POR','R$ 00,00'],
+    ['condicao','CONDIÇÃO','Enquanto durar o estoque'],
+  ],
+  dica: [
+    ['titulo','CAPA','3 cuidados antes de impermeabilizar'],
+    ['d1','DICA 1','Superfície seca: umidade presa vira bolha depois'],
+    ['d2','DICA 2','Respeite a sobreposição indicada na emenda'],
+    ['d3','DICA 3','Aplique no calor do dia para melhor adesão'],
+  ],
+};
+
+const BGS = [
+  { id:'navy', label:'NAVY', bg:'#011F38', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+  { id:'azul', label:'AZUL', bg:'#012E53', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+  { id:'claro', label:'CLARO', bg:'#EDEDED', ink:'#011F38', logo:'assets/logo-principal.png' },
+  { id:'laranja', label:'LARANJA', bg:'#FE5D0A', ink:'#FFFFFF', logo:'assets/logo-branco.png' },
+  { id:'grad', label:'GRADIENTE', bg:'linear-gradient(160deg,#012E53,#004074)', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+];
+
+const PATTERNS = {
+  none: { label:'LISO', css:'none', op:0 },
+  grid: { label:'GRADE', css:'repeating-linear-gradient(0deg,ACC 0 2px,transparent 2px 90px),repeating-linear-gradient(90deg,ACC 0 2px,transparent 2px 90px)', op:.35 },
+  diag: { label:'DIAGONAL', css:'repeating-linear-gradient(-45deg,ACC 0 24px,transparent 24px 72px)', op:.16 },
+  telha: { label:'TELHA', css:'repeating-linear-gradient(90deg,ACC 0 6px,transparent 6px 46px)', op:.2 },
+};
+
+const COPY_BASE = [
+  {
+    titulo:'A manta térmica não esfria: ela impede o calor de entrar',
+    legenda:'Telha esquenta. O que muda a temperatura de dentro é a barreira entre a telha e o forro.\n\nA manta térmica reflete o calor antes que ele chegue ao ambiente — e no inverno faz o caminho inverso, segurando o calor dentro.\n\nAplicação limpa, seca, sobreposição respeitada. É isso que garante o resultado.',
+    hashtags:'#llevlar #mantatermica #conforototermico #obra',
+  },
+  {
+    titulo:'Infiltração começa pela emenda, não pela manta',
+    legenda:'Na maioria das obras que voltam com problema, a manta está inteira. O que falhou foi a emenda.\n\nSuperfície suja, superfície úmida ou sobreposição menor que a indicada: qualquer um dos três abre caminho para a água.\n\nAntes de aplicar a fita asfáltica: limpa, seca, sobreposta.',
+    hashtags:'#llevlar #fitaasfaltica #impermeabilizacao #aplicador',
+  },
+  {
+    titulo:'Onde a fita asfáltica resolve em minutos',
+    legenda:'Rufo solto, calha com trinca, emenda de telha, ponto de parafuso: são os pontos onde a água entra primeiro e onde o reparo é mais rápido.\n\nA fita asfáltica veda por adesão direta — sem obra, sem espera de cura.\n\nSalva esse post para a próxima manutenção.',
+    hashtags:'#llevlar #fitaasfaltica #manutencao #reparo',
+  },
+];
+
+class Component extends DCLogic {
+  state = {
+    view: 'portal',
+    tpl: 'passo',
+    tag: 'aplicacao',
+    fmt: 'story',
+    bg: 'navy',
+    pat: 'grid',
+    page: 0,
+    vals: {},
+    imgBg: '',
+    imgProd: '',
+    blur: 0,
+    dim: 45,
+    prodSize: 62,
+    briefing: '',
+    tone: 'Técnico',
+    aud: 'Aplicador',
+    copys: [],
+  };
+
+  artRef = React.createRef();
+
+  async exportPng(fmt, tpl){
+    const node = this.artRef.current;
+    const lib = window.htmlToImage;
+    if(!node || !lib) return;
+    const prev = node.style.transform;
+    node.style.transform = 'none';
+    try {
+      const url = await lib.toPng(node, { width: fmt.w, height: fmt.h, pixelRatio: 1, cacheBust: true });
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'llev-' + tpl.id + '-' + fmt.w + 'x' + fmt.h + '.png';
+      a.click();
+    } finally {
+      node.style.transform = prev;
+    }
+  }
+
+  componentDidMount(){
+    try {
+      const raw = localStorage.getItem('llev-portal-v1');
+      if(raw) this.setState(JSON.parse(raw));
+    } catch(e){}
+  }
+
+  save(patch){
+    this.setState(patch, () => {
+      try {
+        const s = Object.assign({}, this.state);
+        delete s.imgBg; delete s.imgProd;
+        localStorage.setItem('llev-portal-v1', JSON.stringify(s));
+      } catch(e){}
+    });
+  }
+
+  pickImage(key, e){
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const r = new FileReader();
+    r.onload = () => this.save({ [key]: r.result });
+    r.readAsDataURL(file);
+  }
+
+  val(tpl, id){
+    const k = tpl + '.' + id;
+    if(this.state.vals[k] !== undefined) return this.state.vals[k];
+    const def = (FIELDS[tpl] || []).find(f => f[0] === id);
+    return def ? def[2] : '';
+  }
+
+  setVal(tpl, id, v){
+    this.save({ vals: Object.assign({}, this.state.vals, { [tpl + '.' + id]: v }) });
+  }
+
+  chip(active, color){
+    return active
+      ? { bg: color || '#FE5D0A', fg:'#FFFFFF', bd: color || '#FE5D0A' }
+      : { bg:'transparent', fg:'#A9BBCA', bd:'rgba(237,237,237,0.16)' };
+  }
+
+  renderVals(){
+    const s = this.state;
+    const tag = TAGS.find(t => t.id === s.tag) || TAGS[0];
+    const tpl = TEMPLATES.find(t => t.id === s.tpl) || TEMPLATES[0];
+    const fmt = FORMATS.find(f => f.id === s.fmt) || FORMATS[0];
+    const bg = BGS.find(b => b.id === s.bg) || BGS[0];
+    const pat = PATTERNS[s.pat] || PATTERNS.none;
+    const accent = tag.color;
+    const scale = 380 / fmt.w;
+    const light = bg.id === 'claro';
+
+    const V = id => this.val(s.tpl, id);
+    const f = {};
+    (FIELDS[s.tpl] || []).forEach(fd => { f[fd[0]] = V(fd[0]); });
+
+    const pages = [
+      { t: V('titulo'), b: 'Arraste para o lado' },
+      { t: '01', b: V('d1') },
+      { t: '02', b: V('d2') },
+      { t: '03', b: V('d3') },
+    ];
+    const page = Math.min(s.page, pages.length - 1);
+
+    const nav = [
+      ['portal','PORTAL'], ['studio','ESTÚDIO'], ['copys','COPYS'], ['lib','BIBLIOTECA'],
+    ].map(([id, label]) => {
+      const on = s.view === id;
+      return {
+        label, go: () => this.save({ view: id }),
+        bg: on ? '#FE5D0A' : 'transparent',
+        fg: on ? '#FFFFFF' : '#8FA6B8',
+        bd: on ? '#FE5D0A' : 'transparent',
+      };
+    });
+
+    return {
+      navItems: nav,
+      isPortal: s.view === 'portal',
+      isStudio: s.view === 'studio',
+      isCopys: s.view === 'copys',
+      isLib: s.view === 'lib',
+      goStudio: () => this.save({ view:'studio' }),
+      goCopys: () => this.save({ view:'copys' }),
+
+      modules: [
+        { ix:'01', color:'#FE5D0A', title:'Creative Studio', cta:'ABRIR ESTÚDIO',
+          body:'Seis modelos pensados para obra: passo a passo de aplicação, ficha técnica, onde aplicar, erro × jeito certo, preço e carrossel de dicas — em story e carrossel.',
+          go: () => this.save({ view:'studio' }) },
+        { ix:'02', color:'#0B7BC4', title:'Criação de copys', cta:'GERAR TEXTO',
+          body:'Briefing curto vira três variações no tom técnico da marca, com título para a arte, legenda de feed e hashtags. Um clique manda para o estúdio.',
+          go: () => this.save({ view:'copys' }) },
+        { ix:'03', color:'#00A0A8', title:'Biblioteca de produtos', cta:'VER FICHAS',
+          body:'As fichas da linha de mantas térmicas e fitas asfálticas em um só lugar, prontas para alimentar o modelo de ficha técnica do estúdio.',
+          go: () => this.save({ view:'lib' }) },
+      ],
+
+      templateOpts: TEMPLATES.map(t => Object.assign(
+        { label: t.label, go: () => this.save(t.id === 'post' ? { tpl:'post', page:0, fmt:'carrossel' } : { tpl: t.id, page: 0 }) },
+        this.chip(t.id === s.tpl, '#FE5D0A'))),
+      tagOpts: TAGS.map(t => Object.assign(
+        { label: t.label, go: () => this.save({ tag: t.id }) },
+        this.chip(t.id === s.tag, t.color))),
+      formatOpts: FORMATS.map(o => Object.assign(
+        { label: o.label, go: () => this.save({ fmt: o.id }) },
+        this.chip(o.id === s.fmt, '#FE8401'))),
+      bgOpts: BGS.map(b => Object.assign(
+        { label: b.label, go: () => this.save({ bg: b.id }) },
+        this.chip(b.id === s.bg, '#0B7BC4'))).concat(
+        Object.keys(PATTERNS).map(k => Object.assign(
+          { label: PATTERNS[k].label, go: () => this.save({ pat: k }) },
+          this.chip(k === s.pat, '#7A5CE0')))),
+
+      fields: (FIELDS[s.tpl] || []).map(fd => ({
+        label: fd[1], value: V(fd[0]), hint: fd[2] || 'preencher',
+        onChange: e => this.setVal(s.tpl, fd[0], e.target.value),
+      })),
+
+      tplLabel: tpl.label,
+      sizeLabel: fmt.w + ' × ' + fmt.h,
+      artW: fmt.w, artH: fmt.h, scale,
+      boxW: Math.round(fmt.w * scale), boxH: Math.round(fmt.h * scale),
+      artBg: bg.bg, artInk: bg.ink,
+      artLogoDark: bg.logo === 'assets/logo-branco-laranja.png',
+      artLogoLight: bg.logo === 'assets/logo-principal.png',
+      artLogoWhite: bg.logo === 'assets/logo-branco.png',
+      accent, tagLabel: tag.label,
+      hair: light ? 'rgba(1,31,56,0.14)' : 'rgba(255,255,255,0.16)',
+      patternCss: pat.css === 'none' ? 'none' : pat.css.split('ACC').join(accent),
+      patternOpacity: pat.op,
+
+      f,
+      isPost: s.tpl === 'post',
+      noProd: !s.imgProd,
+      bgLayer: s.imgBg ? React.createElement('div',
+        { style:{ position:'absolute', inset:0, overflow:'hidden' } },
+        React.createElement('img', { src:s.imgBg, alt:'', style:{ width:'100%', height:'100%', objectFit:'cover', filter:'blur(' + s.blur + 'px)', transform:'scale(1.06)' } }),
+        React.createElement('div', { style:{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(1,31,56,' + (s.dim/200) + ') 0%, rgba(1,31,56,' + (s.dim/100) + ') 55%, rgba(1,31,56,' + Math.min(0.95, s.dim/70) + ') 100%)' } })
+      ) : null,
+      prodLayer: s.imgProd ? React.createElement('img', { src:s.imgProd, alt:'', style:{ position:'absolute', right:0, bottom:150, height:s.prodSize + '%', maxWidth:'42%', width:'auto', objectFit:'contain', filter:'drop-shadow(0 40px 60px rgba(0,0,0,.45))', pointerEvents:'none' } }) : null,
+      prodSize: s.prodSize,
+      blur: s.blur, dim: s.dim,
+      onPickBg: e => this.pickImage('imgBg', e),
+      onPickProd: e => this.pickImage('imgProd', e),
+      onBlur: e => this.save({ blur: Number(e.target.value) }),
+      onDim: e => this.save({ dim: Number(e.target.value) }),
+      onProdSize: e => this.save({ prodSize: Number(e.target.value) }),
+      clearBg: () => this.save({ imgBg: '' }),
+      clearProd: () => this.save({ imgProd: '' }),
+      isPasso: s.tpl === 'passo',
+      isFicha: s.tpl === 'ficha',
+      isOnde: s.tpl === 'onde',
+      isErro: s.tpl === 'erro',
+      isPromo: s.tpl === 'promo',
+      isDica: s.tpl === 'dica',
+
+      passos: ['p1','p2','p3','p4'].map((k, i) => ({ n: i + 1, t: V(k) })).filter(p => p.t),
+      specs: [1,2,3,4].map(i => ({ k: V('k' + i), v: V('v' + i) })).filter(x => x.k || x.v),
+      locais: ['o1','o2','o3','o4'].map((k, i) => ({ n: '0' + (i + 1), t: V(k) })).filter(l => l.t),
+
+      pageNum: page + 1, pageTotal: pages.length,
+      pageTitle: pages[page].t, pageBody: pages[page].b,
+      dots: pages.map((p, i) => ({ bg: i === page ? accent : (light ? 'rgba(1,31,56,0.2)' : 'rgba(255,255,255,0.24)') })),
+      prevPage: () => this.save({ page: Math.max(0, page - 1) }),
+      nextPage: () => this.save({ page: Math.min(pages.length - 1, page + 1) }),
+
+      artRef: this.artRef,
+      exportPng: () => this.exportPng(fmt, tpl),
+      resetAll: () => this.save({ vals: {}, page: 0 }),
+
+      briefing: s.briefing,
+      setBriefing: e => this.save({ briefing: e.target.value }),
+      toneOpts: ['Técnico','Direto','Didático','Comercial'].map(t => Object.assign(
+        { label: t.toUpperCase(), go: () => this.save({ tone: t }) },
+        this.chip(t === s.tone, '#FE8401'))),
+      audOpts: ['Aplicador','Consumidor final'].map(a => Object.assign(
+        { label: a.toUpperCase(), go: () => this.save({ aud: a }) },
+        this.chip(a === s.aud, '#0B7BC4'))),
+      genLabel: s.copys.length ? 'GERAR NOVAMENTE' : 'GERAR COPYS',
+      genCopys: () => this.save({ copys: COPY_BASE }),
+      copyCards: (s.copys.length ? s.copys : COPY_BASE).map((c, i) => ({
+        ix: 'VARIAÇÃO 0' + (i + 1), titulo: c.titulo, legenda: c.legenda, hashtags: c.hashtags,
+        toStudio: () => {
+          const vals = Object.assign({}, this.state.vals);
+          vals['dica.titulo'] = c.titulo;
+          this.save({ view:'studio', tpl:'dica', page:0, vals });
+        },
+      })),
+
+      libCards: [
+        { tag:'CONFORTO TÉRMICO', color:'#FE8401', name:'Manta térmica' },
+        { tag:'IMPERMEABILIZAÇÃO', color:'#0B7BC4', name:'Fita asfáltica' },
+      ].map(c => Object.assign({}, c, {
+        rows: ['MEDIDAS','COMPOSIÇÃO','APLICAÇÃO','RENDIMENTO'].map(k => ({
+          k, v: 'a preencher', color:'#5F7488',
+        })),
+        go: () => this.save({ view:'studio', tpl:'ficha' }),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
