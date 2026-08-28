@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#011F38"/><rect x="60" y="86" width="80" height="10" fill="#FE5D0A"/><rect x="60" y="104" width="52" height="10" fill="#EDEDED"/></svg>
+</template>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<style>
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#011F38; }
+  body{ font-family:'Montserrat',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a{ color:#FE8401; text-decoration:none; }
+  a:hover{ color:#FE5D0A; }
+  img{ display:block; }
+  input,textarea,select,button{ font-family:'Montserrat',sans-serif; }
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:#011F38; }
+  ::-webkit-scrollbar-thumb{ background:#012E53; border-radius:8px; }
+  ::-webkit-scrollbar-thumb:hover{ background:#004074; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; display:flex; flex-direction:column; background:#011F38; color:#EDEDED;">
+
+  <header style="position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px clamp(20px,4vw,48px); background:rgba(1,31,56,.86); backdrop-filter:blur(10px); border-bottom:1px solid rgba(237,237,237,.10);">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <img src="assets/logo-branco-laranja.png" alt="LLEV Lar" style="height:26px; width:auto;"/>
+      <span style="border-left:1px solid rgba(237,237,237,.14); padding-left:14px; display:block;">
+        <span style="display:block; font-size:11px; font-weight:700; letter-spacing:.12em; color:#EDEDED;">PORTAL DE CRIAÇÃO</span>
+      </span>
+    </div>
+    <nav style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="4">
+        <button onClick="{{ nv.go }}" style="cursor:pointer; font-size:11px; font-weight:700; letter-spacing:.10em; padding:9px 14px; border-radius:8px; white-space:nowrap; background:{{ nv.bg }}; color:{{ nv.fg }}; border:1px solid {{ nv.bd }};">{{ nv.label }}</button>
+      </sc-for>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isPortal }}" hint-placeholder-val="{{ true }}">
+    <section style="position:relative; overflow:hidden; border-bottom:1px solid rgba(237,237,237,.10);">
+      <img src="assets/logo-branco.png" alt="" style="position:absolute; top:46%; left:64%; width:min(720px,84vw); transform:translate(-50%,-50%) rotate(-8deg); opacity:.05; pointer-events:none;"/>
+      <div style="position:relative; max-width:1180px; margin:0 auto; padding:clamp(48px,8vw,104px) clamp(20px,4vw,48px) clamp(44px,6vw,84px);">
+        <span style="display:inline-flex; align-items:center; gap:14px; font-size:12px; font-weight:800; letter-spacing:.26em; text-transform:uppercase; color:#FE8401;">
+          <span style="width:42px; height:3px; background:currentColor; display:block;"></span>Central de criativos · LLEV Lar
+        </span>
+        <h1 style="margin:22px 0 0; font-weight:900; letter-spacing:-.03em; font-size:clamp(46px,9vw,120px); line-height:.9; max-width:15ch; text-wrap:balance; color:#FFFFFF;">PORTAL <span style="color:#FE5D0A;">LLEV LAR</span></h1>
+        <p style="margin:26px 0 0; max-width:58ch; font-size:clamp(15px,1.9vw,20px); line-height:1.6; color:#B4C4D2; text-wrap:pretty;">Um só lugar para produzir os criativos da loja: arte pronta no estúdio, texto técnico na voz da marca e o catálogo com especificações e preço sempre à mão.</p>
+        <div style="margin-top:34px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button onClick="{{ goStudio }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 24px; border-radius:10px;">ABRIR O ESTÚDIO →</button>
+          <button onClick="{{ goCopys }}" style="cursor:pointer; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:13px; font-weight:700; letter-spacing:.06em; padding:15px 24px; border-radius:10px;">GERAR COPYS</button>
+        </div>
+      </div>
+    </section>
+
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(36px,6vw,72px) clamp(20px,4vw,48px) 64px;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
+        <h2 style="margin:0; font-size:14px; font-weight:800; letter-spacing:.18em; color:#FFFFFF;">PAUTA POR ESTAÇÃO</h2>
+        <span style="font-size:12px; font-weight:600; letter-spacing:.14em; color:#7C93A8;">O QUE A OBRA PEDE AGORA</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; margin-bottom:56px;">
+        <sc-for list="{{ trends }}" as="tr" hint-placeholder-count="4">
+          <div style="background:#012E53; border:1px solid {{ tr.borda }}; border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#EDEDED;">{{ tr.nome }}</span>
+              <span style="font-size:9.5px; font-weight:800; letter-spacing:.12em; padding:5px 10px; border-radius:20px; background:{{ tr.seloCor }}; color:{{ tr.seloInk }}; border:1px solid {{ tr.seloBd }};">{{ tr.selo }}</span>
+            </div>
+            <span style="font-size:10.5px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">{{ tr.janela }}</span>
+            <h3 style="margin:0; font-weight:900; letter-spacing:-.02em; font-size:22px; line-height:1.12; color:#FFFFFF; text-wrap:balance;">{{ tr.gancho }}</h3>
+            <p style="margin:0; font-size:13.5px; line-height:1.55; color:#A9BBCA; text-wrap:pretty;">{{ tr.motivo }}</p>
+            <div style="display:flex; flex-direction:column; padding-top:2px;">
+              <sc-for list="{{ tr.produtos }}" as="pr" hint-placeholder-count="4">
+                <button onClick="{{ pr.go }}" style="cursor:pointer; text-align:left; background:transparent; border:none; border-top:1px solid rgba(237,237,237,.08); padding:10px 0; display:flex; align-items:baseline; justify-content:space-between; gap:12px;" style-hover="border-top-color:rgba(254,132,1,.4);">
+                  <span style="font-size:12px; font-weight:600; line-height:1.35; color:#EDEDED;">{{ pr.nome }}</span>
+                  <span style="flex:none; font-size:11.5px; font-weight:800; color:#FE8401;">{{ pr.pix }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ tr.go }}" style="cursor:pointer; margin-top:auto; align-self:flex-start; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:10px 15px; border-radius:8px;">SUGERIR NO ESTÚDIO →</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px;">
+        <h2 style="margin:0; font-size:14px; font-weight:800; letter-spacing:.18em; color:#FFFFFF;">MÓDULOS</h2>
+        <span style="font-size:12px; font-weight:600; letter-spacing:.14em; color:#7C93A8;">03 ATIVOS</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+        <sc-for list="{{ modules }}" as="m" hint-placeholder-count="3">
+          <button onClick="{{ m.go }}" style="position:relative; text-align:left; cursor:pointer; display:flex; flex-direction:column; min-height:290px; background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; overflow:hidden; padding:28px 26px 24px; color:#EDEDED;" style-hover="border-color:{{ m.color }}; background:#013a68;">
+            <span style="position:absolute; top:0; left:0; right:0; height:5px; background:{{ m.color }};"></span>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+              <span style="font-size:13px; font-weight:800; letter-spacing:.1em; color:{{ m.color }};">{{ m.ix }}</span>
+              <span style="display:inline-flex; align-items:center; gap:7px; font-size:10px; font-weight:700; letter-spacing:.1em; padding:5px 10px; border-radius:7px; border:1px solid currentColor; color:#3FB27A;"><span style="width:7px; height:7px; border-radius:50%; background:currentColor; display:block;"></span>ATIVO</span>
+            </div>
+            <h3 style="font-weight:900; letter-spacing:-.02em; font-size:clamp(24px,2.8vw,32px); line-height:1; margin:20px 0 0; color:#FFFFFF; text-wrap:balance;">{{ m.title }}</h3>
+            <p style="margin:13px 0 0; color:#A9BBCA; font-size:14.5px; line-height:1.55; text-wrap:pretty;">{{ m.body }}</p>
+            <div style="margin-top:auto; padding-top:22px; display:flex; align-items:center; justify-content:space-between; gap:14px;">
+              <span style="font-size:11px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">{{ m.cta }}</span>
+              <span style="font-weight:900; font-size:24px; color:{{ m.color }};">→</span>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid; grid-template-columns:400px 1fr; align-items:start; gap:0; min-height:calc(100vh - 60px);">
+
+      <aside style="border-right:1px solid rgba(237,237,237,.10); padding:26px 24px 60px; display:flex; flex-direction:column; gap:26px; background:#01243F;">
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">MODELO DE ARTE</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px;">
+            <sc-for list="{{ templateOpts }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.go }}" style="cursor:pointer; text-align:left; padding:11px 12px; border-radius:9px; font-size:10.5px; font-weight:800; letter-spacing:.06em; line-height:1.3; background:{{ t.bg }}; color:{{ t.fg }}; border:1px solid {{ t.bd }};">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">CATEGORIA</div>
+          <div style="display:flex; flex-wrap:wrap; gap:7px;">
+            <sc-for list="{{ tagOpts }}" as="g" hint-placeholder-count="6">
+              <button onClick="{{ g.go }}" style="cursor:pointer; padding:8px 12px; border-radius:20px; font-size:10px; font-weight:800; letter-spacing:.08em; background:{{ g.bg }}; color:{{ g.fg }}; border:1px solid {{ g.bd }};">{{ g.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">FORMATO</div>
+          <div style="display:flex; gap:7px;">
+            <sc-for list="{{ formatOpts }}" as="fo" hint-placeholder-count="2">
+              <button onClick="{{ fo.go }}" style="cursor:pointer; flex:1; padding:11px 10px; border-radius:9px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ fo.bg }}; color:{{ fo.fg }}; border:1px solid {{ fo.bd }};">{{ fo.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <sc-if value="{{ hasSugestao }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(254,132,1,.35); border-radius:12px; padding:16px 15px; display:flex; flex-direction:column; gap:12px; background:rgba(254,93,10,.07);">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <span style="font-size:9.5px; font-weight:800; letter-spacing:.14em; color:#FE8401;">SUGESTÃO DE PAUTA</span>
+                <button onClick="{{ dispensarSugestao }}" style="cursor:pointer; background:transparent; border:none; color:#7C93A8; font-size:14px; font-weight:800; padding:0 2px;">×</button>
+              </div>
+              <span style="font-size:10px; font-weight:700; letter-spacing:.1em; color:#8FA6B8;">{{ sugestaoNome }}</span>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <sc-for list="{{ sugestaoLinhas }}" as="sg" hint-placeholder-count="3">
+                  <button onClick="{{ sg.go }}" style="cursor:pointer; text-align:left; background:#011F38; border:1px solid rgba(237,237,237,.12); border-radius:9px; padding:10px 11px; display:flex; flex-direction:column; gap:5px;" style-hover="border-color:#FE8401;">
+                    <span style="font-size:8.5px; font-weight:800; letter-spacing:.14em; color:#7C93A8;">{{ sg.label }} · APLICAR</span>
+                    <span style="font-size:12px; font-weight:600; line-height:1.4; color:#EDEDED;">{{ sg.texto }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <button onClick="{{ aplicarTudo }}" style="cursor:pointer; align-self:flex-start; border:none; background:#FE5D0A; color:#FFFFFF; font-size:10px; font-weight:800; letter-spacing:.08em; padding:9px 14px; border-radius:8px;">APLICAR TUDO</button>
+            </div>
+          </sc-if>
+
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+            <span style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">CONTEÚDO</span>
+            <span style="font-size:9px; font-weight:600; letter-spacing:.1em; color:#5F7488;">TEXTO COMPARTILHADO</span>
+          </div>
+          <sc-for list="{{ fields }}" as="fd" hint-placeholder-count="5">
+            <label style="display:block;">
+              <span style="display:block; font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8; margin-bottom:6px;">{{ fd.label }}</span>
+              <input value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.hint }}" style="width:100%; padding:11px 12px; border-radius:9px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13px; font-weight:500; outline:none;" style-focus="border-color:#FE8401;"/>
+            </label>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; border-top:1px solid rgba(237,237,237,.10); padding-top:22px;">
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">COR DE DESTAQUE</div>
+          <div style="display:flex; gap:9px; align-items:center;">
+            <input type="color" value="{{ accent }}" onChange="{{ onAccent }}" style="width:46px; height:38px; padding:0; border:1px solid rgba(237,237,237,.18); border-radius:9px; background:#011F38; cursor:pointer;"/>
+            <div style="display:flex; gap:7px; flex-wrap:wrap;">
+              <sc-for list="{{ accentOpts }}" as="ac" hint-placeholder-count="4">
+                <button onClick="{{ ac.go }}" style="cursor:pointer; width:34px; height:34px; border-radius:8px; background:{{ ac.color }}; border:2px solid {{ ac.bd }};"></button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px; border-top:1px solid rgba(237,237,237,.10); padding-top:22px;">
+            <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">IMAGENS</div>
+
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <span style="font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8;">IMAGEM DE FUNDO</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <label style="flex:1; cursor:pointer; text-align:center; padding:11px 12px; border-radius:9px; border:1px dashed rgba(237,237,237,.24); background:#011F38; font-size:10.5px; font-weight:800; letter-spacing:.06em; color:#A9BBCA;">
+                  ESCOLHER ARQUIVO
+                  <input type="file" accept="image/*" onChange="{{ onPickBg }}" style="display:none;"/>
+                </label>
+                <button onClick="{{ clearBg }}" style="cursor:pointer; background:transparent; color:#8FA6B8; border:1px solid rgba(237,237,237,.16); font-size:10.5px; font-weight:800; padding:11px 12px; border-radius:9px;">×</button>
+              </div>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>DESFOQUE</span><span>{{ blur }}px</span></span>
+                <input type="range" min="0" max="24" step="1" value="{{ blur }}" onChange="{{ onBlur }}" style="width:100%; accent-color:#FE5D0A;"/>
+              </label>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>ESCURECER</span><span>{{ dim }}%</span></span>
+                <input type="range" min="0" max="100" step="1" value="{{ dim }}" onChange="{{ onDim }}" style="width:100%; accent-color:#FE5D0A;"/>
+              </label>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <label style="display:block;">
+                  <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>POSIÇÃO X</span><span>{{ posX }}%</span></span>
+                  <input type="range" min="0" max="100" step="1" value="{{ posX }}" onChange="{{ onPosX }}" style="width:100%; accent-color:#FE8401;"/>
+                </label>
+                <label style="display:block;">
+                  <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>POSIÇÃO Y</span><span>{{ posY }}%</span></span>
+                  <input type="range" min="0" max="100" step="1" value="{{ posY }}" onChange="{{ onPosY }}" style="width:100%; accent-color:#FE8401;"/>
+                </label>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <span style="font-size:9.5px; font-weight:700; letter-spacing:.14em; color:#8FA6B8;">PRODUTO EM DESTAQUE</span>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <label style="flex:1; cursor:pointer; text-align:center; padding:11px 12px; border-radius:9px; border:1px dashed rgba(254,132,1,.4); background:#011F38; font-size:10.5px; font-weight:800; letter-spacing:.06em; color:#FE8401;">
+                  ESCOLHER ARQUIVO
+                  <input type="file" accept="image/*" onChange="{{ onPickProd }}" style="display:none;"/>
+                </label>
+                <button onClick="{{ clearProd }}" style="cursor:pointer; background:transparent; color:#8FA6B8; border:1px solid rgba(237,237,237,.16); font-size:10.5px; font-weight:800; padding:11px 12px; border-radius:9px;">×</button>
+              </div>
+              <label style="display:block;">
+                <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>TAMANHO</span><span>{{ prodSize }}%</span></span>
+                <input type="range" min="30" max="95" step="1" value="{{ prodSize }}" onChange="{{ onProdSize }}" style="width:100%; accent-color:#FE8401;"/>
+              </label>
+              <span style="font-size:10px; line-height:1.5; color:#5F7488;">Produto em destaque aparece no modelo Post c/ imagem. Use um PNG recortado.</span>
+            </div>
+        </div>
+
+        <div>
+          <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">FUNDO</div>
+          <div style="display:flex; flex-wrap:wrap; gap:7px;">
+            <sc-for list="{{ bgOpts }}" as="b" hint-placeholder-count="4">
+              <button onClick="{{ b.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10px; font-weight:800; letter-spacing:.08em; background:{{ b.bg }}; color:{{ b.fg }}; border:1px solid {{ b.bd }};">{{ b.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:9px; flex-wrap:wrap; padding-top:4px;">
+          <button onClick="{{ exportPng }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">BAIXAR PNG</button>
+          <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ exportAll }}" style="cursor:pointer; border:none; background:#0B7BC4; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">{{ exportAllLabel }}</button>
+          </sc-if>
+          <button onClick="{{ resetAll }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:700; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">RESETAR</button>
+        </div>
+
+        <sc-if value="{{ temUrl }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:10px; padding:16px 15px; border:1px solid rgba(254,132,1,.30); border-radius:12px; background:rgba(254,93,10,.07);">
+            <span style="font-size:9.5px; font-weight:800; letter-spacing:.14em; color:#FE8401;">LINK DO PRODUTO</span>
+            <span style="font-size:11.5px; font-weight:700; line-height:1.35; color:#EDEDED;">{{ prodNome }}</span>
+            <span style="font-size:10.5px; line-height:1.4; color:#7C93A8; word-break:break-all;">{{ prodUrl }}</span>
+            <button onClick="{{ copiarUrl }}" style="cursor:pointer; align-self:flex-start; font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:10px 15px; border-radius:9px; background:{{ copiarBg }}; color:{{ copiarFg }}; border:1px solid {{ copiarBd }};">{{ copiarLabel }}</button>
+            <span style="font-size:10px; line-height:1.5; color:#5F7488;">Cole no sticker de link do story para levar direto ao produto.</span>
+          </div>
+        </sc-if>
+      </aside>
+
+      <section style="position:sticky; top:60px; align-self:start; max-height:calc(100vh - 60px); overflow:auto; padding:26px clamp(16px,3vw,40px) 40px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px; align-self:stretch; justify-content:space-between; flex-wrap:wrap;">
+          <span style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">PRÉVIA · {{ sizeLabel }}</span>
+          <span style="font-size:10px; font-weight:700; letter-spacing:.12em; color:#5F7488;">{{ tplLabel }}</span>
+        </div>
+        <div style="flex:none; width:{{ boxW }}px; height:{{ boxH }}px; position:relative;">
+          <div ref="{{ artRef }}" style="position:absolute; top:0; left:0; width:{{ artW }}px; height:{{ artH }}px; transform:scale({{ scale }}); transform-origin:top left; overflow:hidden; background:{{ artBg }}; color:{{ artInk }}; display:flex; flex-direction:column; padding:80px 76px;">
+            <div style="position:absolute; inset:0; pointer-events:none; background:{{ patternCss }}; opacity:{{ patternOpacity }};"></div>
+
+            {{ bgLayer }}
+
+            <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+              <sc-if value="{{ artLogoDark }}" hint-placeholder-val="{{ true }}">
+                <img src="assets/logo-branco-laranja.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <sc-if value="{{ artLogoLight }}" hint-placeholder-val="{{ false }}">
+                <img src="assets/logo-principal.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <sc-if value="{{ artLogoWhite }}" hint-placeholder-val="{{ false }}">
+                <img src="assets/logo-branco.png" alt="" style="height:66px; width:auto;"/>
+              </sc-if>
+              <span style="font-size:26px; font-weight:800; letter-spacing:.14em; padding:14px 26px; border-radius:40px; background:{{ accent }}; color:#FFFFFF;">{{ tagLabel }}</span>
+            </div>
+
+            <sc-if value="{{ isPost }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative; flex:1; min-height:0; display:flex; flex-direction:column; gap:32px; margin-top:36px;">
+                <div style="position:relative; flex:1; min-height:0; display:flex; align-items:center; justify-content:center;">
+                  {{ prodLayer }}
+                  <sc-if value="{{ noProd }}" hint-placeholder-val="{{ true }}">
+                    <div style="width:{{ prodSize }}%; height:100%; border:4px dashed rgba(255,255,255,.28); display:flex; align-items:center; justify-content:center;">
+                      <span style="font-size:26px; font-weight:700; letter-spacing:.14em; color:rgba(255,255,255,.55);">PNG DO PRODUTO</span>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="position:relative; flex:none; display:flex; flex-direction:column; gap:20px;">
+                  <span style="font-size:30px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">{{ f.chamada }}</span>
+                  <h2 style="margin:0; max-width:16ch; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:82px; text-wrap:balance; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">{{ f.titulo }}</h2>
+                  <p style="margin:0; max-width:34ch; font-size:34px; font-weight:500; line-height:1.28; opacity:.85; text-wrap:pretty; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ f.apoio }}</p>
+                  <span style="flex:none; align-self:flex-start; margin-top:10px; font-size:28px; font-weight:800; letter-spacing:.1em; padding:20px 34px; background:{{ accent }}; color:#FFFFFF;">{{ f.cta }}</span>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isCatalogo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:44px; flex:1;">
+                <div>
+                  <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:88px; text-wrap:balance;">{{ f.linha }}</h2>
+                  <p style="margin:16px 0 0; font-size:30px; font-weight:600; letter-spacing:.06em; color:{{ accent }};">{{ f.apoio }}</p>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ itens }}" as="it" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:30px; padding:26px 0; border-top:3px solid {{ hair }};">
+                      <span style="font-size:38px; font-weight:600; line-height:1.15; text-wrap:pretty;">{{ it.n }}</span>
+                      <span style="flex:none; font-size:48px; font-weight:900; letter-spacing:-.02em; color:{{ accent }};">{{ it.p }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isSelo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; justify-content:center; gap:38px; flex:1;">
+                <span style="align-self:flex-start; font-size:150px; font-weight:900; letter-spacing:-.05em; line-height:.82; color:{{ accent }};">{{ f.destaque }}</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:80px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ selos }}" as="sl" hint-placeholder-count="3">
+                    <div style="display:flex; align-items:center; gap:26px; padding:26px 0; border-top:3px solid {{ hair }};">
+                      <span style="flex:none; width:22px; height:22px; background:{{ accent }}; display:block;"></span>
+                      <span style="font-size:40px; font-weight:600; line-height:1.2; text-wrap:pretty;">{{ sl.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <span style="margin-top:12px; font-size:28px; font-weight:600; letter-spacing:.1em; opacity:.6;">{{ f.apoio }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isFaq }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; justify-content:center; gap:40px; flex:1;">
+                <span style="align-self:flex-start; font-size:110px; font-weight:900; line-height:.8; color:{{ accent }};">?</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.98; font-size:76px; text-wrap:balance;">{{ f.pergunta }}</h2>
+                <div style="border-top:3px solid {{ hair }}; padding-top:34px;">
+                  <p style="margin:0; font-size:42px; font-weight:500; line-height:1.36; text-wrap:pretty; opacity:.88;">{{ f.resposta }}</p>
+                </div>
+                <span style="align-self:flex-start; margin-top:10px; font-size:30px; font-weight:800; letter-spacing:.08em; padding:22px 36px; background:{{ accent }}; color:#FFFFFF;">{{ f.cta }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isPasso }}" hint-placeholder-val="{{ true }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:40px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:96px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:flex; flex-direction:column; gap:26px;">
+                  <sc-for list="{{ passos }}" as="p" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:flex-start; gap:26px; border-top:3px solid {{ hair }}; padding-top:24px;">
+                      <span style="flex:none; width:74px; height:74px; border-radius:50%; background:{{ accent }}; color:#FFFFFF; font-size:38px; font-weight:900; display:flex; align-items:center; justify-content:center;">{{ p.n }}</span>
+                      <span style="font-size:40px; font-weight:600; line-height:1.22; text-wrap:pretty;">{{ p.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isFicha }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:44px; flex:1;">
+                <div>
+                  <div style="font-size:30px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">FICHA TÉCNICA</div>
+                  <h2 style="margin:16px 0 0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:92px; text-wrap:balance;">{{ f.produto }}</h2>
+                  <p style="margin:18px 0 0; font-size:36px; font-weight:500; line-height:1.3; opacity:.72;">{{ f.subtitulo }}</p>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ specs }}" as="s" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:28px; padding:26px 0; border-top:3px solid {{ hair }};">
+                      <span style="font-size:32px; font-weight:600; letter-spacing:.08em; opacity:.7;">{{ s.k }}</span>
+                      <span style="font-size:42px; font-weight:800; text-align:right;">{{ s.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isOnde }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:44px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:98px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                  <sc-for list="{{ locais }}" as="l" hint-placeholder-count="4">
+                    <div style="border:4px solid {{ accent }}; border-radius:22px; padding:34px 30px; display:flex; flex-direction:column; gap:14px; min-height:210px;">
+                      <span style="font-size:26px; font-weight:800; letter-spacing:.16em; color:{{ accent }};">{{ l.n }}</span>
+                      <span style="font-size:44px; font-weight:800; line-height:1.1; text-wrap:balance;">{{ l.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isErro }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:38px; flex:1;">
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.95; font-size:92px; text-wrap:balance;">{{ f.titulo }}</h2>
+                <div style="display:flex; flex-direction:column; gap:26px; flex:1;">
+                  <div style="flex:1; border-radius:24px; padding:38px 34px; background:rgba(226,59,46,.14); border:4px solid #E23B2E; display:flex; flex-direction:column; gap:18px;">
+                    <span style="font-size:30px; font-weight:900; letter-spacing:.16em; color:#FF7A6E;">ERRO COMUM</span>
+                    <span style="font-size:46px; font-weight:700; line-height:1.2; text-wrap:pretty;">{{ f.errado }}</span>
+                  </div>
+                  <div style="flex:1; border-radius:24px; padding:38px 34px; background:rgba(63,178,122,.14); border:4px solid #3FB27A; display:flex; flex-direction:column; gap:18px;">
+                    <span style="font-size:30px; font-weight:900; letter-spacing:.16em; color:#3FB27A;">JEITO CERTO</span>
+                    <span style="font-size:46px; font-weight:700; line-height:1.2; text-wrap:pretty;">{{ f.certo }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; justify-content:center; gap:30px; flex:1;">
+                <span style="font-size:32px; font-weight:800; letter-spacing:.18em; color:{{ accent }};">{{ f.chamada }}</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:104px; text-wrap:balance;">{{ f.produto }}</h2>
+                <div style="display:flex; align-items:flex-end; gap:28px; flex-wrap:wrap;">
+                  <span style="font-size:44px; font-weight:600; opacity:.6; text-decoration:line-through;">{{ f.de }}</span>
+                  <span style="font-size:150px; font-weight:900; letter-spacing:-.04em; line-height:.86; color:{{ accent }};">{{ f.por }}</span>
+                </div>
+                <span style="font-size:34px; font-weight:600; line-height:1.35; opacity:.8; text-wrap:pretty;">{{ f.condicao }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative; margin-top:58px; display:flex; flex-direction:column; gap:36px; flex:1;">
+                <span style="font-size:32px; font-weight:800; letter-spacing:.18em; color:{{ accent }};">PÁGINA {{ pageNum }} DE {{ pageTotal }}</span>
+                <h2 style="margin:0; font-weight:900; letter-spacing:-.03em; line-height:.94; font-size:110px; text-wrap:balance;">{{ pageTitle }}</h2>
+                <p style="margin:0; font-size:44px; font-weight:500; line-height:1.32; text-wrap:pretty; opacity:.86;">{{ pageBody }}</p>
+                <div style="margin-top:auto; display:flex; gap:12px;">
+                  <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+                    <span style="width:26px; height:26px; border-radius:50%; background:{{ d.bg }}; display:block;"></span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button onClick="{{ prevPage }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:800; padding:10px 16px; border-radius:8px;">←</button>
+            <span style="font-size:11px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">PÁGINA {{ pageNum }}/{{ pageTotal }}</span>
+            <button onClick="{{ nextPage }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:800; padding:10px 16px; border-radius:8px;">→</button>
+          </div>
+        </sc-if>
+      </section>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCopys }}" hint-placeholder-val="{{ false }}">
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:34px;">
+      <div>
+        <span style="display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:800; letter-spacing:.14em; padding:6px 11px; border-radius:7px; border:1px solid #3FB27A; color:#3FB27A;"><span style="width:7px; height:7px; border-radius:50%; background:currentColor; display:block;"></span>GUIA DE MARCA CARREGADO</span>
+        <h1 style="margin:20px 0 0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Criação de copys</h1>
+        <p style="margin:16px 0 0; max-width:60ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Briefing curto, tom técnico, três variações. Todo pedido carrega o guia de marca da LLEV Lar, então a copy já sai na voz certa — e o botão Criar arte joga o texto direto no estúdio.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(300px,380px) 1fr; gap:26px; align-items:start;">
+        <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:18px;">
+          <label style="display:block;">
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:7px;">BRIEFING</span>
+            <textarea value="{{ briefing }}" onChange="{{ setBriefing }}" placeholder="Ex.: post explicando por que a manta térmica reduz o calor embaixo da telha" rows="5" style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13.5px; line-height:1.5; resize:vertical; outline:none;" style-focus="border-color:#FE8401;"></textarea>
+          </label>
+          <div>
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:8px;">TOM</span>
+            <div style="display:flex; gap:7px; flex-wrap:wrap;">
+              <sc-for list="{{ toneOpts }}" as="to" hint-placeholder-count="4">
+                <button onClick="{{ to.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ to.bg }}; color:{{ to.fg }}; border:1px solid {{ to.bd }};">{{ to.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:8px;">PÚBLICO</span>
+            <div style="display:flex; gap:7px; flex-wrap:wrap;">
+              <sc-for list="{{ audOpts }}" as="au" hint-placeholder-count="2">
+                <button onClick="{{ au.go }}" style="cursor:pointer; padding:9px 13px; border-radius:8px; font-size:10.5px; font-weight:800; letter-spacing:.06em; background:{{ au.bg }}; color:{{ au.fg }}; border:1px solid {{ au.bd }};">{{ au.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <button onClick="{{ genCopys }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 20px; border-radius:10px;">{{ genLabel }}</button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <sc-for list="{{ copyCards }}" as="c" hint-placeholder-count="3">
+            <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 24px; display:flex; flex-direction:column; gap:14px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:14px;">
+                <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#FE8401;">{{ c.ix }}</span>
+                <button onClick="{{ c.toStudio }}" style="cursor:pointer; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:8px 13px; border-radius:8px;">CRIAR ARTE →</button>
+              </div>
+              <h3 style="margin:0; font-weight:900; letter-spacing:-.02em; font-size:26px; line-height:1.05; color:#FFFFFF; text-wrap:balance;">{{ c.titulo }}</h3>
+              <p style="margin:0; font-size:14.5px; line-height:1.6; color:#B4C4D2; white-space:pre-line; text-wrap:pretty;">{{ c.legenda }}</p>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-top:4px; border-top:1px solid rgba(237,237,237,.08);">
+                <span style="font-size:11px; font-weight:700; letter-spacing:.1em; color:#7C93A8; padding-top:12px;">{{ c.hashtags }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isLib }}" hint-placeholder-val="{{ false }}">
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:30px;">
+      <div>
+        <h1 style="margin:0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Biblioteca de produtos</h1>
+        <p style="margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Dados puxados do catálogo em llevlar.com.br. O preço em destaque é o do PIX ou depósito. Clique em qualquer produto e a ficha técnica abre no estúdio já preenchida.</p>
+      </div>
+
+      <div style="position:sticky; top:60px; z-index:10; display:flex; flex-direction:column; gap:14px; padding:18px 0 16px; background:#011F38; border-bottom:1px solid rgba(237,237,237,.10);">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <input value="{{ busca }}" onChange="{{ onBusca }}" placeholder="Buscar por nome, medida, material…" style="flex:1; min-width:260px; padding:13px 15px; border-radius:10px; border:1px solid rgba(237,237,237,.14); background:#012E53; color:#EDEDED; font-size:14px; font-weight:500; outline:none;" style-focus="border-color:#FE8401;"/>
+          <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#7C93A8; white-space:nowrap;">{{ libTotal }}</span>
+          <button onClick="{{ limparBusca }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:12px 15px; border-radius:9px;">LIMPAR</button>
+        </div>
+        <div style="display:flex; gap:7px; flex-wrap:wrap;">
+          <sc-for list="{{ libFiltros }}" as="ft" hint-placeholder-count="7">
+            <button onClick="{{ ft.go }}" style="cursor:pointer; display:flex; align-items:center; gap:7px; padding:9px 13px; border-radius:20px; font-size:10px; font-weight:800; letter-spacing:.08em; background:{{ ft.bg }}; color:{{ ft.fg }}; border:1px solid {{ ft.bd }};">
+              <span>{{ ft.label }}</span>
+              <span style="opacity:.65;">{{ ft.n }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ libVazio }}" hint-placeholder-val="{{ false }}">
+        <p style="margin:0; padding:40px 0; font-size:15px; color:#7C93A8;">Nenhum produto encontrado. Tente outro termo ou limpe o filtro.</p>
+      </sc-if>
+      <sc-for list="{{ libGroups }}" as="gr" hint-placeholder-count="3">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <span style="width:36px; height:4px; background:{{ gr.cor }}; display:block;"></span>
+            <h2 style="margin:0; font-size:14px; font-weight:800; letter-spacing:.18em; color:#FFFFFF;">{{ gr.nome }}</h2>
+            <span style="font-size:11px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">{{ gr.total }}</span>
+          </div>
+          <p style="margin:-4px 0 0; max-width:78ch; font-size:13.5px; line-height:1.6; color:#8FA6B8; text-wrap:pretty;">{{ gr.resumo }}</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; align-items:start;">
+            <sc-for list="{{ gr.itens }}" as="p" hint-placeholder-count="4">
+              <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:22px 20px; display:flex; flex-direction:column; gap:14px;">
+                <h3 style="margin:0; font-weight:800; letter-spacing:-.01em; font-size:17px; line-height:1.25; color:#FFFFFF; text-wrap:pretty;">{{ p.nome }}</h3>
+                <div style="display:flex; align-items:baseline; gap:10px;">
+                  <span style="font-size:24px; font-weight:900; letter-spacing:-.02em; color:{{ gr.cor }};">{{ p.pix }}</span>
+                  <span style="font-size:12px; font-weight:600; color:#7C93A8; text-decoration:line-through;">{{ p.preco }}</span>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                  <sc-for list="{{ p.rows }}" as="r" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:baseline; justify-content:space-between; gap:14px; padding:9px 0; border-top:1px solid rgba(237,237,237,.08);">
+                      <span style="font-size:10.5px; font-weight:700; letter-spacing:.1em; color:#7C93A8;">{{ r.k }}</span>
+                      <span style="font-size:12.5px; font-weight:600; color:#EDEDED; text-align:right;">{{ r.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ p.aberto }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; flex-direction:column; gap:14px; padding:16px 0 4px; border-top:1px solid rgba(237,237,237,.08);">
+                    <sc-if value="{{ p.temDesc }}" hint-placeholder-val="{{ true }}">
+                      <div>
+                        <span style="display:block; font-size:9px; font-weight:800; letter-spacing:.16em; color:#7C93A8; margin-bottom:7px;">SOBRE ESTE PRODUTO</span>
+                        <p style="margin:0; font-size:13px; line-height:1.6; color:#B4C4D2; text-wrap:pretty;">{{ p.desc }}</p>
+                      </div>
+                    </sc-if>
+                    <div>
+                      <span style="display:block; font-size:9px; font-weight:800; letter-spacing:.16em; color:#7C93A8; margin-bottom:9px;">PERGUNTAS FREQUENTES</span>
+                      <div style="display:flex; flex-direction:column; gap:11px;">
+                        <sc-for list="{{ p.perguntas }}" as="q" hint-placeholder-count="4">
+                          <div style="display:flex; flex-direction:column; gap:6px; padding-left:11px; border-left:2px solid rgba(254,132,1,.4);">
+                            <span style="font-size:12.5px; font-weight:800; line-height:1.35; color:#EDEDED;">{{ q.q }}</span>
+                            <span style="font-size:12.5px; line-height:1.55; color:#A9BBCA; text-wrap:pretty;">{{ q.a }}</span>
+                            <button onClick="{{ q.go }}" style="cursor:pointer; align-self:flex-start; margin-top:2px; background:transparent; color:#FE8401; border:none; padding:0; font-size:9.5px; font-weight:800; letter-spacing:.1em;">VIRAR ARTE DE FAQ →</button>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+                <div style="margin-top:auto; display:flex; gap:8px; flex-wrap:wrap;">
+                  <button onClick="{{ p.go }}" style="cursor:pointer; background:transparent; color:#EDEDED; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:9px 14px; border-radius:8px;">FICHA NO ESTÚDIO →</button>
+                  <button onClick="{{ p.toggle }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.20); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:9px 14px; border-radius:8px;">{{ p.toggleLabel }}</button>
+                  <a href="{{ p.url }}" target="_blank" rel="noopener" style="text-decoration:none; color:#FE8401; border:1px solid rgba(254,132,1,.35); font-size:10.5px; font-weight:800; letter-spacing:.08em; padding:9px 14px; border-radius:8px;" style-hover="background:rgba(254,132,1,.12); color:#FE8401;">VER NO SITE ↗</a>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isRev }}" hint-placeholder-val="{{ false }}">
+    <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:30px;">
+      <div>
+        <span style="display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:800; letter-spacing:.14em; padding:6px 11px; border-radius:7px; border:1px solid {{ keyBd }}; color:{{ keyFg }};"><span style="width:7px; height:7px; border-radius:50%; background:currentColor; display:block;"></span>{{ keyStatus }}</span>
+        <h1 style="margin:20px 0 0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Revisão de arte</h1>
+        <p style="margin:16px 0 0; max-width:64ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Suba a arte pronta e receba a revisão em três frentes: design, texto e conferência de produto contra o catálogo. Erro de nome, preço, medida ou promessa técnica aparece antes de o post ir ao ar.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(300px,400px) 1fr; gap:26px; align-items:start;">
+        <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:18px; position:sticky; top:76px;">
+          <div>
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:9px;">ARTE</span>
+            <sc-if value="{{ temRevImg }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(237,237,237,.14); background:#011F38; display:flex;">
+                <img src="{{ revImg }}" alt="" style="width:100%; height:auto; display:block; max-height:420px; object-fit:contain;"/>
+              </div>
+            </sc-if>
+            <label style="display:flex; align-items:center; justify-content:center; margin-top:10px; cursor:pointer; padding:16px; border-radius:11px; border:1px dashed rgba(237,237,237,.26); font-size:11px; font-weight:800; letter-spacing:.08em; color:#A9BBCA; text-align:center;" style-hover="border-color:#FE8401; color:#FE8401;">
+              {{ revImgLabel }}
+              <input type="file" accept="image/*" onChange="{{ pickRevImg }}" style="display:none;"/>
+            </label>
+          </div>
+          <label style="display:block;">
+            <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:7px;">CONTEXTO (OPCIONAL)</span>
+            <textarea value="{{ revCtx }}" onChange="{{ setRevCtx }}" placeholder="Ex.: post de feed sobre manta térmica foil 25 m², promoção de agosto" rows="3" style="width:100%; padding:12px; border-radius:10px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13px; line-height:1.5; resize:vertical; outline:none;" style-focus="border-color:#FE8401;"></textarea>
+          </label>
+          <button onClick="{{ revisar }}" style="cursor:pointer; border:none; background:{{ revBtnBg }}; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 20px; border-radius:10px;">{{ revBtnLabel }}</button>
+          <button onClick="{{ openKey }}" style="cursor:pointer; background:transparent; color:#7C93A8; border:none; padding:0; font-size:10px; font-weight:800; letter-spacing:.1em; text-align:left;">GERENCIAR CHAVE DE ACESSO</button>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <sc-if value="{{ revLoading }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#012E53; border:1px solid rgba(254,132,1,.28); border-radius:16px; padding:26px 24px; display:flex; flex-direction:column; gap:18px;">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+                <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#FE8401;">REVISANDO A ARTE</span>
+                <span style="font-size:26px; font-weight:900; letter-spacing:-.02em; color:#EDEDED; font-variant-numeric:tabular-nums;">{{ revSeg }}</span>
+              </div>
+              <div style="height:6px; border-radius:99px; background:rgba(237,237,237,.10); overflow:hidden;">
+                <div style="height:100%; width:{{ revPct }}; border-radius:99px; background:#FE5D0A; transition:width .9s linear;"></div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <sc-for list="{{ revEtapas }}" as="et" hint-placeholder-count="5">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="flex:none; width:14px; text-align:center; font-size:12px; font-weight:900; color:{{ et.marcaCor }};">{{ et.marca }}</span>
+                    <span style="font-size:13px; line-height:1.4; color:{{ et.fg }};">{{ et.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <span style="font-size:11px; line-height:1.5; color:#5F7488;">Uma revisão com imagem leva de 15 a 30 segundos. Não feche a página.</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ revErr }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid rgba(232,76,61,.45); background:rgba(232,76,61,.10); border-radius:14px; padding:18px 20px; display:flex; flex-direction:column; gap:6px;">
+              <span style="font-size:10px; font-weight:800; letter-spacing:.14em; color:#E84C3D;">NÃO FOI POSSÍVEL REVISAR</span>
+              <span style="font-size:13.5px; line-height:1.55; color:#EDD3D0;">{{ revErr }}</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ temResult }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:26px 24px; display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                  <span style="font-size:56px; font-weight:900; letter-spacing:-.04em; line-height:.85; color:{{ notaCor }};">{{ nota }}</span>
+                  <span style="font-size:11px; font-weight:800; letter-spacing:.14em; padding:7px 12px; border-radius:8px; background:{{ notaCor }}; color:#FFFFFF;">{{ veredito }}</span>
+                </div>
+                <p style="margin:0; font-size:14.5px; line-height:1.6; color:#B4C4D2; text-wrap:pretty;">{{ resumoRev }}</p>
+                <sc-if value="{{ temTranscricao }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:14px 16px; border-radius:11px; background:#011F38; border:1px solid rgba(237,237,237,.10); display:flex; flex-direction:column; gap:7px;">
+                    <span style="font-size:9px; font-weight:800; letter-spacing:.16em; color:#7C93A8;">TEXTO LIDO NA ARTE — CONFIRA LETRA POR LETRA</span>
+                    <span style="font-size:13px; line-height:1.55; color:#EDEDED; white-space:pre-line;">{{ transcricao }}</span>
+                  </div>
+                </sc-if>
+              </div>
+
+              <sc-for list="{{ blocos }}" as="b" hint-placeholder-count="3">
+                <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 24px; display:flex; flex-direction:column; gap:16px;">
+                  <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+                    <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:{{ b.cor }};">{{ b.titulo }}</span>
+                    <span style="font-size:10px; font-weight:700; letter-spacing:.12em; color:#7C93A8;">{{ b.contagem }}</span>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:14px;">
+                    <sc-for list="{{ b.itens }}" as="it" hint-placeholder-count="3">
+                      <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <span style="flex:none; margin-top:2px; width:9px; height:9px; border-radius:50%; background:{{ it.cor }};"></span>
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                          <span style="font-size:13.5px; font-weight:800; line-height:1.35; color:#EDEDED;">{{ it.titulo }}</span>
+                          <span style="font-size:13px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">{{ it.txt }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ revVazio }}" hint-placeholder-val="{{ true }}">
+            <div style="border:1px dashed rgba(237,237,237,.16); border-radius:16px; padding:44px 30px; display:flex; flex-direction:column; gap:10px;">
+              <span style="font-size:11px; font-weight:800; letter-spacing:.14em; color:#7C93A8;">AINDA SEM REVISÃO</span>
+              <p style="margin:0; max-width:52ch; font-size:14px; line-height:1.6; color:#8FA6B8; text-wrap:pretty;">Suba um PNG ou JPG da arte e clique em revisar. A conferência de produto usa os {{ totalProdutos }} itens da biblioteca — nome, preço PIX, medida e os avisos técnicos do fabricante.</p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ keyModal }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:200; background:rgba(1,15,28,.86); display:flex; align-items:center; justify-content:center; padding:24px;">
+      <div style="width:100%; max-width:480px; background:#012E53; border:1px solid rgba(237,237,237,.14); border-radius:18px; padding:32px 30px; display:flex; flex-direction:column; gap:18px;">
+        <img src="assets/logo-branco-laranja.png" alt="LLEV Lar" style="height:28px; width:auto; align-self:flex-start;"/>
+        <div>
+          <h2 style="margin:0; font-weight:900; letter-spacing:-.02em; font-size:28px; line-height:1.05; color:#FFFFFF;">Chave de acesso</h2>
+          <p style="margin:12px 0 0; font-size:13.5px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">A revisão de arte usa uma chave da Anthropic. Ela fica salva só neste computador, no navegador — nunca sai daqui nem entra no código do portal. Serve também como senha: sem chave, ninguém revisa.</p>
+        </div>
+        <label style="display:block;">
+          <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:7px;">CHAVE</span>
+          <input type="password" value="{{ keyDraft }}" onChange="{{ setKeyDraft }}" placeholder="sk-ant-..." style="width:100%; padding:13px; border-radius:10px; border:1px solid rgba(237,237,237,.14); background:#011F38; color:#EDEDED; font-size:13px; outline:none;" style-focus="border-color:#FE8401;"/>
+        </label>
+        <sc-if value="{{ keyErr }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:12px; line-height:1.5; color:#E84C3D;">{{ keyErr }}</span>
+        </sc-if>
+        <div style="display:flex; gap:9px; flex-wrap:wrap;">
+          <button onClick="{{ saveKey }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:12.5px; font-weight:800; letter-spacing:.06em; padding:14px 20px; border-radius:10px;">SALVAR CHAVE</button>
+          <sc-if value="{{ temKey }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ clearKey }}" style="cursor:pointer; background:transparent; color:#E84C3D; border:1px solid rgba(232,76,61,.4); font-size:12.5px; font-weight:800; letter-spacing:.06em; padding:14px 18px; border-radius:10px;">APAGAR</button>
+          </sc-if>
+          <button onClick="{{ closeKey }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12.5px; font-weight:800; letter-spacing:.06em; padding:14px 18px; border-radius:10px;">{{ keyCloseLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <footer style="margin-top:auto; border-top:1px solid rgba(237,237,237,.10); padding:26px clamp(20px,4vw,48px); display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;">
+    <img src="assets/logo-branco-laranja.png" alt="LLEV Lar" style="height:26px; width:auto; opacity:.9;"/>
+    <div style="display:flex; flex-direction:column; gap:5px; align-items:flex-end; text-align:right;">
+      <span style="font-size:10px; font-weight:800; letter-spacing:.14em; color:#FE8401;">LAR &amp; CONSTRUÇÃO · ATENDIMENTO ONLINE</span>
+      <span style="font-size:10px; font-weight:600; letter-spacing:.14em; color:#7C93A8;">LLEV LAR · PORTAL DE CRIAÇÃO</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const TAGS = [
+  { id:'telhas', label:'TELHAS', color:'#FE5D0A' },
+  { id:'imperm', label:'IMPERMEABILIZAÇÃO', color:'#0B7BC4' },
+  { id:'termico', label:'CONFORTO TÉRMICO', color:'#FE8401' },
+  { id:'aplicacao', label:'APLICAÇÃO', color:'#3FB27A' },
+  { id:'manutencao', label:'MANUTENÇÃO', color:'#7A5CE0' },
+  { id:'promo', label:'PROMOÇÃO', color:'#FE5D0A' },
+  { id:'dica', label:'DICA', color:'#00A0A8' },
+];
+
+/* Dados reais do catálogo llevlar.com.br (categorias Mantas e Impermeabilizantes).
+   Preço PIX/depósito é o segundo valor do site. */
+const PRODUCTS = [
+  { url:'https://www.llevlar.com.br/manta-termica-face-unica-premium-bopp-1m', id:'mt-fu-1', grupo:'Mantas térmicas', nome:'Manta Térmica Face Única Premium Bopp 1 m²', preco:'R$ 14,00', pix:'R$ 13,30',
+    especs:[['ÁREA','1 m²'],['ACABAMENTO','Face única · Bopp'],['LINHA','Premium'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-face-unica-premium-bopp-25-m2', id:'mt-fu-25', grupo:'Mantas térmicas', nome:'Manta Térmica Face Única Premium Bopp 25 m²', preco:'R$ 90,52', pix:'R$ 85,99',
+    especs:[['ÁREA','25 m²'],['ESPESSURA','0,13 mm'],['ESTRUTURA','PP — ráfia de polipropileno'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-face-unica-premium-bopp-50-m', id:'mt-fu-50', grupo:'Mantas térmicas', nome:'Manta Térmica Face Única Premium Bopp 50 m²', preco:'R$ 241,59', pix:'R$ 229,51',
+    especs:[['ÁREA','50 m²'],['ACABAMENTO','Face única · Bopp'],['LINHA','Premium'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-dupla-face-premium-bopp-1-m', id:'mt-df-1', grupo:'Mantas térmicas', nome:'Manta Térmica Dupla Face Premium Bopp 1 m²', preco:'R$ 15,13', pix:'R$ 14,37',
+    especs:[['ÁREA','1 m²'],['ACABAMENTO','Dupla face · Bopp'],['ADESIVA','Não'],['USO EXTERNO','Não indicada']] },
+  { url:'https://www.llevlar.com.br/manta-termica-foil-subcobertura-dupla-face-tnt-25-m-1-fita', id:'mt-foil-25', grupo:'Mantas térmicas', nome:'Manta Térmica Foil Subcobertura Dupla Face TNT 25 m² + 1 Fita', preco:'R$ 102,96', pix:'R$ 97,81',
+    especs:[['ÁREA','25 m²'],['ACABAMENTO','Dupla face · TNT'],['ACOMPANHA','1 fita de emenda'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-foil-subcobertura-dupla-face-tnt-100m', id:'mt-foil-100', grupo:'Mantas térmicas', nome:'Manta Térmica Foil Subcobertura Dupla Face TNT 100 m²', preco:'R$ 301,89', pix:'R$ 286,80',
+    especs:[['ÁREA','100 m²'],['ACABAMENTO','Dupla face · TNT'],['APLICAÇÃO','Subcobertura'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-foil-subcobertura-dupla-face-tnt-100-m-2-fitas', id:'mt-foil-100f', grupo:'Mantas térmicas', nome:'Manta Térmica Foil Subcobertura Dupla Face TNT 100 m² + 2 Fitas', preco:'R$ 309,96', pix:'R$ 294,46',
+    especs:[['ÁREA','100 m²'],['ACABAMENTO','Dupla face · TNT'],['ACOMPANHA','2 fitas de emenda'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/fita-asfaltica-aluminizada-auto-adesiva-10-cm-x-10-m', id:'fa-10', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Aluminizada Auto Adesiva 10 cm × 10 m', preco:'R$ 28,27', pix:'R$ 26,86',
+    especs:[['MEDIDAS','10 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Alumínio'],['ADESIVA','Sim — auto adesiva']] },
+  { url:'https://www.llevlar.com.br/fita-asfaltica-aluminizada-auto-adesiva-45-cm-x-10-m', id:'fa-45', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Aluminizada Auto Adesiva 45 cm × 10 m', preco:'R$ 90,41', pix:'R$ 85,89',
+    especs:[['MEDIDAS','45 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Alumínio'],['ADESIVA','Sim — auto adesiva']] },
+  { url:'https://www.llevlar.com.br/fita-asfaltica-aluminizada-auto-adesiva-60-cm-x-10-m', id:'fa-60', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Aluminizada Auto Adesiva 60 cm × 10 m', preco:'R$ 123,81', pix:'R$ 117,62',
+    especs:[['MEDIDAS','60 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Alumínio'],['ADESIVA','Sim — auto adesiva']] },
+  { url:'https://www.llevlar.com.br/fita-asfaltica-telha-auto-adesiva-90-cm-x-10-m', id:'fa-90', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Telha Auto Adesiva 90 cm × 10 m', preco:'R$ 260,65', pix:'R$ 247,62',
+    especs:[['MEDIDAS','90 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Terracota'],['ADESIVA','Sim — auto adesiva']] },
+  { url:'https://www.llevlar.com.br/manta-asfaltica-de-polietileno-30kg-10m', id:'ma-30', grupo:'Impermeabilização', nome:'Manta Asfáltica de Polietileno 30 kg (10 m²)', preco:'R$ 375,04', pix:'R$ 356,29',
+    especs:[['MODELO','N30'],['MATERIAL','Polietileno'],['RENDIMENTO','10 m²'],['PESO','30 kg']] },
+  { url:'https://www.llevlar.com.br/manta-impermeabilizante-chapa-dreno-p-muro-de-arrimo-e-tuneis-1-05x15m', id:'dreno-105', grupo:'Impermeabilização', nome:'Manta Chapa Dreno para Muro de Arrimo e Túneis 1,05 × 15 m', preco:'R$ 355,81', pix:'R$ 338,02',
+    especs:[['MEDIDAS','1,05 × 15 m'],['APLICAÇÃO','Muro de arrimo e túneis'],['TIPO','Chapa dreno'],['ÁREA','15,75 m²']] },
+  { url:'https://www.llevlar.com.br/manta-impermeabilizante-chapa-dreno-p-muro-de-arrimo-e-tuneis-2-10x15m', id:'dreno-210', grupo:'Impermeabilização', nome:'Manta Chapa Dreno para Muro de Arrimo e Túneis 2,10 × 15 m', preco:'R$ 463,02', pix:'R$ 439,87',
+    especs:[['MEDIDAS','2,10 × 15 m'],['APLICAÇÃO','Muro de arrimo e túneis'],['TIPO','Chapa dreno'],['ÁREA','31,5 m²']] },
+  { url:'https://www.llevlar.com.br/primer-asfaltico-base-agua-diluprimer-3-6l', id:'primer-36', grupo:'Impermeabilização', nome:'Primer Asfáltico Base Água 3,6 L', preco:'R$ 37,66', pix:'R$ 35,78',
+    especs:[['APRESENTAÇÃO','Galão 3,6 L'],['CONSUMO','0,3 a 0,5 L/m²'],['BASE','Água'],['COR','Marrom escuro']] },
+  { url:'https://www.llevlar.com.br/primer-asfaltico-a-base-de-agua-18l-para-aplicacao-da-manta-telhado-laje', id:'primer-18', grupo:'Impermeabilização', nome:'Primer Asfáltico Base Água 18 L', preco:'R$ 230,05', pix:'R$ 218,55',
+    especs:[['APRESENTAÇÃO','Balde 18 L'],['CONSUMO','0,3 a 0,5 L/m²'],['BASE','Água'],['COR','Marrom escuro']] },
+  { url:'https://www.llevlar.com.br/resina-impermeabilizante-incolor-para-telhas-3-6l', id:'resina-36', grupo:'Impermeabilização', nome:'Resina Impermeabilizante Incolor para Telhas 3,6 L', preco:'R$ 63,64', pix:'R$ 60,46',
+    especs:[['APRESENTAÇÃO','3,6 L'],['ACABAMENTO','Incolor'],['APLICAÇÃO','Telhas'],['BASE','Resina']] },
+  { url:'https://www.llevlar.com.br/telha-coppo-veneto-policarbonato-cristal-transparente', id:'tl-coppo', grupo:'Telhas', nome:'Telha Coppo Veneto Policarbonato Cristal Transparente', preco:'R$ 46,15', pix:'R$ 43,84',
+    especs:[['MODELO','Coppo Veneto'],['MATERIAL','Policarbonato'],['COMPRIMENTO','42 cm'],['ACABAMENTO','Cristal transparente']] },
+  { url:'https://www.llevlar.com.br/caixa-25-telhas-de-policarbonato-transparente-plan-mineira', id:'tl-plan', grupo:'Telhas', nome:'Caixa 25 Telhas de Policarbonato Transparente — Plan Mineira', preco:'R$ 327,59', pix:'R$ 311,21',
+    especs:[['MODELO','Plan Mineira'],['MATERIAL','Policarbonato'],['QUANTIDADE','Caixa com 25'],['ACABAMENTO','Transparente']] },
+  { url:'https://www.llevlar.com.br/index.php?route=product/product&product_id=1562', id:'tl-port', grupo:'Telhas', nome:'Caixa 10 Telhas de Policarbonato Transparente — Portuguesa', preco:'R$ 133,81', pix:'R$ 127,12',
+    especs:[['MODELO','Portuguesa'],['MATERIAL','Policarbonato'],['COMPRIMENTO','40 cm'],['QUANTIDADE','Caixa com 10']] },
+  { url:'https://www.llevlar.com.br/telha-de-policarbonato-transparente-americana-piso-esmaltada-tettogres', id:'tl-amer', grupo:'Telhas', nome:'Telha de Policarbonato Transparente — Americana Piso', preco:'R$ 17,40', pix:'R$ 16,53',
+    especs:[['MODELO','Americana Piso'],['MATERIAL','Policarbonato'],['COMPATÍVEL','Americana · Esmaltada · Tettogres'],['VENDA','Unidade']] },
+  { url:'https://www.llevlar.com.br/telha-de-vidro-terracota-americana-t12-karina-artgres-icetec-p', id:'tl-vidro-t', grupo:'Telhas', nome:'Telha de Vidro Terracota / Americana T12 / Karina', preco:'R$ 110,34', pix:'R$ 104,82',
+    especs:[['MATERIAL','Vidro'],['COMPATÍVEL','Terracota · T12 · Karina · Artgres'],['TAMANHO','P'],['VENDA','Unidade']] },
+  { url:'https://www.llevlar.com.br/caixa-05-telhas-de-vidro-romana-i', id:'tl-vidro-r', grupo:'Telhas', nome:'Caixa 05 Telhas de Vidro Romana', preco:'R$ 414,19', pix:'R$ 393,48',
+    especs:[['MODELO','Romana'],['MATERIAL','Vidro'],['MEDIDAS','40 × 22,5 cm'],['PESO','1750 g por peça']] },
+  { url:'https://www.llevlar.com.br/caixa-10-telhas-transparente-pet-injetado-tettogres', id:'tl-pet', grupo:'Telhas', nome:'Caixa 10 Telhas Transparente PET Injetado — Tettogres', preco:'R$ 316,80', pix:'R$ 300,96',
+    especs:[['MODELO','Tettogres'],['MATERIAL','PET injetado'],['QUANTIDADE','Caixa com 10'],['ACABAMENTO','Transparente']] },
+  { url:'https://www.llevlar.com.br/telha-translucida-polipropileno-ondulada-6-0-x-1-10m-perfil-075', id:'tl-poli', grupo:'Telhas', nome:'Telha Translúcida Polipropileno Ondulada 6,0 × 1,10 m', preco:'R$ 460,78', pix:'R$ 437,74',
+    especs:[['MEDIDAS','6,0 × 1,10 m'],['PERFIL','075'],['MATERIAL','Polipropileno'],['ACABAMENTO','Translúcida leitosa']] },
+  { url:'https://www.llevlar.com.br/telha-pvc-colonial-ecologica-2-62-m-x-0-86-m', id:'tl-pvc', grupo:'Telhas', nome:'Telha PVC Colonial Ecológica 2,62 × 0,86 m', preco:'R$ 190,38', pix:'R$ 180,86',
+    especs:[['MEDIDAS','2,62 × 0,86 m'],['ÁREA ÚTIL','1,77 m²'],['MATERIAL','PVC'],['MODELO','Colonial ecológica']] },
+  { url:'https://www.llevlar.com.br/cumeeira-central-colonial-de-pvc', id:'tl-cume', grupo:'Telhas', nome:'Cumeeira Central Colonial de PVC', preco:'R$ 87,68', pix:'R$ 83,30',
+    especs:[['MODELO','Cumeeira central colonial'],['MATERIAL','PVC'],['CORES','Terracota e branco'],['APLICAÇÃO','Cumeeira']] },
+  { url:'https://www.llevlar.com.br/parafuso-telheiro-autobrocante-com-arruela-de-vedacao-5-5x3-100-pecas', id:'tl-paraf', grupo:'Telhas', nome:'Parafuso Telheiro Autobrocante com Arruela de Vedação 5,5×3 — 100 peças', preco:'R$ 54,99', pix:'R$ 52,24',
+    especs:[['MEDIDAS','5,5 mm × 8 cm'],['QUANTIDADE','100 peças'],['VEDAÇÃO','Com arruela'],['TIPO','Autobrocante']] },
+  { url:'https://www.llevlar.com.br/calco-para-telhas-onduladas-perfil-075-onda-baixa-100-unidades', id:'tl-calco', grupo:'Telhas', nome:'Calço para Telhas Onduladas Perfil 075 Onda Baixa — 100 unidades', preco:'R$ 22,92', pix:'R$ 21,77',
+    especs:[['PERFIL','075 — onda baixa'],['QUANTIDADE','100 unidades'],['APLICAÇÃO','Telha ondulada'],['FUNÇÃO','Calço de apoio']] },
+
+  { url:'https://www.llevlar.com.br/telha-translucida-polipropileno-ondulada-3-05-x-1-10m-perfil-177', id:'tl-pp305', grupo:'Telhas', nome:'Telha Translúcida Polipropileno Ondulada 3,05 × 1,10 m — Perfil 177', preco:'R$ 233,52', pix:'R$ 221,84',
+    especs:[['MEDIDAS','3,05 × 1,10 m'],['PERFIL','177'],['MATERIAL','Polipropileno'],['ENVIO','Somente transportadora']] },
+  { url:'https://www.llevlar.com.br/telha-translucida-polipropileno-ondulada-1-83-x-1-10m-perfil-177', id:'tl-pp183', grupo:'Telhas', nome:'Telha Translúcida Polipropileno Ondulada 1,83 × 1,10 m — Perfil 177', preco:'R$ 139,12', pix:'R$ 132,16',
+    especs:[['MEDIDAS','1,83 × 1,10 m'],['PERFIL','177'],['MATERIAL','Polipropileno'],['ACABAMENTO','Translúcida leitosa']] },
+  { url:'https://www.llevlar.com.br/telha-translucida-polipropileno-ondulada-1-83-x-0-50m-perfil-075', id:'tl-pp050', grupo:'Telhas', nome:'Telha Translúcida Polipropileno Ondulada 1,83 × 0,50 m — Perfil 075', preco:'R$ 57,38', pix:'R$ 54,51',
+    especs:[['MEDIDAS','1,83 × 0,50 m'],['PERFIL','075'],['MATERIAL','Polipropileno'],['ACABAMENTO','Translúcida leitosa']] },
+  { url:'https://www.llevlar.com.br/kit-10-telha-de-policarbonato-transparente-perfil-177-2-44-x-1-10m-acessorios', id:'tl-kit10', grupo:'Telhas', nome:'Kit 10 Telhas de Policarbonato Transparente Perfil 177 — 2,44 × 1,10 m + Acessórios', preco:'R$ 2.261,90', pix:'R$ 2.148,81',
+    especs:[['MEDIDAS','2,44 × 1,10 m'],['PERFIL','177 — onda alta'],['O KIT','10 telhas + 100 calços'],['FIXAÇÃO','100 parafusos inclusos']] },
+  { url:'https://www.llevlar.com.br/telha-em-fibra-de-vidro-ondulada-incolor-3-05-x-1-10-m-perfil-177', id:'tl-fibra', grupo:'Telhas', nome:'Telha em Fibra de Vidro Ondulada Incolor 3,05 × 1,10 m — Perfil 177', preco:'R$ 141,40', pix:'R$ 134,33',
+    especs:[['MEDIDAS','3,05 × 1,10 m'],['ESPESSURA','0,6 mm'],['MATERIAL','Fibra de vidro'],['ACABAMENTO','Incolor']] },
+  { url:'https://www.llevlar.com.br/telha-pvc-plan-ecologica-2-42-m-x-0-88-m-translucida', id:'tl-pvcplan', grupo:'Telhas', nome:'Telha PVC Plan Ecológica 2,42 × 0,88 m — Translúcida', preco:'R$ 195,34', pix:'R$ 185,57',
+    especs:[['MEDIDAS','2,42 × 0,88 m'],['MODELO','Plan ecológica'],['MATERIAL','PVC'],['ACABAMENTO','Translúcida']] },
+  { url:'https://www.llevlar.com.br/telha-de-vidro-portuguesa-i', id:'tl-vport', grupo:'Telhas', nome:'Telha de Vidro Portuguesa', preco:'R$ 73,37', pix:'R$ 69,70',
+    especs:[['MODELO','Portuguesa'],['MATERIAL','Vidro'],['MEDIDAS','40 × 23,3 cm'],['PESO','1850 g']] },
+  { url:'https://www.llevlar.com.br/telha-de-vidro-romana-i', id:'tl-vrom', grupo:'Telhas', nome:'Telha de Vidro Romana', preco:'R$ 73,37', pix:'R$ 69,70',
+    especs:[['MODELO','Romana'],['MATERIAL','Vidro'],['MEDIDAS','40 × 22,5 cm'],['PESO','1750 g']] },
+  { url:'https://www.llevlar.com.br/telha-de-vidro-colonial-canal-p', id:'tl-vcol', grupo:'Telhas', nome:'Telha de Vidro Colonial Canal', preco:'R$ 80,26', pix:'R$ 76,25',
+    especs:[['MODELO','Colonial canal'],['MATERIAL','Vidro'],['MEDIDAS','49,9 × 19,2 cm'],['TAMANHO','P']] },
+  { url:'https://www.llevlar.com.br/caixa-14-telhas-transparente-pet-injetado-romana-reta-mundi-barrobello-laranjal', id:'tl-pet14', grupo:'Telhas', nome:'Caixa 14 Telhas Transparente PET Injetado — Romana Reta / Mundi / Barrobello', preco:'R$ 362,14', pix:'R$ 344,03',
+    especs:[['MODELO','Romana Reta · Mundi'],['MATERIAL','PET injetado'],['QUANTIDADE','Caixa com 14'],['ACABAMENTO','Transparente']] },
+  { url:'https://www.llevlar.com.br/cumeeira-central-tipo-plan-de-pvc', id:'tl-cplan', grupo:'Telhas', nome:'Cumeeira Central Tipo Plan de PVC', preco:'R$ 87,68', pix:'R$ 83,30',
+    especs:[['MODELO','Central tipo Plan'],['MATERIAL','PVC'],['COR','Terracota'],['APLICAÇÃO','Cumeeira']] },
+  { url:'https://www.llevlar.com.br/cumeeira-central-articulada-modelo-plan-de-pvc', id:'tl-cart', grupo:'Telhas', nome:'Cumeeira Central Articulada Modelo Plan de PVC', preco:'R$ 64,00', pix:'R$ 60,80',
+    especs:[['MODELO','Central articulada Plan'],['MATERIAL','PVC'],['CORES','Terracota e branco'],['APLICAÇÃO','Cumeeira']] },
+
+  { url:'https://www.llevlar.com.br/manta-termica-face-unica-premium-bopp-100-m-2-fitas', id:'mt-fu-100', grupo:'Mantas térmicas', nome:'Manta Térmica Face Única Premium Bopp 100 m² + 2 Fitas', preco:'R$ 476,28', pix:'R$ 452,47',
+    especs:[['ÁREA','100 m²'],['ACABAMENTO','Face única · Bopp'],['ACOMPANHA','2 fitas de emenda'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-dupla-face-premium-bopp-25-m', id:'mt-df-25', grupo:'Mantas térmicas', nome:'Manta Térmica Dupla Face Premium Bopp 25 m²', preco:'R$ 117,66', pix:'R$ 111,78',
+    especs:[['ÁREA','25 m²'],['ACABAMENTO','Dupla face · Bopp'],['ADESIVA','Não'],['USO EXTERNO','Não indicada']] },
+  { url:'https://www.llevlar.com.br/manta-termica-dupla-face-premium-bopp-50-m', id:'mt-df-50', grupo:'Mantas térmicas', nome:'Manta Térmica Dupla Face Premium Bopp 50 m²', preco:'R$ 172,41', pix:'R$ 163,79',
+    especs:[['ÁREA','50 m²'],['ACABAMENTO','Dupla face · Bopp'],['ADESIVA','Não'],['USO EXTERNO','Não indicada']] },
+  { url:'https://www.llevlar.com.br/manta-termica-dupla-face-premium-bopp-50-m-1-fita', id:'mt-df-50f', grupo:'Mantas térmicas', nome:'Manta Térmica Dupla Face Premium Bopp 50 m² + 1 Fita', preco:'R$ 185,71', pix:'R$ 176,42',
+    especs:[['ÁREA','50 m²'],['ACABAMENTO','Dupla face · Bopp'],['ACOMPANHA','1 fita de emenda'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-foil-subcobertura-dupla-face-tnt-10m', id:'mt-foil-10', grupo:'Mantas térmicas', nome:'Manta Térmica Foil Subcobertura Dupla Face TNT 10 m²', preco:'R$ 33,96', pix:'R$ 32,26',
+    especs:[['ÁREA','10 m²'],['ACABAMENTO','Dupla face · TNT'],['APLICAÇÃO','Subcobertura'],['ADESIVA','Não']] },
+  { url:'https://www.llevlar.com.br/manta-termica-foil-subcobertura-dupla-face-tnt-10-m-1-fita', id:'mt-foil-10f', grupo:'Mantas térmicas', nome:'Manta Térmica Foil Subcobertura Dupla Face TNT 10 m² + 1 Fita', preco:'R$ 34,23', pix:'R$ 32,52',
+    especs:[['ÁREA','10 m²'],['ACABAMENTO','Dupla face · TNT'],['ACOMPANHA','1 fita de emenda'],['ADESIVA','Não']] },
+
+  { url:'https://www.llevlar.com.br/fita-asfaltica-aluminizada-auto-adesiva-05-cm-x-10-m', id:'fa-05', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Aluminizada Auto Adesiva 5 cm × 10 m', preco:'R$ 18,45', pix:'R$ 17,53',
+    especs:[['MEDIDAS','5 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Alumínio'],['ADESIVA','Sim — auto adesiva']] },
+  { url:'https://www.llevlar.com.br/fita-asfaltica-aluminizada-auto-adesiva-30-cm-x-10-m', id:'fa-30', grupo:'Fitas asfálticas', nome:'Fita Asfáltica Aluminizada Auto Adesiva 30 cm × 10 m', preco:'R$ 61,50', pix:'R$ 58,43',
+    especs:[['MEDIDAS','30 cm × 10 m'],['ESPESSURA','0,6 mm'],['ACABAMENTO','Alumínio'],['ADESIVA','Sim — auto adesiva']] },
+
+  { url:'https://www.llevlar.com.br/resina-impermeabilizante-incolor-para-telhas-50l', id:'resina-50', grupo:'Impermeabilização', nome:'Resina Impermeabilizante Incolor para Telhas 50 L', preco:'R$ 743,98', pix:'R$ 706,78',
+    especs:[['APRESENTAÇÃO','50 L'],['ACABAMENTO','Incolor'],['APLICAÇÃO','Telhas'],['BASE','Emulsão acrílica']] },
+  { url:'https://www.llevlar.com.br/primer-asfaltico-base-agua-acqua-3-6l', id:'primer-acqua', grupo:'Impermeabilização', nome:'Primer Asfáltico Base Água Acqua 3,6 L', preco:'R$ 54,48', pix:'R$ 51,76',
+    especs:[['APRESENTAÇÃO','Balde 3,6 L'],['CONSUMO','0,3 a 0,5 L/m²'],['BASE','Água'],['COR','Marrom escuro']] },
+  { url:'https://www.llevlar.com.br/aplicador-de-silicone-em-tubo-400ml-dvk-398', id:'apl-398', grupo:'Impermeabilização', nome:'Aplicador de Silicone em Tubo 400 ml — DVK 398', preco:'R$ 37,45', pix:'R$ 35,58',
+    especs:[['CAPACIDADE','400 ml'],['MODELO','DVK 398'],['FORMATO','Tubo'],['MATERIAL','Polipropileno']] },
+  { url:'https://www.llevlar.com.br/aplicador-de-silicone-em-sache-400ml-dvk-317', id:'apl-317', grupo:'Impermeabilização', nome:'Aplicador de Silicone em Sachê 400 ml — DVK 317', preco:'R$ 58,87', pix:'R$ 55,93',
+    especs:[['CAPACIDADE','400 ml'],['MODELO','DVK 317'],['FORMATO','Sachê'],['MATERIAL','Polipropileno']] },
+
+  { url:'https://www.llevlar.com.br/passarinheira-universal-anti-maritacas-10-m-lineares', id:'pr-univ10', grupo:'Proteção e ventilação', nome:'Passarinheira Universal Anti Maritacas 10 m Lineares', preco:'R$ 188,17', pix:'R$ 178,76',
+    especs:[['COMPRIMENTO','10 m lineares'],['ALTURA DA HASTE','7 cm'],['MATERIAL','Metálica'],['APLICAÇÃO','Universal']] },
+  { url:'https://www.llevlar.com.br/passarinheira-universal-10-m-lineares-ceramica', id:'pr-cer10', grupo:'Proteção e ventilação', nome:'Passarinheira Universal 10 m Lineares — Cerâmica', preco:'R$ 42,60', pix:'R$ 40,47',
+    especs:[['COMPRIMENTO','10 m lineares'],['ALTURA','8 cm'],['ESPESSURA','1,5 mm'],['COR','Cerâmica']] },
+  { url:'https://www.llevlar.com.br/passarinheira-romana-anti-maritacas-metal-10-metros', id:'pr-rom10', grupo:'Proteção e ventilação', nome:'Passarinheira Romana Anti Maritacas Metal 10 m', preco:'R$ 150,94', pix:'R$ 143,39',
+    especs:[['COMPRIMENTO','10 m'],['MODELO','Romana · Portuguesa'],['MATERIAL','Metal'],['FUNÇÃO','Anti maritacas']] },
+  { url:'https://www.llevlar.com.br/placa-anti-maritacas-regua-portuguesa', id:'pr-placa', grupo:'Proteção e ventilação', nome:'Placa Anti Maritacas Régua Portuguesa', preco:'R$ 20,82', pix:'R$ 19,78',
+    especs:[['COMPRIMENTO','95 cm'],['ALTURA','7,5 cm'],['ESPESSURA','1 mm'],['MATERIAL','Alumínio']] },
+  { url:'https://www.llevlar.com.br/grade-de-ventilacao-canalete-90-kit-c-6-pecas', id:'pr-gr90', grupo:'Proteção e ventilação', nome:'Grade de Ventilação Canalete 90 — Kit 6 peças', preco:'R$ 53,33', pix:'R$ 50,66',
+    especs:[['MODELO','Canalete 90'],['QUANTIDADE','6 peças'],['MATERIAL','Polipropileno'],['COR','Preto']] },
+  { url:'https://www.llevlar.com.br/grade-de-ventilacao-canalete-44-kit-c-10-pecas', id:'pr-gr44', grupo:'Proteção e ventilação', nome:'Grade de Ventilação Canalete 44 — Kit 10 peças', preco:'R$ 32,72', pix:'R$ 31,08',
+    especs:[['MODELO','Canalete 44'],['QUANTIDADE','10 peças'],['MATERIAL','Polipropileno'],['COR','Preto']] },
+  { url:'https://www.llevlar.com.br/placa-de-vedacao-fechamento-de-telha-nervurada-canalete-90-20-unidades', id:'pr-ved90', grupo:'Proteção e ventilação', nome:'Placa de Vedação Telha Nervurada Canalete 90 — 20 unidades', preco:'R$ 150,00', pix:'R$ 142,50',
+    especs:[['MODELO','Canalete 90'],['QUANTIDADE','20 unidades'],['ALTURA','4,50 cm'],['BASE','25 cm']] },
+
+  { url:'https://www.llevlar.com.br/lona-plastica-impermeavel-carreteiro-3x5m-com-ilhois-100-gramas', id:'rf-lona35', grupo:'Reformas e lonas', nome:'Lona Plástica Impermeável Carreteiro 3 × 5 m com Ilhoses', preco:'R$ 112,90', pix:'R$ 107,26',
+    especs:[['MEDIDAS','3 × 5 m'],['ESPESSURA','100 micras'],['COR','Azul'],['ACABAMENTO','Com ilhoses']] },
+  { url:'https://www.llevlar.com.br/lona-plastica-impermeavel-carreteiro-4x4m-com-ilhois-100-gramas', id:'rf-lona44', grupo:'Reformas e lonas', nome:'Lona Plástica Impermeável Carreteiro 4 × 4 m com Ilhoses', preco:'R$ 108,97', pix:'R$ 103,52',
+    especs:[['MEDIDAS','4 × 4 m'],['ESPESSURA','100 micras'],['COR','Azul'],['ACABAMENTO','Com ilhoses']] },
+  { url:'https://www.llevlar.com.br/protetor-para-pisos-com-plastico-bolha-25m-reutilizavel-atco-protege-pro', id:'rf-prot25', grupo:'Reformas e lonas', nome:'Protetor para Pisos com Plástico Bolha 25 m² Reutilizável', preco:'R$ 260,30', pix:'R$ 247,29',
+    especs:[['ÁREA','25 m²'],['MODELO','ATCO Protege Pro'],['REUTILIZÁVEL','Sim'],['APLICAÇÃO','Proteção de piso']] },
+  { url:'https://www.llevlar.com.br/protetor-para-piso-com-plastico-bolha-60m2', id:'rf-prot60', grupo:'Reformas e lonas', nome:'Protetor para Piso com Plástico Bolha 60 m²', preco:'R$ 460,75', pix:'R$ 437,71',
+    especs:[['ÁREA','60 m²'],['COMPOSIÇÃO','Polietileno reciclável'],['REUTILIZÁVEL','Sim'],['APLICAÇÃO','Proteção de piso']] },
+];
+
+/* Pauta por estação: o que a obra pede em cada época do ano no Brasil.
+   Os produtos são ids de PRODUCTS — nada aqui inventa item de catálogo. */
+const TRENDS = [
+  { id:'primavera', nome:'Primavera', janela:'Setembro a novembro', meses:[8,9,10],
+    gancho:'Revise o telhado antes da chuva', apoioCurto:'Última janela de tempo seco do ano.',
+    motivo:'É a última janela de tempo seco. Fita asfáltica e primer precisam de superfície seca para colar — depois de novembro a chuva fecha essa porta.',
+    produtos:['fa-10','fa-45','primer-36','tl-paraf'] },
+  { id:'verao', nome:'Verão', janela:'Dezembro a fevereiro', meses:[11,0,1],
+    gancho:'Calor embaixo da telha tem solução', apoioCurto:'Subcobertura reflete o calor antes do forro.',
+    motivo:'Pico de calor e de chuva de verão ao mesmo tempo: manta térmica para o conforto, reparo pontual de emenda para a água.',
+    produtos:['mt-foil-100','mt-fu-25','fa-45','resina-36'] },
+  { id:'outono', nome:'Outono', janela:'Março a maio',  meses:[2,3,4],
+    gancho:'A chuva passou: veja onde entrou', apoioCurto:'Mancha no forro é emenda aberta.',
+    motivo:'Mancha no forro, telha trincada e rufo solto aparecem agora. É a hora do post de erro comum e de reparo com fita.',
+    produtos:['fa-60','fa-90','tl-coppo','tl-vidro-t'] },
+  { id:'inverno', nome:'Inverno', janela:'Junho a agosto', meses:[5,6,7],
+    gancho:'Tempo seco é tempo de obra bem feita', apoioCurto:'Cura e adesão sem umidade atrapalhando.',
+    motivo:'Melhor época para impermeabilizar laje e muro: cura e adesão sem umidade atrapalhando. Também é quando o frio entra pelo telhado.',
+    produtos:['ma-30','dreno-105','mt-foil-25','primer-18'] },
+];
+
+/* Descrição e perguntas frequentes por linha de produto. Todo texto aqui vem
+   do catálogo llevlar.com.br — avisos, consumo e composição são do fabricante. */
+const INFO = {
+  'Telhas': {
+    resumo: 'Telhas translúcidas e transparentes para dar luz natural à cobertura sem abrir mão da vedação: policarbonato, vidro, PET injetado, fibra de vidro, polipropileno e PVC, além das cumeeiras e das peças de fixação.',
+    faq: [
+      ['A telha translúcida encaixa na minha telha comum?','Sim, desde que o modelo e o perfil sejam os mesmos. As telhas de vidro e PET seguem os modelos cerâmicos (Portuguesa, Romana, Colonial, Americana) e as onduladas seguem o perfil — 075 para onda baixa e 177 para onda alta.'],
+      ['Qual a diferença entre perfil 075 e 177?','O 075 é a onda baixa e o 177 é a onda alta. O calço e o parafuso precisam ser do mesmo perfil da telha, senão a peça não assenta e a fixação abre caminho para a água.'],
+      ['A telha vem com parafuso?','Só nos kits. O Kit 10 de policarbonato perfil 177 acompanha 100 calços e 100 parafusos; as telhas avulsas não incluem fixação — o parafuso telheiro com arruela de vedação é vendido à parte.'],
+      ['Tem frete grátis para telha grande?','Não. As telhas onduladas de polipropileno são enviadas somente por transportadora e não têm frete grátis, por causa do comprimento da peça.'],
+    ],
+  },
+  'Mantas térmicas': {
+    resumo: 'Mantas de subcobertura fabricadas em tecido de polipropileno, polietileno aditivado e alumínio. Fazem barreira refletiva contra o calor, ajudam a segurar goteiras e infiltrações e existem em face única (Bopp), dupla face (Bopp) e Foil TNT, de 1 a 100 m².',
+    faq: [
+      ['A manta térmica é auto adesiva?','Não. A manta não possui cola e não deve ser colada — o aviso é do próprio fabricante. A fixação é mecânica, sobre o caibro ou a estrutura, e a emenda é feita com fita de emenda aluminizada.'],
+      ['Posso usar a manta exposta ao tempo?','Não. Ela não é indicada para uso externo: trabalha como subcobertura, protegida pela telha.'],
+      ['Qual a diferença entre face única e dupla face?','Face única tem alumínio em um lado só; dupla face reflete dos dois lados. Para telhado sobre forro habitado, a dupla face tende a render mais no verão e no inverno.'],
+      ['Como escolho a metragem?','Pela área da cobertura mais a sobreposição das emendas. A Face Única Bopp 25 m², por exemplo, é um rolo de 1,20 m de largura por 20,83 m de comprimento.'],
+      ['Bopp ou Foil TNT?','Bopp é o acabamento em ráfia de polipropileno, mais fino (0,13 mm na face única). O Foil TNT tem o acabamento em manta não tecida e é o mais usado em subcobertura de telhado.'],
+    ],
+  },
+  'Fitas asfálticas': {
+    resumo: 'Fita asfáltica aluminizada auto adesiva de 0,6 mm, em rolos de 10 m e larguras de 5 a 90 cm. Veda por adesão direta — sem maçarico, sem cura — em rufo, calha, emenda de telha e ponto de parafuso.',
+    faq: [
+      ['Precisa de maçarico para aplicar?','Não. A fita é auto adesiva: sai o filme protetor e cola por pressão. Nada de chama, nada de tempo de cura.'],
+      ['Como preparar a superfície?','Limpa e seca. Poeira e umidade são as duas causas mais comuns de emenda que descola depois.'],
+      ['Qual largura escolher?','Pela largura da falha mais a sobreposição de cada lado. 5 e 10 cm para trinca e parafuso, 30 e 45 cm para rufo e calha, 60 e 90 cm para remendo de área.'],
+      ['Serve para telha cerâmica?','A versão de 90 cm tem acabamento terracota, feita para telhado; as demais são aluminizadas. Em telha branca, a resina incolor costuma ser a opção estética.'],
+    ],
+  },
+  'Impermeabilização': {
+    resumo: 'A linha que veda antes da chuva: primer asfáltico base água para preparar a superfície, manta asfáltica de polietileno para laje, chapa dreno para muro de arrimo, resina incolor para telhas e os aplicadores de silicone.',
+    faq: [
+      ['Quanto rende o primer asfáltico?','O consumo é de 0,3 a 0,5 litro por m². O galão de 3,6 L e o balde de 18 L são base água, na cor marrom escuro.'],
+      ['Para que serve o primer?','Ele prepara e sela a superfície antes da manta asfáltica, melhorando a aderência. Sem primer, a manta tende a soltar nos cantos.'],
+      ['A resina incolor serve para qualquer telha?','A Telhacqua é uma emulsão de polímeros 100% acrílicos, plastificados e biocidas (anti mofo e anti bolor), indicada para telhas brancas.'],
+      ['Quando usar a chapa dreno?','Em muro de arrimo e túneis, onde a água precisa de caminho para escoar em vez de ficar pressionando a estrutura. Existe em 1,05 × 15 m e 2,10 × 15 m.'],
+    ],
+  },
+  'Proteção e ventilação': {
+    resumo: 'Passarinheiras, placas anti maritacas, grades de ventilação canalete e placas de vedação: fecham o vão entre a telha e a estrutura sem abrir mão da circulação de ar.',
+    faq: [
+      ['Passarinheira e placa anti maritacas são a mesma coisa?','Fazem o mesmo trabalho de fechar o vão da telha. A passarinheira vem em metros lineares para corrida inteira; a placa em régua é peça avulsa de 95 cm.'],
+      ['Qual modelo serve na minha telha?','Existe versão por modelo: Romana/Portuguesa, Amianto, Cerâmica e Universal. A Universal metálica atende a maioria dos perfis.'],
+      ['Fechar o vão não abafa o telhado?','Por isso existe a grade de ventilação canalete — ela fecha a passagem do pássaro e mantém o ar circulando. Há versão para canalete 44 e canalete 90.'],
+    ],
+  },
+  'Reformas e lonas': {
+    resumo: 'Lona plástica impermeável carreteiro com ilhoses e protetores de piso em plástico bolha reutilizável, para proteger obra e acabamento durante a reforma.',
+    faq: [
+      ['Qual a espessura da lona carreteiro?','100 micras, na cor azul, com ilhoses para amarração. Disponível em 3 × 5 m e 4 × 4 m.'],
+      ['O protetor de piso pode ser reaproveitado?','Sim, o ATCO Protege Pro de 25 m² é reutilizável. Há também a versão de 60 m² em polietileno reciclável.'],
+    ],
+  },
+};
+
+/* Texto próprio do SKU, quando o site traz algo além da metragem. */
+const DESC = {
+  'mt-fu-25': 'Rolo de 1,20 m de largura por 20,83 m de comprimento, 25 m² no total. Espessura de 0,13 mm com estrutura em PP — ráfia de polipropileno.',
+  'mt-foil-25': 'Vem com uma fita de emenda aluminizada no pacote, o suficiente para fechar as emendas de uma cobertura de 25 m².',
+  'mt-foil-100f': 'Acompanha duas fitas de emenda — a combinação usada em telhado inteiro, onde a metragem exige mais de uma corrida de manta.',
+  'mt-fu-100': 'A maior metragem da linha face única, com duas fitas de emenda inclusas. Indicada para telhado completo em uma única compra.',
+  'tl-kit10': 'Kit fechado de cobertura: 10 telhas de policarbonato onda alta (2,44 × 1,10 m), 100 calços e 100 parafusos. Sai com a fixação toda dimensionada.',
+  'resina-36': 'Telhacqua: emulsão de polímeros 100% acrílicos, plastificados e biocidas (anti mofo e anti bolor), indicada para telhas brancas.',
+  'resina-50': 'Mesma formulação Telhacqua da versão 3,6 L, no volume de obra — emulsão acrílica com ação anti mofo e anti bolor para telhas brancas.',
+  'ma-30': 'Manta asfáltica modelo N30 em polietileno: 30 kg de material para cobrir 10 m² de laje. Trabalha em conjunto com o primer asfáltico.',
+  'primer-36': 'Galão de 3,6 L para preparar a superfície antes da manta asfáltica. Rende de 7 a 12 m² conforme a absorção do substrato.',
+  'primer-18': 'Balde de 18 L, a apresentação de obra. Mesmo consumo de 0,3 a 0,5 L/m² da versão em galão.',
+  'dreno-105': 'Chapa dreno de 1,05 × 15 m — 15,75 m² por rolo. Dá caminho para a água escoar em muro de arrimo em vez de pressionar a estrutura.',
+  'dreno-210': 'Chapa dreno na largura dobrada, 2,10 × 15 m — 31,5 m² por rolo, para muros longos com menos emendas.',
+  'tl-pp305': 'A maior peça da linha ondulada de polipropileno. Envio somente por transportadora — não tem frete grátis por causa do comprimento.',
+  'tl-poli': 'Peça de 6 metros, a maior da linha translúcida. Envio somente por transportadora.',
+  'tl-vidro-r': 'Caixa fechada com 5 telhas de vidro modelo Romana, 40 × 22,5 cm e 1750 g por peça.',
+  'tl-pet14': 'Caixa com 14 telhas em PET injetado, compatível com os modelos Romana Reta, Mundi, Barrobello e Laranjal.',
+  'tl-pet': 'Caixa com 10 telhas em PET injetado no modelo Tettogres — alternativa mais leve e resistente ao impacto que a telha de vidro.',
+  'fa-90': 'A única largura da linha com acabamento terracota, feita para telhado cerâmico onde o alumínio ficaria aparente.',
+  'fa-05': 'A menor largura da linha: trinca fina, ponto de parafuso e reparo pontual.',
+  'tl-paraf': 'Parafuso telheiro autobrocante 5,5 mm × 8 cm com arruela de vedação, 100 peças. A arruela é o que impede a água de entrar pelo furo.',
+  'tl-calco': 'Calço perfil 075 onda baixa, 100 unidades. Apoia a telha ondulada no ponto de fixação e evita que ela trinque ao apertar o parafuso.',
+  'pr-univ10': 'Passarinheira metálica universal, 10 m lineares, haste de 7 cm — atende a maioria dos perfis de telha.',
+  'pr-ved90': 'Placa de vedação para telha nervurada canalete 90, 20 unidades. Altura 4,50 cm e base de 25 cm.',
+  'rf-prot25': 'ATCO Protege Pro: manta protetora de piso em plástico bolha, 1 × 25 m, reutilizável de obra em obra.',
+  'rf-prot60': 'Protetor de piso em plástico bolha de polietileno reciclável, 60 m² — a metragem para obra inteira.',
+};
+
+/* A chave vive só aqui, no navegador de quem usa — nunca em arquivo do portal. */
+const KEY_STORE = 'llev-api-key';
+
+/* Etapa e o segundo em que ela entra — espelha a ordem que o prompt pede. */
+const ETAPAS = [
+  ['Enviando a arte', 0],
+  ['Transcrevendo o texto letra por letra', 3],
+  ['Conferindo grafia e português', 9],
+  ['Comparando com o catálogo', 15],
+  ['Fechando o parecer', 21],
+];
+
+const NIVEL = { erro:'#E84C3D', atencao:'#FE8401', ok:'#3FB27A' };
+
+const FAQ_GERAL = [
+  ['Como funciona o pagamento?','O preço em destaque é o do PIX ou depósito, com desconto. No cartão, o valor cheio parcela em até 6× sem juros.'],
+  ['Como falo com a loja?','WhatsApp e telefone (19) 99897-9618 e (19) 2121-0761, ou falecom@llev.com.br.'],
+];
+
+const GRUPOS = ['Telhas','Mantas térmicas','Fitas asfálticas','Impermeabilização','Proteção e ventilação','Reformas e lonas'];
+const COR_GRUPO = {
+  'Todos':'#FE5D0A', 'Telhas':'#FE5D0A', 'Mantas térmicas':'#FE8401', 'Fitas asfálticas':'#0B7BC4',
+  'Impermeabilização':'#00A0A8', 'Proteção e ventilação':'#7A5CE0', 'Reformas e lonas':'#3FB27A',
+};
+
+const TEMPLATES = [
+  { id:'post', label:'POST C/ IMAGEM' },
+  { id:'passo', label:'PASSO A PASSO' },
+  { id:'ficha', label:'FICHA TÉCNICA' },
+  { id:'onde', label:'ONDE APLICAR' },
+  { id:'erro', label:'ERRO × CERTO' },
+  { id:'promo', label:'PREÇO / PROMO' },
+  { id:'dica', label:'DICA (CARROSSEL)' },
+  { id:'catalogo', label:'CATÁLOGO' },
+  { id:'selo', label:'SELO / GARANTIA' },
+  { id:'faq', label:'PERGUNTA FREQUENTE' },
+];
+
+const FORMATS = [
+  { id:'story', label:'STORY 1080×1920', w:1080, h:1920 },
+  { id:'carrossel', label:'FEED 1080×1350', w:1080, h:1350 },
+];
+
+const FIELDS = {
+  post: [
+    ['chamada','CHAMADA','Proteção que começa na telha'],
+    ['titulo','TÍTULO','Manta térmica em obra'],
+    ['apoio','APOIO','Barreira refletiva contra o calor, aplicada antes do forro.'],
+    ['cta','CTA','Fale com a LLEV Lar'],
+  ],
+  passo: [
+    ['titulo','TÍTULO','Como aplicar a fita asfáltica'],
+    ['p1','PASSO 1','Limpe e seque a superfície'],
+    ['p2','PASSO 2','Meça e corte o comprimento'],
+    ['p3','PASSO 3','Cole pressionando do centro para fora'],
+    ['p4','PASSO 4','Confira as emendas'],
+  ],
+  ficha: [
+    ['produto','PRODUTO','Nome do produto'],
+    ['subtitulo','DESCRIÇÃO CURTA','Descrição curta em uma linha'],
+    ['k1','ITEM 1','MEDIDAS'], ['v1','VALOR 1','a preencher'],
+    ['k2','ITEM 2','COMPOSIÇÃO'], ['v2','VALOR 2','a preencher'],
+    ['k3','ITEM 3','APLICAÇÃO'], ['v3','VALOR 3','a preencher'],
+    ['k4','ITEM 4','RENDIMENTO'], ['v4','VALOR 4','a preencher'],
+  ],
+  onde: [
+    ['titulo','TÍTULO','Onde aplicar'],
+    ['o1','LOCAL 1','Laje exposta'],
+    ['o2','LOCAL 2','Telhado e cumeeira'],
+    ['o3','LOCAL 3','Calha e rufo'],
+    ['o4','LOCAL 4','Caixa d’água'],
+  ],
+  erro: [
+    ['titulo','TÍTULO','Emenda que descola'],
+    ['errado','ERRO COMUM','Colar sobre poeira e superfície úmida'],
+    ['certo','JEITO CERTO','Limpar, secar e sobrepor 5 cm na emenda'],
+  ],
+  promo: [
+    ['chamada','CHAMADA','Semana da obra protegida'],
+    ['produto','PRODUTO','Nome do produto'],
+    ['de','PREÇO DE','R$ 00,00'],
+    ['por','PREÇO POR','R$ 00,00'],
+    ['condicao','CONDIÇÃO','Enquanto durar o estoque'],
+  ],
+  dica: [
+    ['titulo','CAPA','3 cuidados antes de impermeabilizar'],
+    ['d1','DICA 1','Superfície seca: umidade presa vira bolha depois'],
+    ['d2','DICA 2','Respeite a sobreposição indicada na emenda'],
+    ['d3','DICA 3','Aplique no calor do dia para melhor adesão'],
+  ],
+};
+
+/* O catálogo é o único modelo multi-produto: título próprio (linha), não o
+   compartilhado, senão a manchete de um SKU cai sobre a lista de outros. */
+FIELDS.catalogo = [
+  ['linha','TÍTULO DA LINHA','Linha de mantas térmicas'],
+  ['apoio','APOIO','Atendimento online · llevlar.com.br'],
+  ['n1','PRODUTO 1','Face Única Bopp 25 m²'], ['pr1','PREÇO 1','R$ 85,99'],
+  ['n2','PRODUTO 2','Face Única Bopp 50 m²'], ['pr2','PREÇO 2','R$ 229,51'],
+  ['n3','PRODUTO 3','Foil Dupla Face TNT 25 m²'], ['pr3','PREÇO 3','R$ 97,81'],
+  ['n4','PRODUTO 4','Foil Dupla Face TNT 100 m²'], ['pr4','PREÇO 4','R$ 286,80'],
+];
+
+FIELDS.selo = [
+  ['destaque','DESTAQUE','0,6 mm'],
+  ['titulo','TÍTULO','Espessura de fita asfáltica que vale a pena'],
+  ['s1','ITEM 1','Auto adesiva — sem maçarico'],
+  ['s2','ITEM 2','Acabamento em alumínio'],
+  ['s3','ITEM 3','Rolo de 10 metros'],
+  ['apoio','APOIO','Especificação de catálogo LLEV Lar'],
+];
+
+FIELDS.faq = [
+  ['pergunta','PERGUNTA','A manta térmica é auto adesiva?'],
+  ['resposta','RESPOSTA','Não. As mantas térmicas Bopp e Foil não têm cola e não devem ser coladas — a fixação é mecânica, e a emenda é feita com fita.'],
+  ['cta','CTA','Dúvida na aplicação? Chama no WhatsApp'],
+];
+
+const BGS = [
+  { id:'navy', label:'NAVY', bg:'#011F38', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+  { id:'azul', label:'AZUL', bg:'#012E53', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+  { id:'claro', label:'CLARO', bg:'#EDEDED', ink:'#011F38', logo:'assets/logo-principal.png' },
+  { id:'laranja', label:'LARANJA', bg:'#FE5D0A', ink:'#FFFFFF', logo:'assets/logo-branco.png' },
+  { id:'grad', label:'GRADIENTE', bg:'linear-gradient(160deg,#012E53,#004074)', ink:'#FFFFFF', logo:'assets/logo-branco-laranja.png' },
+];
+
+const PATTERNS = {
+  none: { label:'LISO', css:'none', op:0 },
+  grid: { label:'GRADE', css:'repeating-linear-gradient(0deg,ACC 0 2px,transparent 2px 90px),repeating-linear-gradient(90deg,ACC 0 2px,transparent 2px 90px)', op:.35 },
+  diag: { label:'DIAGONAL', css:'repeating-linear-gradient(-45deg,ACC 0 24px,transparent 24px 72px)', op:.16 },
+  telha: { label:'TELHA', css:'repeating-linear-gradient(90deg,ACC 0 6px,transparent 6px 46px)', op:.2 },
+};
+
+const COPY_BASE = [
+  {
+    titulo:'A manta térmica não esfria: ela impede o calor de entrar',
+    legenda:'Telha esquenta. O que muda a temperatura de dentro é a barreira entre a telha e o forro.\n\nA manta térmica reflete o calor antes que ele chegue ao ambiente — e no inverno faz o caminho inverso, segurando o calor dentro.\n\nAplicação limpa, seca, sobreposição respeitada. É isso que garante o resultado.',
+    hashtags:'#llevlar #mantatermica #conforototermico #obra',
+  },
+  {
+    titulo:'Infiltração começa pela emenda, não pela manta',
+    legenda:'Na maioria das obras que voltam com problema, a manta está inteira. O que falhou foi a emenda.\n\nSuperfície suja, superfície úmida ou sobreposição menor que a indicada: qualquer um dos três abre caminho para a água.\n\nAntes de aplicar a fita asfáltica: limpa, seca, sobreposta.',
+    hashtags:'#llevlar #fitaasfaltica #impermeabilizacao #aplicador',
+  },
+  {
+    titulo:'Onde a fita asfáltica resolve em minutos',
+    legenda:'Rufo solto, calha com trinca, emenda de telha, ponto de parafuso: são os pontos onde a água entra primeiro e onde o reparo é mais rápido.\n\nA fita asfáltica veda por adesão direta — sem obra, sem espera de cura.\n\nSalva esse post para a próxima manutenção.',
+    hashtags:'#llevlar #fitaasfaltica #manutencao #reparo',
+  },
+];
+
+class Component extends DCLogic {
+  state = {
+    view: 'portal',
+    tpl: 'passo',
+    tag: 'aplicacao',
+    fmt: 'story',
+    bg: 'navy',
+    pat: 'grid',
+    page: 0,
+    vals: {},
+    accent: '#FE5D0A',
+    imgBg: '',
+    imgProd: '',
+    posX: 50,
+    posY: 50,
+    blur: 0,
+    dim: 45,
+    prodSize: 62,
+    briefing: '',
+    tone: 'Técnico',
+    aud: 'Aplicador',
+    copys: [],
+    sugestao: null,
+    busca: '',
+    grupo: 'Todos',
+    aberto: null,
+    prodUrl: '',
+    prodNome: '',
+    copiado: false,
+    apiKey: '',
+    keyModal: false,
+    keyDraft: '',
+    keyErr: '',
+    revImg: '',
+    revImgNome: '',
+    revCtx: '',
+    revLoading: false,
+    revErr: '',
+    revResult: null,
+    revSeg: 0,
+    exporting: false,
+  };
+
+  artRef = React.createRef();
+
+  componentWillUnmount(){
+    if(this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+
+  async exportPng(fmt, tpl, suffix){
+    const node = this.artRef.current;
+    const lib = window.htmlToImage;
+    if(!node || !lib) return;
+    const prev = node.style.transform;
+    node.style.transform = 'none';
+    try {
+      const url = await lib.toPng(node, { width: fmt.w, height: fmt.h, pixelRatio: 1, cacheBust: true });
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'llev-' + tpl.id + (suffix ? '-' + suffix : '') + '-' + fmt.w + 'x' + fmt.h + '.png';
+      a.click();
+    } finally {
+      node.style.transform = prev;
+    }
+  }
+
+  async exportAll(fmt, tpl, total){
+    if(this.state.exporting) return;
+    this.setState({ exporting: true });
+    try {
+      for(let i = 0; i < total; i++){
+        await new Promise(r => this.setState({ page: i }, r));
+        await new Promise(r => setTimeout(r, 350));
+        await this.exportPng(fmt, tpl, String(i + 1).padStart(2, '0'));
+        await new Promise(r => setTimeout(r, 250));
+      }
+    } finally {
+      this.setState({ exporting: false });
+    }
+  }
+
+  /* A pauta é sugestão: nada é escrito até o usuário aplicar linha por linha. */
+  usePauta(t){
+    this.save({ view:'studio', sugestao: {
+      nome: t.nome + ' · ' + t.janela,
+      linhas: [
+        ['chamada','CHAMADA', t.nome + ' · ' + t.janela],
+        ['titulo','TÍTULO', t.gancho],
+        ['apoio','APOIO', t.apoioCurto],
+      ],
+    } });
+  }
+
+  async copiarUrl(){
+    const url = this.state.prodUrl;
+    if(!url) return;
+    try { await navigator.clipboard.writeText(url); }
+    catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+    }
+    this.setState({ copiado: true });
+    clearTimeout(this._tCopy);
+    this._tCopy = setTimeout(() => this.setState({ copiado: false }), 2000);
+  }
+
+  loadProduct(p){
+    /* Escolher um produto reescreve todos os campos de texto: um produto por vez,
+       o mesmo produto em qualquer modelo. */
+    const curto = p.especs.slice(0, 2).map(e => e[1]).join(' · ');
+    const vals = Object.assign({}, this.state.vals, {
+      produto: p.nome,
+      subtitulo: p.grupo + ' · a partir de ' + p.pix + ' no PIX',
+      por: p.pix,
+      de: p.preco,
+      titulo: p.nome,
+      linha: 'Linha de ' + p.grupo.toLowerCase(),
+      n1: p.nome, pr1: p.pix,
+      chamada: p.grupo,
+      apoio: curto + ' · a partir de ' + p.pix + ' no PIX',
+      destaque: p.especs[0][1],
+      pergunta: p.nome + ': o que vem na embalagem?',
+      resposta: p.especs.map(e => e[0].toLowerCase() + ' ' + e[1]).join(', ') + '. Preço de ' + p.pix + ' no PIX ou depósito.',
+      cta: 'Fale com a LLEV Lar',
+    });
+    const TAG_POR_GRUPO = { 'Telhas':'telhas', 'Mantas térmicas':'termico', 'Fitas asfálticas':'imperm', 'Impermeabilização':'imperm', 'Proteção e ventilação':'manutencao', 'Reformas e lonas':'aplicacao' };
+    const tag = TAG_POR_GRUPO[p.grupo] || this.state.tag;
+    p.especs.forEach((e, i) => {
+      vals['k' + (i + 1)] = e[0];
+      vals['v' + (i + 1)] = e[1];
+      if(i < 3) vals['s' + (i + 1)] = e[0].charAt(0) + e[0].slice(1).toLowerCase() + ': ' + e[1];
+    });
+    this.save({ view:'studio', tpl:'ficha', tag, vals, prodUrl: p.url, prodNome: p.nome, copiado: false });
+  }
+
+  componentDidMount(){
+    this._onResize = () => this.forceUpdate();
+    window.addEventListener('resize', this._onResize);
+    try {
+      const raw = localStorage.getItem('llev-portal-v1');
+      if(raw) this.setState(this.migrate(JSON.parse(raw)));
+    } catch(e){}
+    /* A chave mora em uma entrada separada e nunca entra no estado salvo do portal. */
+    let k = '';
+    try { k = localStorage.getItem(KEY_STORE) || ''; } catch(e){}
+    this.setState({ apiKey: k, keyModal: !k, keyDraft: '' });
+  }
+
+  saveKey(){
+    const k = (this.state.keyDraft || '').trim();
+    if(!k) return this.setState({ keyErr: 'Cole a chave para continuar.' });
+    if(k.indexOf('sk-ant-') !== 0) return this.setState({ keyErr: 'A chave da Anthropic começa com sk-ant-. Confira o que foi colado.' });
+    try { localStorage.setItem(KEY_STORE, k); } catch(e){}
+    this.setState({ apiKey: k, keyModal: false, keyDraft: '', keyErr: '' });
+  }
+
+  clearKey(){
+    try { localStorage.removeItem(KEY_STORE); } catch(e){}
+    this.setState({ apiKey: '', keyDraft: '', keyErr: '', keyModal: true });
+  }
+
+  /* Catálogo em texto: é o que permite dizer se o produto citado na arte existe. */
+  catalogoTxt(){
+    return PRODUCTS.map(p => [
+      p.nome, '| grupo: ' + p.grupo, '| preço: ' + p.preco, '| PIX: ' + p.pix,
+      '| ' + p.especs.map(e => e[0] + ' ' + e[1]).join('; '),
+    ].join(' ')).join('\n');
+  }
+
+  async revisar(){
+    const s = this.state;
+    if(!s.apiKey) return this.setState({ keyModal: true, keyDraft: '', keyErr: '' });
+    if(!s.revImg) return this.setState({ revErr: 'Suba a imagem da arte antes de revisar.' });
+    const m = /^data:(image\/[a-z+]+);base64,(.+)$/.exec(s.revImg);
+    if(!m) return this.setState({ revErr: 'Formato de imagem não reconhecido. Use PNG, JPG ou WEBP.' });
+
+    this.setState({ revLoading: true, revErr: '', revResult: null, revSeg: 0 });
+    clearInterval(this._revTick);
+    this._revTick = setInterval(() => this.setState(st => ({ revSeg: st.revSeg + 1 })), 1000);
+
+    const prompt = [
+      'Você revisa artes de redes sociais da LLEV Lar, loja online de materiais para telhado, impermeabilização e conforto térmico. Escreva em português do Brasil, tom técnico e direto de lojista de material de construção — sem marketing vazio, sem emoji.',
+      '',
+      'PASSO OBRIGATÓRIO ANTES DE QUALQUER JULGAMENTO — TRANSCRIÇÃO LITERAL:',
+      'Transcreva TODO texto visível na arte exatamente como aparece, letra por letra, na ordem em que aparece. Não corrija, não complete, não normalize nada durante a transcrição: se está escrito "anta Térmica", transcreva "anta Térmica". Se uma letra está cortada pela borda, faltando ou coberta, transcreva o que se vê de fato. Só depois de transcrever é que você avalia.',
+      '',
+      'Ao revisar o texto, compare cada palavra transcrita com a grafia correta do português e com o nome real do produto no catálogo. Verifique um por um:',
+      '- Primeira letra faltando ou cortada pela margem (erro comum de arte: "anta" em vez de "Manta", "elha" em vez de "Telha").',
+      '- Palavra truncada, letra dobrada ou letra trocada.',
+      '- Acento errado, faltando ou sobrando; crase; maiúscula no meio da palavra.',
+      '- Concordância, plural e pontuação.',
+      '- Nome do produto diferente do nome no catálogo.',
+      'Qualquer palavra transcrita que não seja uma palavra correta do português ou o nome exato do produto é nivel "erro" — mesmo que a intenção seja óbvia. Palavra cortada é erro de publicação, não detalhe de design.',
+      'Só afirme que não há erro de português depois de ter conferido cada palavra da transcrição. Nunca use "ok" para a frente TEXTO sem que a transcrição esteja inteira e correta.',
+      '',
+      'Revise a arte da imagem em três frentes:',
+      '1. DESIGN — hierarquia, legibilidade em tela de celular, contraste, respiro, alinhamento, uso do logo, e se algum texto está saindo da margem ou sendo cortado.',
+      '2. TEXTO — grafia, ortografia, acento, concordância, palavra cortada ou incompleta, clareza, promessa exagerada, chamada para ação.',
+      '3. PRODUTO — confira tudo que a arte afirma contra o catálogo abaixo: nome do produto, preço, medida, metragem, especificação. Aponte divergência com o valor certo. Atenção aos avisos do fabricante: a manta térmica NÃO é auto adesiva e não serve para uso externo; a fita asfáltica é auto adesiva e dispensa maçarico; calço e parafuso precisam ser do mesmo perfil da telha (075 onda baixa, 177 onda alta); o primer asfáltico rende 0,3 a 0,5 L/m². Se a arte não citar produto, diga isso em vez de inventar erro.',
+      '',
+      'Nunca invente história, fundação ou posicionamento da marca. Só use como fato o que estiver no catálogo.',
+      '',
+      'CATÁLOGO:',
+      this.catalogoTxt(),
+      s.revCtx ? '\nCONTEXTO DADO PELO USUÁRIO: ' + s.revCtx : '',
+      '',
+      'Responda SOMENTE com JSON válido, sem cercas de código, neste formato:',
+      '{"transcricao": "todo o texto da arte, literal", "nota": 0-10 inteiro, "veredito": "PODE PUBLICAR" | "AJUSTAR ANTES" | "NÃO PUBLICAR", "resumo": "2 frases", "design": [{"nivel":"ok|atencao|erro","titulo":"curto","txt":"o que fazer"}], "texto": [...mesmo formato], "produto": [...mesmo formato]}',
+      'De 2 a 5 itens por frente. "nivel" erro é o que impede publicar, atencao é melhoria, ok é acerto que vale manter.',
+      'Se houver qualquer item de nivel "erro" em qualquer frente, o veredito NÃO pode ser "PODE PUBLICAR" e a nota não passa de 5. Um erro de grafia sozinho já derruba o veredito.',
+    ].join('\n');
+
+    try {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': s.apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-5-20250929',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: [
+            { type: 'image', source: { type: 'base64', media_type: m[1], data: m[2] } },
+            { type: 'text', text: prompt },
+          ] }],
+        }),
+      });
+      if(r.status === 401) throw new Error('Chave recusada. Confira em Gerenciar chave de acesso.');
+      if(r.status === 429) throw new Error('Limite de uso atingido na conta da chave. Tente de novo em alguns minutos.');
+      if(!r.ok){
+        let d = ''; try { d = (await r.json()).error.message; } catch(e){}
+        throw new Error('A API respondeu ' + r.status + (d ? ': ' + d : '.'));
+      }
+      const data = await r.json();
+      let txt = (data.content || []).map(c => c.text || '').join('').trim();
+      txt = txt.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+      const out = JSON.parse(txt);
+      clearInterval(this._revTick);
+      this.setState({ revResult: out, revLoading: false });
+    } catch(e){
+      clearInterval(this._revTick);
+      this.setState({ revLoading: false, revErr: e && e.message ? e.message : 'Falha ao falar com a API.' });
+    }
+  }
+
+  /* Estados salvos antes dos campos virarem globais usavam a chave "<modelo>.<campo>".
+     Traz o valor para o nome sem prefixo, sem sobrescrever o que já é novo. */
+  migrate(st){
+    if(!st || !st.vals) return st;
+    const out = {};
+    Object.keys(st.vals).forEach(k => {
+      const m = /^[a-z]+\.(.+)$/.exec(k);
+      if(!m){ out[k] = st.vals[k]; return; }
+      let name = m[1];
+      if(k.indexOf('catalogo.p') === 0 && /^p[1-4]$/.test(name)) name = 'pr' + name.slice(1);
+      if(out[name] === undefined) out[name] = st.vals[k];
+    });
+    Object.keys(st.vals).forEach(k => {
+      if(!/^[a-z]+\./.test(k)) out[k] = st.vals[k];
+    });
+    return Object.assign({}, st, { vals: out });
+  }
+
+  save(patch){
+    this.setState(patch, () => {
+      try {
+        const s = Object.assign({}, this.state);
+        delete s.imgBg; delete s.imgProd;
+        delete s.apiKey; delete s.keyDraft; delete s.keyModal; delete s.keyErr;
+        delete s.revImg; delete s.revResult; delete s.revLoading; delete s.revErr;
+        localStorage.setItem('llev-portal-v1', JSON.stringify(s));
+      } catch(e){}
+    });
+  }
+
+  pickImage(key, e){
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const r = new FileReader();
+    r.onload = () => this.save({ [key]: r.result });
+    r.readAsDataURL(file);
+  }
+
+  /* Os valores são globais por nome de campo, não por modelo: o título escrito
+     num modelo aparece no próximo, para montar várias artes do mesmo tema. */
+  val(tpl, id){
+    if(this.state.vals[id] !== undefined) return this.state.vals[id];
+    const def = (FIELDS[tpl] || []).find(f => f[0] === id);
+    return def ? def[2] : '';
+  }
+
+  setVal(tpl, id, v){
+    this.save({ vals: Object.assign({}, this.state.vals, { [id]: v }) });
+  }
+
+  chip(active, color){
+    return active
+      ? { bg: color || '#FE5D0A', fg:'#FFFFFF', bd: color || '#FE5D0A' }
+      : { bg:'transparent', fg:'#A9BBCA', bd:'rgba(237,237,237,0.16)' };
+  }
+
+  renderVals(){
+    const s = this.state;
+    const tag = TAGS.find(t => t.id === s.tag) || TAGS[0];
+    const tpl = TEMPLATES.find(t => t.id === s.tpl) || TEMPLATES[0];
+    const fmt = FORMATS.find(f => f.id === s.fmt) || FORMATS[0];
+    const bg = BGS.find(b => b.id === s.bg) || BGS[0];
+    const pat = PATTERNS[s.pat] || PATTERNS.none;
+    const accent = s.accent || '#FE5D0A';
+    /* Cabe na largura da coluna e na altura da janela, o menor dos dois. */
+    const altura = (typeof window !== 'undefined' ? window.innerHeight : 900) - 210;
+    const scale = Math.min(380 / fmt.w, Math.max(240, altura) / fmt.h);
+    const light = bg.id === 'claro';
+
+    const termo = (s.busca || '').trim().toLowerCase();
+    const achados = PRODUCTS.filter(p =>
+      ((s.grupo || 'Todos') === 'Todos' || p.grupo === s.grupo) &&
+      (!termo || (p.nome + ' ' + p.grupo + ' ' + p.especs.map(e => e[1]).join(' ')).toLowerCase().indexOf(termo) >= 0));
+
+    const V = id => this.val(s.tpl, id);
+    const f = {};
+    (FIELDS[s.tpl] || []).forEach(fd => { f[fd[0]] = V(fd[0]); });
+
+    const pages = [
+      { t: V('titulo'), b: 'Arraste para o lado' },
+      { t: '01', b: V('d1') },
+      { t: '02', b: V('d2') },
+      { t: '03', b: V('d3') },
+    ];
+    const page = Math.min(s.page, pages.length - 1);
+
+    const nav = [
+      ['portal','PORTAL'], ['studio','ESTÚDIO'], ['copys','COPYS'], ['lib','BIBLIOTECA'], ['revisao','REVISÃO'],
+    ].map(([id, label]) => {
+      const on = s.view === id;
+      return {
+        label, go: () => this.save({ view: id }),
+        bg: on ? '#FE5D0A' : 'transparent',
+        fg: on ? '#FFFFFF' : '#8FA6B8',
+        bd: on ? '#FE5D0A' : 'transparent',
+      };
+    });
+
+    return {
+      navItems: nav,
+      isPortal: s.view === 'portal',
+      isStudio: s.view === 'studio',
+      isCopys: s.view === 'copys',
+      isLib: s.view === 'lib',
+      isRev: s.view === 'revisao',
+
+      keyModal: !!s.keyModal,
+      temKey: !!s.apiKey,
+      keyDraft: s.keyDraft || '',
+      keyErr: s.keyErr || '',
+      keyCloseLabel: s.apiKey ? 'FECHAR' : 'DEPOIS',
+      keyStatus: s.apiKey ? 'CHAVE CONFIGURADA' : 'CHAVE NÃO CONFIGURADA',
+      keyFg: s.apiKey ? '#3FB27A' : '#E84C3D',
+      keyBd: s.apiKey ? '#3FB27A' : '#E84C3D',
+      setKeyDraft: e => this.setState({ keyDraft: e.target.value, keyErr: '' }),
+      saveKey: () => this.saveKey(),
+      clearKey: () => this.clearKey(),
+      openKey: () => this.setState({ keyModal: true, keyDraft: '', keyErr: '' }),
+      closeKey: () => this.setState({ keyModal: false, keyErr: '' }),
+
+      revImg: s.revImg || '',
+      temRevImg: !!s.revImg,
+      revImgLabel: s.revImg ? 'TROCAR IMAGEM' : 'ESCOLHER IMAGEM DA ARTE',
+      pickRevImg: e => {
+        const f = e.target.files && e.target.files[0];
+        if(!f) return;
+        const r = new FileReader();
+        r.onload = () => this.setState({ revImg: r.result, revResult: null, revErr: '' });
+        r.readAsDataURL(f);
+      },
+      revCtx: s.revCtx || '',
+      setRevCtx: e => this.save({ revCtx: e.target.value }),
+      revisar: () => this.revisar(),
+      revBtnLabel: s.revLoading ? 'REVISANDO…' : (s.revResult ? 'REVISAR NOVAMENTE' : 'REVISAR ARTE'),
+      revBtnBg: s.revLoading ? '#7C93A8' : '#FE5D0A',
+      revErr: s.revErr || '',
+      temResult: !!s.revResult,
+      revVazio: !s.revResult && !s.revLoading,
+      revLoading: !!s.revLoading,
+      revSeg: String(s.revSeg || 0) + 's',
+      /* Barra de progresso por etapa: a API não reporta andamento, então o
+         indicador acompanha o tempo típico de uma revisão com imagem (~25s). */
+      revPct: Math.min(96, Math.round(((s.revSeg || 0) / 25) * 100)) + '%',
+      revEtapas: ETAPAS.map((e, i) => {
+        const seg = s.revSeg || 0;
+        const feito = seg >= ETAPAS[i][1] && (i === ETAPAS.length - 1 ? false : seg >= ETAPAS[i + 1][1]);
+        const ativo = seg >= e[1] && !feito;
+        return {
+          label: e[0],
+          fg: feito ? '#3FB27A' : (ativo ? '#EDEDED' : '#5F7488'),
+          marca: feito ? '✓' : (ativo ? '▸' : '·'),
+          marcaCor: feito ? '#3FB27A' : (ativo ? '#FE8401' : '#3B5570'),
+        };
+      }),
+      totalProdutos: PRODUCTS.length,
+      nota: s.revResult ? String(s.revResult.nota) : '',
+      veredito: s.revResult ? s.revResult.veredito : '',
+      resumoRev: s.revResult ? s.revResult.resumo : '',
+      transcricao: s.revResult ? (s.revResult.transcricao || '') : '',
+      temTranscricao: !!(s.revResult && s.revResult.transcricao),
+      notaCor: s.revResult ? (s.revResult.nota >= 8 ? '#3FB27A' : (s.revResult.nota >= 6 ? '#FE8401' : '#E84C3D')) : '#7C93A8',
+      blocos: s.revResult ? [
+        ['DESIGN', '#FE5D0A', s.revResult.design],
+        ['TEXTO', '#0B7BC4', s.revResult.texto],
+        ['CONFERÊNCIA DE PRODUTO', '#00A0A8', s.revResult.produto],
+      ].map(([titulo, cor, itens]) => {
+        const list = itens || [];
+        return {
+          titulo, cor,
+          contagem: list.length + (list.length === 1 ? ' PONTO' : ' PONTOS'),
+          itens: list.map(i => ({ titulo: i.titulo, txt: i.txt, cor: NIVEL[i.nivel] || '#7C93A8' })),
+        };
+      }) : [],
+      goStudio: () => this.save({ view:'studio' }),
+      goCopys: () => this.save({ view:'copys' }),
+
+      trends: (function(self){
+        const mes = new Date().getMonth();
+        const ativa = TRENDS.find(t => t.meses.indexOf(mes) >= 0) || TRENDS[0];
+        const ord = TRENDS.slice(TRENDS.indexOf(ativa)).concat(TRENDS.slice(0, TRENDS.indexOf(ativa)));
+        return ord.map((t, i) => ({
+          nome: t.nome.toUpperCase(), janela: t.janela, gancho: t.gancho, motivo: t.motivo,
+          selo: i === 0 ? 'AGORA' : 'EM BREVE',
+          seloCor: i === 0 ? '#FE5D0A' : 'transparent',
+          seloInk: i === 0 ? '#FFFFFF' : '#7C93A8',
+          seloBd: i === 0 ? '#FE5D0A' : 'rgba(237,237,237,0.16)',
+          borda: i === 0 ? 'rgba(254,93,10,0.55)' : 'rgba(237,237,237,0.10)',
+          produtos: t.produtos.map(pid => {
+            const p = PRODUCTS.find(x => x.id === pid);
+            return p ? { nome: p.nome, pix: p.pix, go: () => self.loadProduct(p) } : null;
+          }).filter(Boolean),
+          go: () => self.usePauta(t),
+        }));
+      })(this),
+
+      modules: [
+        { ix:'01', color:'#FE5D0A', title:'Creative Studio', cta:'ABRIR ESTÚDIO',
+          body:'Dez modelos pensados para obra: post com foto, passo a passo, ficha técnica, onde aplicar, erro × jeito certo, preço, carrossel, catálogo, selo e pergunta frequente.',
+          go: () => this.save({ view:'studio' }) },
+        { ix:'02', color:'#0B7BC4', title:'Criação de copys', cta:'GERAR TEXTO',
+          body:'Briefing curto vira três variações no tom técnico da marca, com título para a arte, legenda de feed e hashtags. Um clique manda para o estúdio.',
+          go: () => this.save({ view:'copys' }) },
+        { ix:'03', color:'#00A0A8', title:'Biblioteca de produtos', cta:'VER FICHAS',
+          body:'Telhas, mantas térmicas, fitas asfálticas e impermeabilizantes do catálogo, com especificações, preço e link para o site — prontos para virar ficha técnica em um clique.',
+          go: () => this.save({ view:'lib' }) },
+      ],
+
+      templateOpts: TEMPLATES.map(t => Object.assign(
+        { label: t.label, go: () => this.save(t.id === 'post' ? { tpl:'post', page:0, fmt:'carrossel' } : { tpl: t.id, page: 0 }) },
+        this.chip(t.id === s.tpl, '#FE5D0A'))),
+      tagOpts: TAGS.map(t => Object.assign(
+        { label: t.label, go: () => this.save({ tag: t.id }) },
+        this.chip(t.id === s.tag, accent))),
+      accent,
+      onAccent: e => this.save({ accent: e.target.value }),
+      accentOpts: ['#FE5D0A','#FE8401','#011F38','#EDEDED'].map(c => ({
+        color: c, go: () => this.save({ accent: c }),
+        bd: c === accent ? '#FFFFFF' : 'rgba(237,237,237,0.2)',
+      })),
+      posX: s.posX, posY: s.posY,
+      onPosX: e => this.save({ posX: Number(e.target.value) }),
+      onPosY: e => this.save({ posY: Number(e.target.value) }),
+      formatOpts: FORMATS.map(o => Object.assign(
+        { label: o.label, go: () => this.save({ fmt: o.id }) },
+        this.chip(o.id === s.fmt, '#FE8401'))),
+      bgOpts: BGS.map(b => Object.assign(
+        { label: b.label, go: () => this.save({ bg: b.id }) },
+        this.chip(b.id === s.bg, '#0B7BC4'))).concat(
+        Object.keys(PATTERNS).map(k => Object.assign(
+          { label: PATTERNS[k].label, go: () => this.save({ pat: k }) },
+          this.chip(k === s.pat, '#7A5CE0')))),
+
+      hasSugestao: !!s.sugestao,
+      sugestaoNome: s.sugestao ? s.sugestao.nome : '',
+      sugestaoLinhas: s.sugestao ? s.sugestao.linhas.map(l => ({
+        label: l[1], texto: l[2],
+        go: () => this.save({ vals: Object.assign({}, this.state.vals, { [l[0]]: l[2] }) }),
+      })) : [],
+      dispensarSugestao: () => this.save({ sugestao: null }),
+      aplicarTudo: () => {
+        const vals = Object.assign({}, this.state.vals);
+        s.sugestao.linhas.forEach(l => { vals[l[0]] = l[2]; });
+        this.save({ vals, sugestao: null });
+      },
+
+      fields: (FIELDS[s.tpl] || []).map(fd => ({
+        label: fd[1], value: V(fd[0]), hint: fd[2] || 'preencher',
+        onChange: e => this.setVal(s.tpl, fd[0], e.target.value),
+      })),
+
+      tplLabel: tpl.label,
+      sizeLabel: fmt.w + ' × ' + fmt.h,
+      artW: fmt.w, artH: fmt.h, scale,
+      boxW: Math.round(fmt.w * scale), boxH: Math.round(fmt.h * scale),
+      artBg: bg.bg, artInk: bg.ink,
+      artLogoDark: bg.logo === 'assets/logo-branco-laranja.png',
+      artLogoLight: bg.logo === 'assets/logo-principal.png',
+      artLogoWhite: bg.logo === 'assets/logo-branco.png',
+      accent, tagLabel: tag.label,
+      hair: light ? 'rgba(1,31,56,0.14)' : 'rgba(255,255,255,0.16)',
+      patternCss: pat.css === 'none' ? 'none' : pat.css.split('ACC').join(accent),
+      patternOpacity: pat.op,
+
+      f,
+      isPost: s.tpl === 'post',
+      noProd: !s.imgProd,
+      bgLayer: s.imgBg ? React.createElement('div',
+        { style:{ position:'absolute', inset:0, overflow:'hidden' } },
+        React.createElement('img', { src:s.imgBg, alt:'', style:{ width:'100%', height:'100%', objectFit:'cover', objectPosition:s.posX + '% ' + s.posY + '%', filter:'blur(' + s.blur + 'px)', transform:'scale(1.06)' } }),
+        React.createElement('div', { style:{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(1,31,56,' + (s.dim/200) + ') 0%, rgba(1,31,56,' + (s.dim/100) + ') 55%, rgba(1,31,56,' + Math.min(0.95, s.dim/70) + ') 100%)' } })
+      ) : null,
+      prodLayer: s.imgProd ? React.createElement('img', { src:s.imgProd, alt:'', style:{ height:s.prodSize + '%', maxHeight:'100%', maxWidth:'100%', width:'auto', objectFit:'contain', filter:'drop-shadow(0 40px 60px rgba(0,0,0,.45))', pointerEvents:'none' } }) : null,
+      prodSize: s.prodSize,
+      blur: s.blur, dim: s.dim,
+      onPickBg: e => this.pickImage('imgBg', e),
+      onPickProd: e => this.pickImage('imgProd', e),
+      onBlur: e => this.save({ blur: Number(e.target.value) }),
+      onDim: e => this.save({ dim: Number(e.target.value) }),
+      onProdSize: e => this.save({ prodSize: Number(e.target.value) }),
+      clearBg: () => this.save({ imgBg: '' }),
+      clearProd: () => this.save({ imgProd: '' }),
+      isPasso: s.tpl === 'passo',
+      isFicha: s.tpl === 'ficha',
+      isOnde: s.tpl === 'onde',
+      isErro: s.tpl === 'erro',
+      isPromo: s.tpl === 'promo',
+      isDica: s.tpl === 'dica',
+      isCatalogo: s.tpl === 'catalogo',
+      isSelo: s.tpl === 'selo',
+      isFaq: s.tpl === 'faq',
+      itens: [1,2,3,4].map(i => ({ n: V('n' + i), p: V('pr' + i) })).filter(x => x.n),
+      selos: ['s1','s2','s3'].map(k => ({ t: V(k) })).filter(x => x.t),
+      exportAll: () => this.exportAll(fmt, tpl, pages.length),
+      exportAllLabel: s.exporting ? 'EXPORTANDO…' : 'BAIXAR TODAS (' + pages.length + ')',
+
+      passos: ['p1','p2','p3','p4'].map((k, i) => ({ n: i + 1, t: V(k) })).filter(p => p.t),
+      specs: [1,2,3,4].map(i => ({ k: V('k' + i), v: V('v' + i) })).filter(x => x.k || x.v),
+      locais: ['o1','o2','o3','o4'].map((k, i) => ({ n: '0' + (i + 1), t: V(k) })).filter(l => l.t),
+
+      pageNum: page + 1, pageTotal: pages.length,
+      pageTitle: pages[page].t, pageBody: pages[page].b,
+      dots: pages.map((p, i) => ({ bg: i === page ? accent : (light ? 'rgba(1,31,56,0.2)' : 'rgba(255,255,255,0.24)') })),
+      prevPage: () => this.save({ page: Math.max(0, page - 1) }),
+      nextPage: () => this.save({ page: Math.min(pages.length - 1, page + 1) }),
+
+      artRef: this.artRef,
+      exportPng: () => this.exportPng(fmt, tpl),
+      temUrl: !!s.prodUrl,
+      prodUrl: s.prodUrl || '',
+      prodNome: s.prodNome || '',
+      copiarLabel: s.copiado ? 'LINK COPIADO ✓' : 'COPIAR URL',
+      copiarBg: s.copiado ? '#3FB27A' : 'transparent',
+      copiarFg: s.copiado ? '#FFFFFF' : '#FE8401',
+      copiarBd: s.copiado ? '#3FB27A' : 'rgba(254,132,1,.4)',
+      copiarUrl: () => this.copiarUrl(),
+      resetAll: () => this.save({ vals: {}, page: 0 }),
+
+      briefing: s.briefing,
+      setBriefing: e => this.save({ briefing: e.target.value }),
+      toneOpts: ['Técnico','Direto','Didático','Comercial'].map(t => Object.assign(
+        { label: t.toUpperCase(), go: () => this.save({ tone: t }) },
+        this.chip(t === s.tone, '#FE8401'))),
+      audOpts: ['Aplicador','Consumidor final'].map(a => Object.assign(
+        { label: a.toUpperCase(), go: () => this.save({ aud: a }) },
+        this.chip(a === s.aud, '#0B7BC4'))),
+      genLabel: s.copys.length ? 'GERAR NOVAMENTE' : 'GERAR COPYS',
+      genCopys: () => this.save({ copys: COPY_BASE }),
+      copyCards: (s.copys.length ? s.copys : COPY_BASE).map((c, i) => ({
+        ix: 'VARIAÇÃO 0' + (i + 1), titulo: c.titulo, legenda: c.legenda, hashtags: c.hashtags,
+        toStudio: () => {
+          const vals = Object.assign({}, this.state.vals, { titulo: c.titulo });
+          this.save({ view:'studio', tpl:'dica', page:0, vals });
+        },
+      })),
+
+      busca: s.busca || '',
+      onBusca: e => this.save({ busca: e.target.value }),
+      limparBusca: () => this.save({ busca: '', grupo: 'Todos' }),
+      libFiltros: ['Todos'].concat(GRUPOS).map(g => {
+        const on = (s.grupo || 'Todos') === g;
+        const n = g === 'Todos' ? PRODUCTS.length : PRODUCTS.filter(p => p.grupo === g).length;
+        return {
+          label: g === 'Todos' ? 'TODOS' : g.toUpperCase(), n,
+          go: () => this.save({ grupo: g }),
+          bg: on ? (COR_GRUPO[g] || '#FE5D0A') : 'transparent',
+          fg: on ? '#FFFFFF' : '#A9BBCA',
+          bd: on ? (COR_GRUPO[g] || '#FE5D0A') : 'rgba(237,237,237,0.16)',
+        };
+      }),
+      libTotal: achados.length + (achados.length === 1 ? ' PRODUTO' : ' PRODUTOS'),
+      libVazio: achados.length === 0,
+      libGroups: GRUPOS.filter(g => achados.some(p => p.grupo === g)).map(g => ({
+        nome: g,
+        cor: COR_GRUPO[g],
+        total: achados.filter(p => p.grupo === g).length + ' ITENS',
+        resumo: (INFO[g] || {}).resumo || '',
+        itens: achados.filter(p => p.grupo === g).map(p => {
+          const on = s.aberto === p.id;
+          return {
+            nome: p.nome, preco: p.preco, pix: p.pix, url: p.url,
+            rows: p.especs.map(e => ({ k: e[0], v: e[1] })),
+            go: () => this.loadProduct(p),
+            aberto: on,
+            toggleLabel: on ? 'FECHAR ✕' : 'VER DETALHES ▾',
+            desc: DESC[p.id] || '', temDesc: !!DESC[p.id],
+            perguntas: ((INFO[p.grupo] || {}).faq || []).concat(FAQ_GERAL).map(f => ({
+              q: f[0], a: f[1],
+              go: () => this.save({ view:'studio', tpl:'faq', vals: Object.assign({}, this.state.vals, {
+                pergunta: f[0], resposta: f[1], cta: 'Fale com a LLEV Lar',
+              }) }),
+            })),
+            toggle: () => this.save({ aberto: on ? null : p.id }),
+          };
+        }),
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
