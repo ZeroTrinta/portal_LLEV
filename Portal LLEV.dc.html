@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<title>Portal LLEV · Criação de conteúdo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="creative-art.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -27,6 +29,13 @@
   ::-webkit-scrollbar-track{ background:#011F38; }
   ::-webkit-scrollbar-thumb{ background:#012E53; border-radius:8px; }
   ::-webkit-scrollbar-thumb:hover{ background:#004074; }
+  button:disabled{opacity:.5;cursor:wait!important;}
+  @media(max-width:900px){
+    header{position:relative!important;flex-direction:column;align-items:flex-start!important;}
+    .module-layout,.studio-layout{grid-template-columns:minmax(0,1fr)!important;}
+    .studio-preview{position:relative!important;top:0!important;max-height:none!important;grid-row:1;padding:20px 12px!important;}
+    .studio-layout>aside{border-right:0!important;padding:22px!important;}
+  }
 </style>
 </helmet>
 
@@ -115,7 +124,7 @@
   </sc-if>
 
   <sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
-    <div style="display:grid; grid-template-columns:400px 1fr; align-items:start; gap:0; min-height:calc(100vh - 60px);">
+    <div class="studio-layout" style="display:grid; grid-template-columns:400px 1fr; align-items:start; gap:0; min-height:calc(100vh - 60px);">
 
       <aside style="border-right:1px solid rgba(237,237,237,.10); padding:26px 24px 60px; display:flex; flex-direction:column; gap:26px; background:#01243F;">
         <div>
@@ -234,10 +243,21 @@
                 <span style="display:flex; justify-content:space-between; font-size:9.5px; font-weight:700; letter-spacing:.12em; color:#8FA6B8; margin-bottom:6px;"><span>TAMANHO</span><span>{{ prodSize }}%</span></span>
                 <input type="range" min="30" max="95" step="1" value="{{ prodSize }}" onChange="{{ onProdSize }}" style="width:100%; accent-color:#FE8401;"/>
               </label>
-              <span style="font-size:10px; line-height:1.5; color:#5F7488;">Produto em destaque aparece no modelo Post c/ imagem. Use um PNG recortado.</span>
+              <span style="font-size:10px; line-height:1.5; color:#5F7488;">Use a foto de aplicação como fundo e um PNG transparente como produto. As imagens ficam nesta sessão; os textos são salvos no navegador.</span>
             </div>
         </div>
 
+        <sc-if value="{{ hasExtraImages }}">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <sc-for list="{{ extraImages }}" as="im">
+              <label style="font-size:11px;color:#A9BBCA;display:flex;flex-direction:column;gap:8px;">{{ im.label }}
+                <input type="file" accept="image/png,image/jpeg,image/webp" onChange="{{ im.pick }}"/>
+                <button onClick="{{ im.clear }}" style="padding:8px;background:#011F38;color:#EDEDED;border:1px solid #7C93A8;border-radius:6px;">REMOVER IMAGEM</button>
+              </label>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ legacyArt }}">
         <div>
           <div style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8; margin-bottom:11px;">FUNDO</div>
           <div style="display:flex; flex-wrap:wrap; gap:7px;">
@@ -247,10 +267,11 @@
           </div>
         </div>
 
+        </sc-if>
         <div style="display:flex; gap:9px; flex-wrap:wrap; padding-top:4px;">
-          <button onClick="{{ exportPng }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">BAIXAR PNG</button>
+          <button disabled="{{ exporting }}" onClick="{{ exportPng }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">{{ exportLabel }}</button>
           <sc-if value="{{ isDica }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ exportAll }}" style="cursor:pointer; border:none; background:#0B7BC4; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">{{ exportAllLabel }}</button>
+            <button disabled="{{ exporting }}" onClick="{{ exportAll }}" style="cursor:pointer; border:none; background:#0B7BC4; color:#FFFFFF; font-size:12px; font-weight:800; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">{{ exportAllLabel }}</button>
           </sc-if>
           <button onClick="{{ resetAll }}" style="cursor:pointer; background:transparent; color:#A9BBCA; border:1px solid rgba(237,237,237,.18); font-size:12px; font-weight:700; letter-spacing:.06em; padding:13px 18px; border-radius:9px;">RESETAR</button>
         </div>
@@ -264,15 +285,19 @@
             <span style="font-size:10px; line-height:1.5; color:#5F7488;">Cole no sticker de link do story para levar direto ao produto.</span>
           </div>
         </sc-if>
+        <sc-if value="{{ exportErr }}"><p role="alert" style="color:#FFAB88;font-size:12px;line-height:1.5;">{{ exportErr }}</p></sc-if>
       </aside>
 
-      <section style="position:sticky; top:60px; align-self:start; max-height:calc(100vh - 60px); overflow:auto; padding:26px clamp(16px,3vw,40px) 40px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+      <section class="studio-preview" style="position:sticky; top:60px; align-self:start; max-height:calc(100vh - 60px); overflow:auto; padding:26px clamp(16px,3vw,40px) 40px; display:flex; flex-direction:column; align-items:center; gap:16px;">
         <div style="display:flex; align-items:center; gap:12px; align-self:stretch; justify-content:space-between; flex-wrap:wrap;">
           <span style="font-size:10px; font-weight:800; letter-spacing:.2em; color:#7C93A8;">PRÉVIA · {{ sizeLabel }}</span>
           <span style="font-size:10px; font-weight:700; letter-spacing:.12em; color:#5F7488;">{{ tplLabel }}</span>
         </div>
         <div style="flex:none; width:{{ boxW }}px; height:{{ boxH }}px; position:relative;">
           <div ref="{{ artRef }}" style="position:absolute; top:0; left:0; width:{{ artW }}px; height:{{ artH }}px; transform:scale({{ scale }}); transform-origin:top left; overflow:hidden; background:{{ artBg }}; color:{{ artInk }}; display:flex; flex-direction:column; padding:80px 76px;">
+            {{ visualArt }}
+            <sc-if value="{{ legacyArt }}">
+              <div style="display:flex;flex-direction:column;position:absolute;inset:0;padding:80px 76px;">
             <div style="position:absolute; inset:0; pointer-events:none; background:{{ patternCss }}; opacity:{{ patternOpacity }};"></div>
 
             {{ bgLayer }}
@@ -439,6 +464,8 @@
                 </div>
               </div>
             </sc-if>
+              </div>
+            </sc-if>
           </div>
         </div>
 
@@ -461,7 +488,7 @@
         <p style="margin:16px 0 0; max-width:60ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Briefing curto, tom técnico, três variações. Todo pedido carrega o guia de marca da LLEV Lar, então a copy já sai na voz certa — e o botão Criar arte joga o texto direto no estúdio.</p>
       </div>
 
-      <div style="display:grid; grid-template-columns:minmax(300px,380px) 1fr; gap:26px; align-items:start;">
+      <div class="module-layout" style="display:grid; grid-template-columns:minmax(300px,380px) 1fr; gap:26px; align-items:start;">
         <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:18px;">
           <label style="display:block;">
             <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:7px;">BRIEFING</span>
@@ -483,6 +510,8 @@
               </sc-for>
             </div>
           </div>
+          <p style="font-size:11px;line-height:1.5;color:#A9BBCA;">Rascunhos estruturados a partir do briefing, sem IA. Confira as informações antes de publicar.</p>
+          <sc-if value="{{ copyErr }}"><p role="alert" style="color:#FFAB88;font-size:12px;">{{ copyErr }}</p></sc-if>
           <button onClick="{{ genCopys }}" style="cursor:pointer; border:none; background:#FE5D0A; color:#FFFFFF; font-size:13px; font-weight:800; letter-spacing:.06em; padding:15px 20px; border-radius:10px;">{{ genLabel }}</button>
         </div>
 
@@ -509,7 +538,7 @@
     <main style="width:100%; max-width:1180px; margin:0 auto; padding:clamp(32px,5vw,64px) clamp(20px,4vw,48px) 72px; display:flex; flex-direction:column; gap:30px;">
       <div>
         <h1 style="margin:0; font-weight:900; letter-spacing:-.03em; font-size:clamp(38px,6vw,72px); line-height:.94; color:#FFFFFF;">Biblioteca de produtos</h1>
-        <p style="margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Dados puxados do catálogo em llevlar.com.br. O preço em destaque é o do PIX ou depósito. Clique em qualquer produto e a ficha técnica abre no estúdio já preenchida.</p>
+        <p style="margin:16px 0 0; max-width:62ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Catálogo de referência cadastrado no portal. Confirme preço e disponibilidade no site antes de publicar. O preço em destaque é o do PIX ou depósito. Clique em qualquer produto e a ficha técnica abre no estúdio já preenchida.</p>
       </div>
 
       <div style="position:sticky; top:60px; z-index:10; display:flex; flex-direction:column; gap:14px; padding:18px 0 16px; background:#011F38; border-bottom:1px solid rgba(237,237,237,.10);">
@@ -598,7 +627,7 @@
         <p style="margin:16px 0 0; max-width:64ch; font-size:16px; line-height:1.6; color:#A9BBCA; text-wrap:pretty;">Suba a arte pronta e receba a revisão em três frentes: design, texto e conferência de produto contra o catálogo. Erro de nome, preço, medida ou promessa técnica aparece antes de o post ir ao ar.</p>
       </div>
 
-      <div style="display:grid; grid-template-columns:minmax(300px,400px) 1fr; gap:26px; align-items:start;">
+      <div class="module-layout" style="display:grid; grid-template-columns:minmax(300px,400px) 1fr; gap:26px; align-items:start;">
         <div style="background:#012E53; border:1px solid rgba(237,237,237,.10); border-radius:16px; padding:24px 22px; display:flex; flex-direction:column; gap:18px; position:sticky; top:76px;">
           <div>
             <span style="display:block; font-size:9.5px; font-weight:800; letter-spacing:.16em; color:#8FA6B8; margin-bottom:9px;">ARTE</span>
@@ -1016,7 +1045,10 @@ const COR_GRUPO = {
 };
 
 const TEMPLATES = [
-  { id:'post', label:'POST C/ IMAGEM' },
+  { id:'post', label:'PRODUTO EM APLICAÇÃO' },
+  { id:'campanha', label:'CAMPANHA / MEDIDA' },
+  { id:'tecnica', label:'FICHA VISUAL' },
+  { id:'colecao', label:'COLEÇÃO / CORES' },
   { id:'passo', label:'PASSO A PASSO' },
   { id:'ficha', label:'FICHA TÉCNICA' },
   { id:'onde', label:'ONDE APLICAR' },
@@ -1035,10 +1067,32 @@ const FORMATS = [
 
 const FIELDS = {
   post: [
-    ['chamada','CHAMADA','Proteção que começa na telha'],
-    ['titulo','TÍTULO','Manta térmica em obra'],
-    ['apoio','APOIO','Barreira refletiva contra o calor, aplicada antes do forro.'],
-    ['cta','CTA','Fale com a LLEV Lar'],
+    ['titulo','TÍTULO','PROTEÇÃO EM CADA DETALHE.'],
+    ['destaque','TÍTULO EM DESTAQUE','ACABAMENTO QUE IMPORTA.'],
+    ['apoio','APOIO','Conheça a solução ideal para o seu projeto.'],
+    ['s1','BENEFÍCIO 1',''], ['s2','BENEFÍCIO 2',''], ['s3','BENEFÍCIO 3',''],
+    ['cta','CHAMADA FINAL','Complete sua instalação.'],
+  ],
+  campanha: [
+    ['titulo','TÍTULO','SUA COBERTURA COMEÇA'], ['destaque','DESTAQUE','COM A ESCOLHA CERTA.'],
+    ['apoio','APOIO','Encontre o produto para a sua obra.'],
+    ['medida','MEDIDA OU DIFERENCIAL',''],
+    ['s1','BENEFÍCIO 1',''], ['s2','BENEFÍCIO 2',''], ['s3','BENEFÍCIO 3',''],
+    ['cta','CHAMADA FINAL','Consulte a opção ideal.'],
+  ],
+  tecnica: [
+    ['titulo','TÍTULO','MAIS DETALHES.'], ['destaque','DESTAQUE','MELHOR ESCOLHA.'],
+    ['apoio','APOIO','Conheça as características do produto.'],
+    ['s1','BENEFÍCIO 1',''], ['s2','BENEFÍCIO 2',''], ['s3','BENEFÍCIO 3',''],
+    ['produto','NOME DO PRODUTO',''], ['medida','MEDIDAS',''], ['detalhe','ESPECIFICAÇÕES COMPLEMENTARES',''],
+    ['cta','CHAMADA FINAL','Fale com a LLEV.'],
+  ],
+  colecao: [
+    ['titulo','TÍTULO','QUAL É A SUA'], ['destaque','DESTAQUE','COR FAVORITA?'],
+    ['apoio','LINHA / COLEÇÃO','CONHEÇA A COLEÇÃO LLEV'],
+    ['cor1','NOME DA COR 1','PRETO CLÁSSICO'], ['tom1','COR 1 (HEX)','#737373'],
+    ['cor2','NOME DA COR 2','VERDE NEON'], ['tom2','COR 2 (HEX)','#91ED00'],
+    ['cor3','NOME DA COR 3','ROSA NEON'], ['tom3','COR 3 (HEX)','#F00088'],
   ],
   passo: [
     ['titulo','TÍTULO','Como aplicar a fita asfáltica'],
@@ -1127,7 +1181,7 @@ const COPY_BASE = [
   {
     titulo:'A manta térmica não esfria: ela impede o calor de entrar',
     legenda:'Telha esquenta. O que muda a temperatura de dentro é a barreira entre a telha e o forro.\n\nA manta térmica reflete o calor antes que ele chegue ao ambiente — e no inverno faz o caminho inverso, segurando o calor dentro.\n\nAplicação limpa, seca, sobreposição respeitada. É isso que garante o resultado.',
-    hashtags:'#llevlar #mantatermica #conforototermico #obra',
+    hashtags:'#llevlar #mantatermica #confortotermico #obra',
   },
   {
     titulo:'Infiltração começa pela emenda, não pela manta',
@@ -1144,9 +1198,9 @@ const COPY_BASE = [
 class Component extends DCLogic {
   state = {
     view: 'portal',
-    tpl: 'passo',
+    tpl: 'post',
     tag: 'aplicacao',
-    fmt: 'story',
+    fmt: 'carrossel',
     bg: 'navy',
     pat: 'grid',
     page: 0,
@@ -1154,15 +1208,18 @@ class Component extends DCLogic {
     accent: '#FE5D0A',
     imgBg: '',
     imgProd: '',
+    imgDetail1:'', imgDetail2:'',
+    imgVariant1:'', imgVariant2:'', imgVariant3:'',
+    exportErr:'',
     posX: 50,
     posY: 50,
     blur: 0,
-    dim: 45,
+    dim: 0,
     prodSize: 62,
     briefing: '',
     tone: 'Técnico',
     aud: 'Aplicador',
-    copys: [],
+    copys: [], copyErr:'',
     sugestao: null,
     busca: '',
     grupo: 'Todos',
@@ -1188,38 +1245,53 @@ class Component extends DCLogic {
 
   componentWillUnmount(){
     if(this._onResize) window.removeEventListener('resize', this._onResize);
+    clearInterval(this._revTick); clearTimeout(this._tCopy); clearTimeout(this._reviewTimeout);
+    if(this._reviewAbort) this._reviewAbort.abort();
   }
 
-  async exportPng(fmt, tpl, suffix){
+  async capturePng(fmt, tpl, suffix){
     const node = this.artRef.current;
     const lib = window.htmlToImage;
-    if(!node || !lib) return;
-    const prev = node.style.transform;
-    node.style.transform = 'none';
-    try {
-      const url = await lib.toPng(node, { width: fmt.w, height: fmt.h, pixelRatio: 1, cacheBust: true });
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'llev-' + tpl.id + (suffix ? '-' + suffix : '') + '-' + fmt.w + 'x' + fmt.h + '.png';
-      a.click();
-    } finally {
-      node.style.transform = prev;
-    }
+    if(!node || !lib) throw new Error('Exportador indisponível. Recarregue a página e tente novamente.');
+    await document.fonts.ready;
+    const heading=node.querySelector('[data-layout-heading]');
+    const content=node.querySelector('[data-layout-content]');
+    if(heading && content && heading.getBoundingClientRect().bottom>content.getBoundingClientRect().top) throw new Error('O título ou apoio está muito longo. Reduza o texto antes de exportar.');
+    await Promise.all(Array.from(node.querySelectorAll('img')).map(img => {
+      if(img.complete) return img.naturalWidth ? Promise.resolve() : Promise.reject(new Error('Uma imagem não carregou. Envie o arquivo novamente.'));
+      return new Promise((resolve,reject)=>{
+        const finish=(error)=>{clearTimeout(timer);img.removeEventListener('load',ok);img.removeEventListener('error',bad);error?reject(error):resolve();};
+        const ok=()=>finish(); const bad=()=>finish(new Error('Não foi possível carregar uma imagem.'));
+        const timer=setTimeout(()=>finish(new Error('A imagem demorou a carregar. Tente novamente.')),15000);
+        img.addEventListener('load',ok);img.addEventListener('error',bad);
+      });
+    }));
+    const url = await lib.toPng(node, { width:fmt.w, height:fmt.h, pixelRatio:1, cacheBust:false, style:{ transform:'none', transformOrigin:'top left' } });
+    const a=document.createElement('a'); a.href=url;
+    a.download='llev-'+tpl.id+(suffix?'-'+suffix:'')+'-'+fmt.w+'x'+fmt.h+'.png';
+    a.click();
+  }
+
+  async exportPng(fmt, tpl){
+    if(this.state.exporting) return;
+    this.setState({exporting:true,exportErr:''});
+    try { await this.capturePng(fmt,tpl); }
+    catch(e){this.setState({exportErr:e.message||'Falha ao exportar PNG.'});}
+    finally {this.setState({exporting:false});}
   }
 
   async exportAll(fmt, tpl, total){
     if(this.state.exporting) return;
-    this.setState({ exporting: true });
+    const originalPage=this.state.page;
+    this.setState({exporting:true,exportErr:''});
     try {
-      for(let i = 0; i < total; i++){
-        await new Promise(r => this.setState({ page: i }, r));
-        await new Promise(r => setTimeout(r, 350));
-        await this.exportPng(fmt, tpl, String(i + 1).padStart(2, '0'));
-        await new Promise(r => setTimeout(r, 250));
+      for(let i=0;i<total;i++){
+        await new Promise(r=>this.setState({page:i},r));
+        await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+        await this.capturePng(fmt,tpl,String(i+1).padStart(2,'0'));
       }
-    } finally {
-      this.setState({ exporting: false });
-    }
+    }catch(e){this.setState({exportErr:e.message||'Falha ao exportar carrossel.'});}
+    finally {this.setState({exporting:false,page:originalPage});}
   }
 
   /* A pauta é sugestão: nada é escrito até o usuário aplicar linha por linha. */
@@ -1232,6 +1304,20 @@ class Component extends DCLogic {
         ['apoio','APOIO', t.apoioCurto],
       ],
     } });
+  }
+
+  generateCopys(){
+    const topic=(this.state.briefing||'').trim();
+    if(!topic) return this.setState({copyErr:'Escreva o briefing para criar os rascunhos.'});
+    const intro={Técnico:'Informação para escolher com segurança.',Direto:'Vamos ao que importa.',Didático:'Entenda antes de escolher.',Comercial:'Encontre a solução para o seu projeto.'}[this.state.tone]||'Conheça a LLEV.';
+    const audience=this.state.aud==='Aplicador'?'Confira as orientações do fabricante antes de aplicar.':'Fale com a equipe para confirmar a opção indicada para a sua necessidade.';
+    const title=topic.length>95?topic.slice(0,92)+'…':topic;
+    const copys=[
+      {titulo:title,legenda:topic+'\n\n'+intro+' '+audience,hashtags:'#LLEV #SeuProjeto'},
+      {titulo:'Cada detalhe faz diferença.',legenda:intro+'\n\n'+topic+'\n\nTem dúvidas? Consulte a LLEV.',hashtags:'#LLEV #DetalhesQueImportam'},
+      {titulo:'A escolha certa começa com informação.',legenda:topic+'\n\n'+audience+'\n\nConte com a LLEV para conhecer as opções.',hashtags:'#LLEV #EscolhaComInformação'},
+    ];
+    this.save({copys,copyErr:''});
   }
 
   async copiarUrl(){
@@ -1252,7 +1338,7 @@ class Component extends DCLogic {
     /* Escolher um produto reescreve todos os campos de texto: um produto por vez,
        o mesmo produto em qualquer modelo. */
     const curto = p.especs.slice(0, 2).map(e => e[1]).join(' · ');
-    const vals = Object.assign({}, this.state.vals, {
+    const vals = Object.assign({}, this.state.vals, Object.fromEntries(['s1','s2','s3','k1','k2','k3','k4','v1','v2','v3','v4'].map(k=>[k,''])), {
       produto: p.nome,
       subtitulo: p.grupo + ' · a partir de ' + p.pix + ' no PIX',
       por: p.pix,
@@ -1262,7 +1348,7 @@ class Component extends DCLogic {
       n1: p.nome, pr1: p.pix,
       chamada: p.grupo,
       apoio: curto + ' · a partir de ' + p.pix + ' no PIX',
-      destaque: p.especs[0][1],
+      destaque: '', medida: p.especs[0]?.[1] || '', detalhe: curto,
       pergunta: p.nome + ': o que vem na embalagem?',
       resposta: p.especs.map(e => e[0].toLowerCase() + ' ' + e[1]).join(', ') + '. Preço de ' + p.pix + ' no PIX ou depósito.',
       cta: 'Fale com a LLEV Lar',
@@ -1287,7 +1373,7 @@ class Component extends DCLogic {
     /* A chave mora em uma entrada separada e nunca entra no estado salvo do portal. */
     let k = '';
     try { k = localStorage.getItem(KEY_STORE) || ''; } catch(e){}
-    this.setState({ apiKey: k, keyModal: !k, keyDraft: '' });
+    this.setState({ apiKey: k, keyModal: false, keyDraft: '' });
   }
 
   saveKey(){
@@ -1313,10 +1399,11 @@ class Component extends DCLogic {
 
   async revisar(){
     const s = this.state;
+    if(s.revLoading) return;
     if(!s.apiKey) return this.setState({ keyModal: true, keyDraft: '', keyErr: '' });
     if(!s.revImg) return this.setState({ revErr: 'Suba a imagem da arte antes de revisar.' });
     const m = /^data:(image\/[a-z+]+);base64,(.+)$/.exec(s.revImg);
-    if(!m) return this.setState({ revErr: 'Formato de imagem não reconhecido. Use PNG, JPG ou WEBP.' });
+    if(!m || !['image/png','image/jpeg','image/webp'].includes(m[1])) return this.setState({ revErr: 'Formato de imagem não reconhecido. Use PNG, JPG ou WEBP.' });
 
     this.setState({ revLoading: true, revErr: '', revResult: null, revSeg: 0 });
     clearInterval(this._revTick);
@@ -1355,7 +1442,10 @@ class Component extends DCLogic {
     ].join('\n');
 
     try {
+      this._reviewAbort=new AbortController();
+      this._reviewTimeout=setTimeout(()=>this._reviewAbort.abort(),90000);
       const r = await fetch('https://api.anthropic.com/v1/messages', {
+        signal:this._reviewAbort.signal,
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -1382,9 +1472,15 @@ class Component extends DCLogic {
       let txt = (data.content || []).map(c => c.text || '').join('').trim();
       txt = txt.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
       const out = JSON.parse(txt);
+      if(!out || !['design','texto','produto'].every(k=>Array.isArray(out[k]))) throw new Error('Resposta de revisão incompleta. Tente novamente.');
+      const hasError=['design','texto','produto'].some(k=>out[k].some(item=>item.nivel==='erro'));
+      out.nota=Math.max(0,Math.min(hasError?5:10,Math.round(Number(out.nota)||0)));
+      if(hasError && out.veredito==='PODE PUBLICAR') out.veredito='AJUSTAR ANTES';
+      clearTimeout(this._reviewTimeout);
       clearInterval(this._revTick);
       this.setState({ revResult: out, revLoading: false });
     } catch(e){
+      clearTimeout(this._reviewTimeout);
       clearInterval(this._revTick);
       this.setState({ revLoading: false, revErr: e && e.message ? e.message : 'Falha ao falar com a API.' });
     }
@@ -1393,7 +1489,18 @@ class Component extends DCLogic {
   /* Estados salvos antes dos campos virarem globais usavam a chave "<modelo>.<campo>".
      Traz o valor para o nome sem prefixo, sem sobrescrever o que já é novo. */
   migrate(st){
-    if(!st || !st.vals) return st;
+    if(!st || typeof st!=='object' || Array.isArray(st)) return {};
+    st=Object.assign({},st);
+    ['tpl','fmt','tag','bg'].forEach((key)=>{
+      const options={tpl:TEMPLATES,fmt:FORMATS,tag:TAGS,bg:BGS}[key];
+      if(!options.some(item=>item.id===st[key])) delete st[key];
+    });
+    if(!['portal','studio','copys','lib','revisao'].includes(st.view)) st.view='portal';
+    st.page=Math.max(0,Math.min(3,Math.trunc(Number(st.page))||0));
+    if(!st.vals || typeof st.vals!=='object' || Array.isArray(st.vals)) st.vals={};
+    st.copys=Array.isArray(st.copys)?st.copys.filter(c=>c&&typeof c.titulo==='string'&&typeof c.legenda==='string'):[];
+    st.exporting=false; st.exportErr=''; st.revLoading=false; st.sugestao=null;
+    ['posX','posY','dim','blur','prodSize'].forEach(k=>{if(!Number.isFinite(st[k])) delete st[k];});
     const out = {};
     Object.keys(st.vals).forEach(k => {
       const m = /^[a-z]+\.(.+)$/.exec(k);
@@ -1409,10 +1516,12 @@ class Component extends DCLogic {
   }
 
   save(patch){
+    if(this.state.exporting) return;
     this.setState(patch, () => {
       try {
         const s = Object.assign({}, this.state);
-        delete s.imgBg; delete s.imgProd;
+        Object.keys(s).filter(k=>k.startsWith('img')).forEach(k=>delete s[k]);
+        delete s.exporting; delete s.exportErr;
         delete s.apiKey; delete s.keyDraft; delete s.keyModal; delete s.keyErr;
         delete s.revImg; delete s.revResult; delete s.revLoading; delete s.revErr;
         localStorage.setItem('llev-portal-v1', JSON.stringify(s));
@@ -1423,7 +1532,10 @@ class Component extends DCLogic {
   pickImage(key, e){
     const file = e.target.files && e.target.files[0];
     if(!file) return;
+    e.target.value='';
+    if(!/^image\/(png|jpeg|webp)$/.test(file.type) || file.size>15*1024*1024) return this.setState({exportErr:'Use PNG, JPG ou WEBP com até 15 MB.'});
     const r = new FileReader();
+    r.onerror=()=>this.setState({exportErr:'Não foi possível ler a imagem.'});
     r.onload = () => this.save({ [key]: r.result });
     r.readAsDataURL(file);
   }
@@ -1456,7 +1568,9 @@ class Component extends DCLogic {
     const accent = s.accent || '#FE5D0A';
     /* Cabe na largura da coluna e na altura da janela, o menor dos dois. */
     const altura = (typeof window !== 'undefined' ? window.innerHeight : 900) - 210;
-    const scale = Math.min(380 / fmt.w, Math.max(240, altura) / fmt.h);
+    const width = typeof window==='undefined'?1280:window.innerWidth;
+    const available = width<=900 ? width-32 : width-496;
+    const scale = Math.max(.1,Math.min(Math.max(200,available)/fmt.w,380/fmt.w,Math.max(240,altura)/fmt.h));
     const light = bg.id === 'claro';
 
     const termo = (s.busca || '').trim().toLowerCase();
@@ -1474,7 +1588,7 @@ class Component extends DCLogic {
       { t: '02', b: V('d2') },
       { t: '03', b: V('d3') },
     ];
-    const page = Math.min(s.page, pages.length - 1);
+    const page = Math.max(0,Math.min(Number(s.page)||0, pages.length - 1));
 
     const nav = [
       ['portal','PORTAL'], ['studio','ESTÚDIO'], ['copys','COPYS'], ['lib','BIBLIOTECA'], ['revisao','REVISÃO'],
@@ -1516,7 +1630,10 @@ class Component extends DCLogic {
       pickRevImg: e => {
         const f = e.target.files && e.target.files[0];
         if(!f) return;
+        e.target.value='';
+        if(!/^image\/(png|jpeg|webp)$/.test(f.type)||f.size>5*1024*1024) return this.setState({revErr:'Use PNG, JPG ou WEBP com até 5 MB.'});
         const r = new FileReader();
+        r.onerror=()=>this.setState({revErr:'Não foi possível ler a imagem.'});
         r.onload = () => this.setState({ revImg: r.result, revResult: null, revErr: '' });
         r.readAsDataURL(f);
       },
@@ -1587,7 +1704,7 @@ class Component extends DCLogic {
 
       modules: [
         { ix:'01', color:'#FE5D0A', title:'Creative Studio', cta:'ABRIR ESTÚDIO',
-          body:'Dez modelos pensados para obra: post com foto, passo a passo, ficha técnica, onde aplicar, erro × jeito certo, preço, carrossel, catálogo, selo e pergunta frequente.',
+          body:'Artes com foto em aplicação, campanha com medidas, ficha visual e coleção de cores, além de nove modelos de conteúdo técnico.',
           go: () => this.save({ view:'studio' }) },
         { ix:'02', color:'#0B7BC4', title:'Criação de copys', cta:'GERAR TEXTO',
           body:'Briefing curto vira três variações no tom técnico da marca, com título para a arte, legenda de feed e hashtags. Um clique manda para o estúdio.',
@@ -1598,7 +1715,7 @@ class Component extends DCLogic {
       ],
 
       templateOpts: TEMPLATES.map(t => Object.assign(
-        { label: t.label, go: () => this.save(t.id === 'post' ? { tpl:'post', page:0, fmt:'carrossel' } : { tpl: t.id, page: 0 }) },
+        { label:t.label, go:()=>this.save(['post','campanha','tecnica','colecao'].includes(t.id)?{tpl:t.id,page:0,fmt:'carrossel',dim:0}:{tpl:t.id,page:0}) },
         this.chip(t.id === s.tpl, '#FE5D0A'))),
       tagOpts: TAGS.map(t => Object.assign(
         { label: t.label, go: () => this.save({ tag: t.id }) },
@@ -1653,6 +1770,13 @@ class Component extends DCLogic {
       patternCss: pat.css === 'none' ? 'none' : pat.css.split('ACC').join(accent),
       patternOpacity: pat.op,
 
+      legacyArt: !['post','campanha','tecnica','colecao'].includes(s.tpl),
+      visualArt: ['post','campanha','tecnica','colecao'].includes(s.tpl) ? window.LLEVArt.render(s,f,fmt) : null,
+      hasExtraImages: ['tecnica','colecao'].includes(s.tpl),
+      extraImages: (s.tpl==='tecnica'?['imgDetail1','imgDetail2']:s.tpl==='colecao'?['imgVariant1','imgVariant2','imgVariant3']:[]).map((key,i)=>({label:(s.tpl==='tecnica'?'DETALHE DO PRODUTO ':'FOTO / RECORTE DA COR ')+(i+1),pick:e=>this.pickImage(key,e),clear:()=>this.save({[key]:''})})),
+      exporting: s.exporting,
+      exportErr: s.exportErr,
+      exportLabel:s.exporting?'EXPORTANDO…':'BAIXAR PNG',
       f,
       isPost: s.tpl === 'post',
       noProd: !s.imgProd,
@@ -1716,7 +1840,8 @@ class Component extends DCLogic {
         { label: a.toUpperCase(), go: () => this.save({ aud: a }) },
         this.chip(a === s.aud, '#0B7BC4'))),
       genLabel: s.copys.length ? 'GERAR NOVAMENTE' : 'GERAR COPYS',
-      genCopys: () => this.save({ copys: COPY_BASE }),
+      copyErr:s.copyErr,
+      genCopys:()=>this.generateCopys(),
       copyCards: (s.copys.length ? s.copys : COPY_BASE).map((c, i) => ({
         ix: 'VARIAÇÃO 0' + (i + 1), titulo: c.titulo, legenda: c.legenda, hashtags: c.hashtags,
         toStudio: () => {
