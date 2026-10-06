@@ -1,62 +1,83 @@
-# Portal LLEV Lar
+# Portal LLEV
 
-Portal de criação de conteúdo da LLEV Lar — mantas térmicas e fitas asfálticas.
+Portal de criação de conteúdo com estúdio, copys, catálogo e revisão de arte.
+O `index.html` é o arquivo publicado pelo GitHub Pages: mantém os logos,
+Montserrat, React, runtime e exportador incorporados, sem instalação para usar.
 
-## O que tem aqui
+## Opções de arte
 
-- **`index.html`** — o portal completo, arquivo único e autossuficiente. Abre no navegador sem servidor, sem build, sem instalação. É o que o GitHub Pages precisa servir.
-- **`Portal LLEV.dc.html`** — o fonte editável. É aqui que se muda qualquer coisa.
-- **`assets/`** — os logos oficiais da marca (principal, branco, preto, branco e laranja).
+Quatro opções seguem a linguagem das referências da marca (fotografia, azul,
+laranja, títulos grandes e logo no rodapé):
 
-## Módulos
+- **Produto em aplicação**: fundo fotográfico com faixa clara para leitura,
+  título em duas cores, três benefícios opcionais, recorte do produto e CTA.
+- **Campanha / medida**: foto em toda a arte, título claro, destaque laranja,
+  benefícios e medida/diferencial em uma faixa de destaque.
+- **Ficha visual**: foto de aplicação, benefícios, produto, medidas,
+  especificações e duas fotos de detalhe opcionais.
+- **Coleção / cores**: fundo escuro, título no topo, três nomes e cores
+  editáveis, três recortes opcionais e logo no rodapé branco. Pode usar uma
+  única foto com os três produtos como fundo, sem enviar recortes separados.
 
-| Módulo | O que faz |
-|---|---|
-| Portal | Landing com os cards dos módulos |
-| Creative Studio | 7 modelos de arte em story 1080×1920 e feed 1080×1350, com exportação PNG no tamanho real |
-| Criação de copys | Briefing curto → 3 variações no tom técnico da marca, com botão "Criar arte" que joga o texto no estúdio |
-| Biblioteca de produtos | Fichas técnicas que alimentam o modelo de ficha do estúdio |
+Também mantém: Passo a passo, Ficha técnica, Onde aplicar, Erro × certo,
+Preço / promo, Dica (carrossel), Catálogo, Selo / garantia e Pergunta frequente.
+Todos oferecem Feed **1080×1350** e Story **1080×1920**.
 
-## Modelos de arte
+### Como montar as artes
 
-1. **Post c/ imagem** — foto de fundo com desfoque e escurecimento + PNG do produto em destaque
-2. **Passo a passo** — sequência numerada de aplicação
-3. **Ficha técnica** — produto e especificações
-4. **Onde aplicar** — grade de locais (laje, telhado, calha, caixa d'água)
-5. **Erro × certo** — comparativo em dois blocos
-6. **Preço / promo** — de/por com condição
-7. **Dica (carrossel)** — capa + 3 páginas navegáveis
+1. Abra **Estúdio** e escolha o modelo.
+2. Envie uma foto de aplicação em **Imagem de fundo** e ajuste posição,
+   desfoque e escurecimento. Para os modelos claros, comece em 0% de escurecimento.
+3. Se desejar, envie o produto com fundo transparente em **Produto em destaque**.
+4. Preencha título, destaque, benefícios e os campos específicos. Benefícios,
+   medidas e especificações ficam vazios até receberem informações reais.
+5. Exporte em **Baixar PNG**. No carrossel, **Baixar todas** exporta quatro páginas
+   e retorna à página que estava aberta; o navegador pode pedir autorização
+   para múltiplos downloads.
 
-## Onde mexer para cada tipo de mudança
+Textos são compartilhados entre modelos para reutilizar uma campanha.
+Os textos e ajustes são salvos localmente no navegador; **imagens ficam apenas
+na sessão**. Envie-as novamente após recarregar. Uploads: PNG, JPG ou WEBP,
+até 15 MB no estúdio e 5 MB na revisão.
 
-| Quero mudar | Onde |
-|---|---|
-| Tom e conteúdo das copys | `Portal LLEV.dc.html` → const `COPY_BASE` |
-| Categorias e suas cores | `Portal LLEV.dc.html` → const `TAGS` |
-| Lista de modelos de arte | `Portal LLEV.dc.html` → const `TEMPLATES` |
-| Campos de um modelo | `Portal LLEV.dc.html` → const `FIELDS` |
-| Formatos e dimensões | `Portal LLEV.dc.html` → const `FORMATS` |
-| Estilos de fundo e texturas | `Portal LLEV.dc.html` → const `BGS` e `PATTERNS` |
-| Layout de um modelo | o bloco `<sc-if>` correspondente no template |
+## Revisão geral — outubro de 2026
 
-Depois de editar o fonte, é preciso gerar de novo o `index.html` para publicar.
+- Editor, copys e revisão adaptados a telas estreitas.
+- Exportação com bloqueio de chamadas simultâneas, espera por imagens e fontes,
+  erros visíveis e restauração da página em caso de falha no lote.
+- Prévia não perde a escala durante a exportação; títulos que invadem a área
+  seguinte nos novos modelos impedem a exportação com uma orientação de ajuste.
+- Recuperação de estados inválidos, modelos antigos e índices fora dos limites.
+- Troca de produto limpa especificações e benefícios anteriores.
+- Copys usam briefing, tom e público para criar três rascunhos estruturados
+  **sem IA**. A interface informa essa limitação.
+- Revisão por IA pede chave somente quando necessária, limita o tempo da
+  requisição e impede um parecer de aprovação quando existem erros reportados.
+- Catálogo é uma referência estática: confirme preços e disponibilidade no
+  site do produto antes de publicar. Não há sincronização automática.
 
-## Identidade visual
+A revisão por IA usa a integração Anthropic já existente e precisa de uma chave
+válida configurada pelo usuário. Nenhuma chamada paga é feita pelos testes.
 
-Do guideline oficial da LLEV Lar:
+## Desenvolvimento e publicação
 
-- Tipografia: **Montserrat** (Thin → Black)
-- Laranja principal: `#FE5D0A`
-- Laranja secundário: `#FE8401`
-- Azul escuro: `#011F38`
-- Azul médio: `#012E53`
-- Off-white: `#EDEDED`
+- `Portal LLEV.dc.html`: fonte do portal e lógica de estado.
+- `creative-art.js`: renderizadores dos quatro layouts fotográficos.
+- `support.js`: runtime gerado do projeto; não editar manualmente.
+- `assets/`: logos oficiais.
+- `scripts/build.py`: atualiza o bundle publicado a partir do fonte, reutilizando
+  as dependências/fontes já incorporadas ao `index.html` (sem rede).
+- `tests/portal.test.cjs`: regressões de lógica e estrutura dos renderizadores.
 
-## Publicar
+```sh
+python3 scripts/build.py
+node --test tests/portal.test.cjs
+python3 -m http.server 8080
+```
 
-Ativar GitHub Pages em Settings → Pages, branch `main`, pasta raiz. O `index.html` passa a servir o portal direto.
+Abra `http://localhost:8080/`. Commitar fonte, renderizadores e `index.html`
+juntos. GitHub Pages publica a branch `main`, pasta raiz.
 
-## Pendências
-
-- As fichas da biblioteca estão com os campos em branco de propósito — precisam dos dados reais dos produtos (medidas, composição, aplicação, rendimento).
-- A criação de copys usa variações fixas de exemplo. Para gerar texto sob demanda com IA é preciso um servidor mínimo guardando a chave como secret — a chave nunca pode ficar em arquivo do site.
+Os testes verificam renderização estrutural, formatos, recuperação de estado,
+preços/campos, exportação em falha e atualização do bundle. Não substituem
+inspeção visual no navegador, download real de PNG ou revisão com uma chave de IA.
